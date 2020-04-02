@@ -22,11 +22,13 @@ public class LoadBalancer{
             br = new BufferedReader(fr);
  
             String line = br.readLine();
-            while(line != null){
-                  
-                System.out.println(line);
+            while(line != null){                  
+                String[] splits = line.split(" ");
+                serverDistributor.add(splits[1], splits[2], splits[3]);
+                
                 line = br.readLine();
             }
+
         }catch(FileNotFoundException e){
             System.err.println(e);
         }catch(IOException i){
@@ -42,6 +44,7 @@ public class LoadBalancer{
         }
     
         
+        serverDistributor.showList();
     }
 
     public void run(){
