@@ -2,6 +2,7 @@ package org.horoyoii.loadbalance;
 
 import java.io.*;
 import org.horoyoii.distribution.ServerDistributor;
+import org.horoyoii.serverSelect.*;
 
 public class LoadBalancer{
     ServerDistributor serverDistributor = new ServerDistributor();
@@ -43,7 +44,11 @@ public class LoadBalancer{
             }
         }
     
-        
+        ServerSelector servSelector = null;
+        //TODO :  
+        servSelector = new RoundRobin();
+        serverDistributor.setServerSelector(servSelector);
+               
         serverDistributor.showList();
     }
 

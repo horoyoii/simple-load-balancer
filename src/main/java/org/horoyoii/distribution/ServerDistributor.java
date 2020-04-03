@@ -1,22 +1,35 @@
 package org.horoyoii.distribution;
 
 import java.util.ArrayList;
-import lombok.Getter;
-import lombok.ToString;
+import org.horoyoii.serverSelect.*;
+import org.horoyoii.model.Info;
 
 
 public class ServerDistributor{
     ArrayList<Info> serverList = new ArrayList<Info>();
-
     
+    ServerSelector serverSelector;
+  
+        
     /*
         Add a new server metadata.
     */
     public void add(String name, String ip, String port){
         serverList.add(new Info(name, ip, Integer.parseInt(port)));
     }
-     
     
+
+    public void setServerSelector(ServerSelector serv){
+        this.serverSelector = serv;
+    }
+
+
+    /*
+        TODO: Synchronizatino
+    */
+    public Info getSelectedServer(){
+        return serverSelector.getServer(serverList);
+    }
 
 
     public void showList(){
@@ -26,19 +39,3 @@ public class ServerDistributor{
     }
 }
 
-@Getter
-@ToString
-class Info{
-    private String  name;
-    private String  ip;
-    private int     port;
-    
-    Info(String name, String ip, int port){
-        this.ip     = ip;
-        this.port   = port;
-        this.name   = name;
-    }
-
-    
-
-}
