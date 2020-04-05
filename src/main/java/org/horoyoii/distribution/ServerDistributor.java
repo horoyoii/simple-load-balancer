@@ -25,7 +25,7 @@ public class ServerDistributor{
 
 
     /*
-        TODO: Synchronizatino
+        TODO: Synchronization
     */
     public Info getSelectedServer(){
         return serverSelector.getServer(serverList);

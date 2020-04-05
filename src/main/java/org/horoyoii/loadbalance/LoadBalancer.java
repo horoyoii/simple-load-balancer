@@ -1,12 +1,19 @@
 package org.horoyoii.loadbalance;
 
 import java.io.*;
+import java.net.*;
+
 import org.horoyoii.distribution.ServerDistributor;
 import org.horoyoii.serverSelect.*;
+import org.horoyoii.connection.Connection;
+import org.horoyoii.model.Info;
+
+
 
 public class LoadBalancer{
     ServerDistributor serverDistributor = new ServerDistributor();
-    
+    ServerSocket listenSock;
+
 
     public void readConfig(){
         System.out.println("read conf");
@@ -53,7 +60,36 @@ public class LoadBalancer{
     }
 
     public void run(){
-        System.out.println("Runnin...");
+        System.out.println("Running...");
+        System.out.println("Waiting.....");
+        
+        try{
+            listenSock = new ServerSocket(9901);
+        }catch(IOException e){
+            System.out.println(e);
+        }
+
+
+        while(true){
+                
+            try{
+                Socket cliSock = listenSock.accept();
+                
+                // Select a backend server
+                Info server = serverDistributor.getSelectedServer();
+
+                // Make a worker
+                Connection newCon = new Connection(cliSock, server);
+                
+                // Handle the request
+                Thread worker = new Thread(newCon);
+                worker.start();
+            
+            }catch(IOException e){
+                System.out.println(e);
+            }
+        }
+
     }
 
 }
