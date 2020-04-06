@@ -25,27 +25,35 @@ public class Connection implements Runnable {
             servSock = new Socket(serverInfo.getIp(), serverInfo.getPort());
         }catch(Exception e){
             //TODO : throw it to the main.    
+            System.out.println(e);
         }
 
         
         System.out.println("This worker requests to : " + serverInfo.getPort());
 
             try{
+
+                OutputStream serverOs = servSock.getOutputStream();
+
                 System.out.println(cliSock.getInetAddress());    
     
                 InputStream is = cliSock.getInputStream();
             
                 int readByte = 0;
-                                 
+                
+                /*                 
                 byte[] buf = new byte[5];
                 readByte = is.read(buf, 0, 5);
+                
+                serverOs.write(buf);
                 
                 System.out.println("read bytes : "+readByte);
                 String str = new String(buf);
                 System.out.println("recv : "+str);
-            
+                */
                          
                 while( (readByte = is.read()) != -1){
+                    serverOs.write(readByte);
                     System.out.println((byte)readByte);
                 }
 

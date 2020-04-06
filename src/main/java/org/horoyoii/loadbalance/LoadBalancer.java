@@ -77,7 +77,7 @@ public class LoadBalancer{
                 
                 // Select a backend server
                 Info server = serverDistributor.getSelectedServer();
-
+                
                 // Make a worker
                 Connection newCon = new Connection(cliSock, server);
                 

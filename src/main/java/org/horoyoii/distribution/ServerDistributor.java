@@ -18,7 +18,10 @@ public class ServerDistributor{
         serverList.add(new Info(name, ip, Integer.parseInt(port)));
     }
     
+    /*
+        Set a method to select servers.
 
+    */
     public void setServerSelector(ServerSelector serv){
         this.serverSelector = serv;
     }
