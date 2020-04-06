@@ -8,6 +8,5 @@ build
 *.swp
 
 /servers
-/clients
 /practice
 
