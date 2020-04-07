@@ -5,20 +5,19 @@ import org.horoyoii.model.Info;
 
 
 /*
-
-
+    Select a server based on weight.
+    
+    curPosition : 마지막에 사용된 서버 위치
+    curCnt      : 그 서버의 사용 횟수
 */
 public class WeightedRoundRobin implements ServerSelector{
     private int curPosition = 0;
     private int curCnt   = 0;
     
-    ArrayList<Info>     serverList      = null;
-    ArrayList<Integer>  serverWeight    = null;
-        
     @Override
     public Info getServer(ArrayList<Info> serverList){ 
 
-        if( curCnt < serverWeight.get(curPosition) ){
+        if( curCnt < serverList.get(curPosition).getWeight() ){
             curCnt++;
         }else{
             curPosition = (curPosition + 1) % serverList.size();

@@ -17,6 +17,11 @@ public class ServerDistributor{
     public void add(String name, String ip, String port){
         serverList.add(new Info(name, ip, Integer.parseInt(port)));
     }
+
+    
+    public void add(String name, String ip, String port, String weight){
+        serverList.add(new Info(name, ip, Integer.parseInt(port), Integer.parseInt(weight)));
+    }
     
     /*
         Set a method to select servers.

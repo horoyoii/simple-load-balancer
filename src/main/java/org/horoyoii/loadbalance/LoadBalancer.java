@@ -9,12 +9,20 @@ import org.horoyoii.connection.Connection;
 import org.horoyoii.model.Info;
 
 
+/*
 
+*/
 public class LoadBalancer{
-    ServerDistributor serverDistributor = new ServerDistributor();
-    ServerSocket listenSock;
 
+    ServerDistributor   serverDistributor = new ServerDistributor();
+    ServerSocket        listenSock;
+    
+    
+    /*
+        If there is no information about load balancing algorithm,
+        then the default is RR.
 
+    */
     public void readConfig(){
         System.out.println("read conf");
         
@@ -24,16 +32,44 @@ public class LoadBalancer{
         FileReader fr       = null;
         BufferedReader br   = null;
         
+        boolean staticrr = false, isDefault = true;
+
         try{
             f = new File(path);
             fr = new FileReader(f);
             br = new BufferedReader(fr);
  
             String line = br.readLine();
-            while(line != null){                  
-                String[] splits = line.split(" ");
-                serverDistributor.add(splits[1], splits[2], splits[3]);
+            while(line != null){
                 
+                if(line.length() != 0 && line.charAt(0) != '#'){                      
+                    String[] splits = line.split(" ");
+
+                    if(splits[0].equals("balance")){
+                        isDefault = false;
+                        ServerSelector select = null;
+
+                        switch( splits[1] ){
+                            case "roundrobin" :
+                                select = new RoundRobin();
+                                break;
+                            case "static-rr" :
+                                select = new WeightedRoundRobin();
+                                staticrr = true;
+                                break;
+                        }
+
+                        serverDistributor.setServerSelector(select);
+              
+                    }else if(splits[0].equals("server")){
+
+                        if(staticrr)
+                            serverDistributor.add(splits[1], splits[2], splits[3], splits[4]);
+                        else
+                            serverDistributor.add(splits[1], splits[2], splits[3]);
+                    }
+                }
+
                 line = br.readLine();
             }
 
@@ -50,12 +86,13 @@ public class LoadBalancer{
                 System.err.println(e);
             }
         }
-    
-        ServerSelector servSelector = null;
-        //TODO :  
-        servSelector = new RoundRobin();
-        serverDistributor.setServerSelector(servSelector);
-               
+        
+
+         
+        if(isDefault)
+            serverDistributor.setServerSelector(new RoundRobin());
+        
+
         serverDistributor.showList();
     }
 
@@ -94,3 +131,18 @@ public class LoadBalancer{
 
 }
 
+enum Algorithm{
+    ROUNDROBIN("roundrobin"),
+    STATICRR("static-rr"),
+    IPHASHING("ip-hashing"),
+    LEASTCONN("leastconn");
+
+    private final String name;
+
+    Algorithm(String name){ this.name = name;}
+
+    public String getValue(){
+        return name;
+    }
+
+}
