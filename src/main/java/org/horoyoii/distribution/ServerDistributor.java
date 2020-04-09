@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import org.horoyoii.serverSelect.*;
 import org.horoyoii.model.Info;
 
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 public class ServerDistributor{
     ArrayList<Info> serverList = new ArrayList<Info>();
     
@@ -41,9 +44,13 @@ public class ServerDistributor{
 
 
     public void showList(){
+        log.info("backend server list : ");
+        log.info("------------------------------------------------");
+        log.info("name          IP              PORT");
         for(Info info : serverList){
-            System.out.println(info);            
-        }
+            log.info("{}          {}      {}",info.getName(), info.getIp(), info.getPort());
+        }        
+        log.info("------------------------------------------------");
     }
 }
 

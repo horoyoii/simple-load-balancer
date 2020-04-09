@@ -8,15 +8,14 @@ import org.horoyoii.serverSelect.*;
 import org.horoyoii.connection.Connection;
 import org.horoyoii.model.Info;
 
+import lombok.extern.slf4j.Slf4j;
 
-/*
-
-*/
+@Slf4j
 public class LoadBalancer{
 
-    ServerDistributor   serverDistributor = new ServerDistributor();
-    ServerSocket        listenSock;
-    
+    ServerDistributor   serverDistributor   = new ServerDistributor();
+    ServerSocket        listenSock;     
+    int                 port                = 9901;       
     
     /*
         If there is no information about load balancing algorithm,
@@ -24,8 +23,7 @@ public class LoadBalancer{
 
     */
     public void readConfig(){
-        System.out.println("read conf");
-        
+        log.info("read configuration...");
         String path = "/home/horoyoii/Desktop/simple-load-balancer/load.config";
         
         File f              = null;
@@ -97,9 +95,8 @@ public class LoadBalancer{
     }
 
     public void run(){
-        System.out.println("Running...");
-        System.out.println("Waiting.....");
-        
+        log.info("Start running on PORT [{}]", this.port);
+         
         try{
             listenSock = new ServerSocket(9901);
         }catch(IOException e){
@@ -111,10 +108,12 @@ public class LoadBalancer{
                 
             try{
                 Socket cliSock = listenSock.accept();
-                
+                log.info("Client connection arrive : {}", cliSock.getInetAddress().toString());        
+
                 // Select a backend server
                 Info server = serverDistributor.getSelectedServer();
                 
+                log.info("Request from [{}] is FORWARDED to backend [{}]", cliSock.getInetAddress().toString(), server.getIp()+":"+server.getPort());
                 // Make a worker
                 Connection newCon = new Connection(cliSock, server);
                 
