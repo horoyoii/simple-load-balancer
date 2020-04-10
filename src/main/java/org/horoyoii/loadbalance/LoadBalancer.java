@@ -55,6 +55,9 @@ public class LoadBalancer{
                                 select = new WeightedRoundRobin();
                                 staticrr = true;
                                 break;
+                            case "iphash" :
+                                select = new IpHashing();
+                                break;
                         }
 
                         serverDistributor.setServerSelector(select);
@@ -85,12 +88,10 @@ public class LoadBalancer{
             }
         }
         
-
-         
+ 
         if(isDefault)
             serverDistributor.setServerSelector(new RoundRobin());
         
-
         serverDistributor.showList();
     }
 
@@ -109,10 +110,12 @@ public class LoadBalancer{
             try{
                 Socket cliSock = listenSock.accept();
                 log.info("Client connection arrive : {}", cliSock.getInetAddress().toString());        
-
-                // Select a backend server
-                Info server = serverDistributor.getSelectedServer();
                 
+                
+                // Select a backend server
+                Info server = serverDistributor.getSelectedServer(cliSock.getInetAddress());
+                
+
                 log.info("Request from [{}] is FORWARDED to backend [{}]", cliSock.getInetAddress().toString(), server.getIp()+":"+server.getPort());
                 // Make a worker
                 Connection newCon = new Connection(cliSock, server);

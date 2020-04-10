@@ -1,0 +1,63 @@
+2020-04-09 13:45:25.102 INFO  308  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Hello
+2020-04-09 13:50:01.411 INFO  271  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-09 13:50:01.426 INFO  286  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - running....
+2020-04-09 13:51:48.421 INFO  292  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-09 13:51:48.440 INFO  311  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-09 13:51:59.707 INFO  11578 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - /127.0.0.1
+2020-04-09 14:18:11.621 INFO  305  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-09 14:18:11.637 INFO  321  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web1, ip=127.0.0.1, port=8002, weight=2)
+2020-04-09 14:18:11.637 INFO  321  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web2, ip=127.0.0.1, port=8003, weight=3)
+2020-04-09 14:18:11.637 INFO  321  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web3, ip=127.0.0.1, port=8004, weight=10)
+2020-04-09 14:18:11.638 INFO  322  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web4, ip=127.0.0.1, port=8005, weight=1)
+2020-04-09 14:18:11.638 INFO  322  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-09 14:19:30.929 INFO  321  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-09 14:19:30.933 INFO  325  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-09 14:19:30.948 INFO  340  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web1, ip=127.0.0.1, port=8002, weight=2)
+2020-04-09 14:19:30.948 INFO  340  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web2, ip=127.0.0.1, port=8003, weight=3)
+2020-04-09 14:19:30.948 INFO  340  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web3, ip=127.0.0.1, port=8004, weight=10)
+2020-04-09 14:19:30.948 INFO  340  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web4, ip=127.0.0.1, port=8005, weight=1)
+2020-04-09 14:19:30.948 INFO  340  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-09 14:21:50.295 INFO  310  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-09 14:21:50.298 INFO  313  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-09 14:21:50.311 INFO  326  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web1, ip=127.0.0.1, port=8002, weight=2)
+2020-04-09 14:21:50.311 INFO  326  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web2, ip=127.0.0.1, port=8003, weight=3)
+2020-04-09 14:21:50.311 INFO  326  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web3, ip=127.0.0.1, port=8004, weight=10)
+2020-04-09 14:21:50.311 INFO  326  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web4, ip=127.0.0.1, port=8005, weight=1)
+2020-04-09 14:21:50.311 INFO  326  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-09 14:21:59.296 INFO  9311 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-09 14:21:59.303 INFO  9318 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - [/127.0.0.1] is forwarded  to [127.0.0.1:8002]
+2020-04-09 14:23:16.358 INFO  292  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-09 14:23:16.361 INFO  295  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-09 14:23:16.376 INFO  310  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web1, ip=127.0.0.1, port=8002, weight=2)
+2020-04-09 14:23:16.376 INFO  310  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web2, ip=127.0.0.1, port=8003, weight=3)
+2020-04-09 14:23:16.376 INFO  310  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web3, ip=127.0.0.1, port=8004, weight=10)
+2020-04-09 14:23:16.376 INFO  310  --- [ main ] o.h.distribution.ServerDistributor - Info(name=web4, ip=127.0.0.1, port=8005, weight=1)
+2020-04-09 14:23:16.376 INFO  310  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-09 14:26:09.786 INFO  289  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-09 14:26:09.789 INFO  292  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-09 14:26:09.789 INFO  292  --- [ main ] o.h.distribution.ServerDistributor - name          IP          PORT
+2020-04-09 14:26:09.790 INFO  293  --- [ main ] o.h.distribution.ServerDistributor - web1        127.0.0.1      8002
+2020-04-09 14:26:09.791 INFO  294  --- [ main ] o.h.distribution.ServerDistributor - web2        127.0.0.1      8003
+2020-04-09 14:26:09.791 INFO  294  --- [ main ] o.h.distribution.ServerDistributor - web3        127.0.0.1      8004
+2020-04-09 14:26:09.791 INFO  294  --- [ main ] o.h.distribution.ServerDistributor - web4        127.0.0.1      8005
+2020-04-09 14:26:09.791 INFO  294  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-09 14:27:23.481 INFO  284  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-09 14:27:23.484 INFO  287  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-09 14:27:23.484 INFO  287  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-09 14:27:23.484 INFO  287  --- [ main ] o.h.distribution.ServerDistributor - name          IP          PORT
+2020-04-09 14:27:23.485 INFO  288  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
+2020-04-09 14:27:23.486 INFO  289  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
+2020-04-09 14:27:23.486 INFO  289  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
+2020-04-09 14:27:23.486 INFO  289  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
+2020-04-09 14:27:23.486 INFO  289  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-09 14:27:23.486 INFO  289  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-09 14:27:43.090 INFO  278  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-09 14:27:43.092 INFO  280  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-09 14:27:43.092 INFO  280  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-09 14:27:43.093 INFO  281  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
+2020-04-09 14:27:43.093 INFO  281  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
+2020-04-09 14:27:43.094 INFO  282  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
+2020-04-09 14:27:43.094 INFO  282  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
+2020-04-09 14:27:43.094 INFO  282  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
+2020-04-09 14:27:43.094 INFO  282  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-09 14:27:43.094 INFO  282  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
