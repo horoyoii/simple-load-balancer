@@ -13,5 +13,5 @@ read num
 
 for i in `seq $num`
 do
-    java Client $port $i
+    java Client $port $i &
 done

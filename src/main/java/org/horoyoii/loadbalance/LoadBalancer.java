@@ -17,6 +17,9 @@ public class LoadBalancer{
     ServerSocket        listenSock;     
     int                 port                = 9901;       
     
+    Algorithm           algorithm           = Algorithm.ROUNDROBIN;    
+    
+    
     /*
         If there is no information about load balancing algorithm,
         then the default is RR.
@@ -49,14 +52,17 @@ public class LoadBalancer{
 
                         switch( splits[1] ){
                             case "roundrobin" :
-                                select = new RoundRobin();
+                                algorithm   = Algorithm.ROUNDROBIN;
+                                select      = new RoundRobin();
                                 break;
                             case "static-rr" :
-                                select = new WeightedRoundRobin();
+                                algorithm   = Algorithm.STATICRR;
+                                select      = new WeightedRoundRobin();
                                 staticrr = true;
                                 break;
                             case "iphash" :
-                                select = new IpHashing();
+                                algorithm   = Algorithm.IPHASHING;
+                                select      = new IpHashing();
                                 break;
                         }
 
@@ -91,7 +97,7 @@ public class LoadBalancer{
  
         if(isDefault)
             serverDistributor.setServerSelector(new RoundRobin());
-        
+       
         serverDistributor.showList();
     }
 
@@ -113,13 +119,19 @@ public class LoadBalancer{
                 
                 
                 // Select a backend server
-                Info server = serverDistributor.getSelectedServer(cliSock.getInetAddress());
-                
+                Info server = null;
+
+                if(algorithm == Algorithm.IPHASHING)
+                    server = serverDistributor.getSelectedServer(cliSock.getInetAddress());
+                else
+                    server = serverDistributor.getSelectedServer();
+
 
                 log.info("Request from [{}] is FORWARDED to backend [{}]", cliSock.getInetAddress().toString(), server.getIp()+":"+server.getPort());
+                
                 // Make a worker
                 Connection newCon = new Connection(cliSock, server);
-                
+                 
                 // Handle the request
                 Thread worker = new Thread(newCon);
                 worker.start();

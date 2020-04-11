@@ -13,7 +13,12 @@ class Client{
         
         int port = Integer.parseInt(args[0]);
         id = Integer.parseInt(args[1]);
-        
+                
+        System.out.println("Hellllllo");
+
+        try{
+            Thread.sleep(3000);
+        }catch(Exception e){}
 
         try{
             Socket socket = new Socket("127.0.0.1", port);
