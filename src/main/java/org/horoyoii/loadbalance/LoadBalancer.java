@@ -134,6 +134,8 @@ public class LoadBalancer{
                  
                 // Handle the request
                 Thread worker = new Thread(newCon);
+                newCon.setThread(worker);
+
                 worker.start();
             
             }catch(IOException e){

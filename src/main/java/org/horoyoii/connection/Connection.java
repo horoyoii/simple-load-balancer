@@ -15,6 +15,7 @@ public class Connection implements Runnable {
     private Info                serverInfo;
     private Socket              servSock;
     
+    private Thread              t;
      
     public Connection(Socket cliSock, Info info){
         this.cliSock = cliSock;
@@ -41,12 +42,31 @@ public class Connection implements Runnable {
         }catch(Exception e){
             //TODO : throw it to the main.    
             System.out.println(e);
+            return;
         }
         
-            
-        log.info("This worker requests to : " + serverInfo.getPort());
+        
+        // Forwading data from client to server and vice versa.
+        
+        Thread clientToServer = new Thread(new IoBridge(this, clientIn, serverOut)); 
+        Thread serverToClient = new Thread(new IoBridge(this, serverIn, clientOut));
+        
+        log.info("tid "+clientToServer.getId());
+        log.info("tid "+serverToClient.getId());
+        
+        clientToServer.start();
+        serverToClient.start();
+        
+        log.info("Forwading started");
 
+        // and this thread for connetion is terminated
+    }
 
-        log.info("worker done");
+    public void setThread(Thread t){
+        this.t = t;
+    }
+    public void getState(){
+        System.out.println("parent tid : " +t.getId());
+        System.out.println("parent state : " + t.getState().toString());
     }
 }
