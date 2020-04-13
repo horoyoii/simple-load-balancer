@@ -8,6 +8,5 @@ build
 *.swp
 *.log
 
-/servers
 /practice
 

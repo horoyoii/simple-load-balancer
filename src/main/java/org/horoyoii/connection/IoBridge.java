@@ -8,6 +8,11 @@ import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 
 
+/**
+* Gets a Client input stream and forwards it to server's output stream and vice versa.
+* 
+* 
+*/
 @Slf4j
 class IoBridge implements Runnable{
     private static final int BUFFER_SIZE = 1024;
@@ -24,32 +29,26 @@ class IoBridge implements Runnable{
 
     @Override
     public void run(){
-        Thread.State st = Thread.currentThread().getState();
-        log.info(st.toString());        
-        
-        try{
-            Thread.sleep(1000);   
-        }catch(Exception e){
-
-        }
-
-        con.getState();
-
         byte[] buffer = new byte[BUFFER_SIZE];
         
         try{
-            int byteRead = in.read(buffer);   
-            
-            if(byteRead == -1){ // EOF which means close()
-                //TODO
-
+            while(true){
+                int byteRead = in.read(buffer);   
+                
+                if(byteRead == -1){ // EOF which means close()
+                    //TODO
+                    break; 
+                }
+                
+                out.write(buffer, 0, byteRead);
+                out.flush();
             }
-
-            out.write(buffer, 0, byteRead);
-            out.flush();
         }catch(IOException e){
-            
+            log.error(e.toString());
         }
+
+        //TODO : connection is end.
+        con.closeConnection();
     }
 
 }

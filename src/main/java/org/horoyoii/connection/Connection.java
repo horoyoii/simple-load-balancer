@@ -15,8 +15,8 @@ public class Connection implements Runnable {
     private Info                serverInfo;
     private Socket              servSock;
     
-    private Thread              t;
-     
+    private boolean             isActive    = true;
+       
     public Connection(Socket cliSock, Info info){
         this.cliSock = cliSock;
         this.serverInfo = info;   
@@ -62,11 +62,26 @@ public class Connection implements Runnable {
         // and this thread for connetion is terminated
     }
 
-    public void setThread(Thread t){
-        this.t = t;
-    }
-    public void getState(){
-        System.out.println("parent tid : " +t.getId());
-        System.out.println("parent state : " + t.getState().toString());
+    
+    public synchronized void closeConnection(){
+        
+        if(isActive){
+            isActive = false;
+            
+            log.info("close connection");
+    
+            try{
+                cliSock.close();
+            }catch(IOException e){
+                log.error(e.toString());
+            }
+    
+            try{
+                servSock.close();
+            }catch(IOException e){
+                log.error(e.toString());
+            }                 
+        }
+
     }
 }

@@ -36,8 +36,7 @@ public class LoadBalancer{
         boolean staticrr = false, isDefault = true;
 
         try{
-            f = new File(path);
-            fr = new FileReader(f);
+            fr = new FileReader(new File(path));
             br = new BufferedReader(fr);
  
             String line = br.readLine();
@@ -100,7 +99,13 @@ public class LoadBalancer{
        
         serverDistributor.showList();
     }
-
+    
+    /**
+    * Waits until new client connection request comes.
+    * 
+    * When new connection request comes, creates new thread for this.
+    * TODO: use a thread pool.
+    */
     public void run(){
         log.info("Start running on PORT [{}]", this.port);
          
@@ -134,8 +139,6 @@ public class LoadBalancer{
                  
                 // Handle the request
                 Thread worker = new Thread(newCon);
-                newCon.setThread(worker);
-
                 worker.start();
             
             }catch(IOException e){
