@@ -2,33 +2,33 @@ package org.horoyoii.connection;
 
 import java.net.*;
 import java.io.*;
-import org.horoyoii.model.Info;
+import org.horoyoii.model.Peer;
 
 import lombok.extern.slf4j.Slf4j;
 
 
 /**
 
-Connection makes two streams.
+    Connection makes two streams.
 
-One is for upstream which is the direction from the client to the proxy to the server.
-The other is for downstream which is the direction from the server to the porxy to the client.
+    One is for upstream which is the direction from the client to the proxy to the server.
+    The other is for downstream which is the direction from the server to the porxy to the client.
 
-These two streams are running on two threads.
+    These two streams are running on two threads.
 */
 @Slf4j
 public class Connection implements Runnable {
     
     private Socket              cliSock;
 
-    private Info                serverInfo;
+    private Peer                serverPeer;
     private Socket              servSock;
     
     private boolean             isActive    = true;
        
-    public Connection(Socket cliSock, Info info){
+    public Connection(Socket cliSock, Peer info){
         this.cliSock = cliSock;
-        this.serverInfo = info;   
+        this.serverPeer = info;   
     }
       
     @Override
@@ -41,7 +41,7 @@ public class Connection implements Runnable {
         
                 
         try{
-            servSock = new Socket(serverInfo.getIp(), serverInfo.getPort());
+            servSock = new Socket(serverPeer.getIp(), serverPeer.getPort());
 
             clientIn    = cliSock.getInputStream();
             clientOut   = cliSock.getOutputStream();
@@ -89,3 +89,4 @@ public class Connection implements Runnable {
 
     }
 }
+

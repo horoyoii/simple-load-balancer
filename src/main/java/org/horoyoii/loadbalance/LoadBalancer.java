@@ -6,14 +6,14 @@ import java.net.*;
 import org.horoyoii.distribution.ServerDistributor;
 import org.horoyoii.serverSelect.*;
 import org.horoyoii.connection.Connection;
-import org.horoyoii.model.Info;
+import org.horoyoii.model.Peer;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
-    Default 'server weights' is 1.
 
 
+    Default 'server weight' is 1.
 */
 @Slf4j
 public class LoadBalancer{
@@ -26,10 +26,15 @@ public class LoadBalancer{
     Algorithm           algorithm           = Algorithm.ROUNDROBIN;    
     
     
-    /*
-        If there is no information about load balancing algorithm,
-        then the default is RR.
 
+    /*
+        Read the configuration file to set the load balancer setting.
+
+         If there is no information about load balancing algorithm,
+        then the default is RR.
+        
+         If there is no directive for the weight,
+        the the default is 1.
     */
     public void readConfig(){
         log.info("read configuration...");
@@ -58,7 +63,7 @@ public class LoadBalancer{
 
                         switch( splits[1] ){
                             case "roundrobin" :
-                                algorithm   = Algorithm.ROUNDROBIN;
+                               algorithm   = Algorithm.ROUNDROBIN;
                                 select      = new RoundRobin();
                                 break;
                             case "static-rr" :
@@ -104,12 +109,14 @@ public class LoadBalancer{
         }
         
  
+        // Set the roundrobin as default load balancing method.
         if(isDefault)
             serverDistributor.setServerSelector(new RoundRobin());
-       
-
     }
     
+
+
+
     /**
     * Waits until new client connection request comes.
     * 
@@ -117,11 +124,12 @@ public class LoadBalancer{
     * TODO: use a thread pool.
     */
     public void run(){
+
         log.info("Load Balancing Method   : {}", this.algorithm);
         log.info("running on PORT         : [{}]", this.port);
         serverDistributor.showList();
                  
-                
+
         try{
             listenSock = new ServerSocket(this.port);
         }catch(IOException e){
@@ -137,7 +145,7 @@ public class LoadBalancer{
                 
                 
                 // Select a backend server
-                Info server = null;
+                Peer server = null;
 
                 if(algorithm == Algorithm.IPHASHING)
                     server = serverDistributor.getSelectedServer(cliSock.getInetAddress());
