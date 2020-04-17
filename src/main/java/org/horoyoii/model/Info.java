@@ -9,7 +9,7 @@ public class Info{
     private String  name;
     private String  ip;
     private int     port;
-    private int     weight;
+    private int     weight = 1;
         
     public Info(String name, String ip, int port){
         this.ip     = ip;

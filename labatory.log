@@ -1,144 +1,243 @@
-2020-04-13 15:28:04.703 INFO  357  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
-2020-04-13 15:28:04.711 INFO  365  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
-2020-04-13 15:28:04.711 INFO  365  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 15:28:04.711 INFO  365  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
-2020-04-13 15:28:04.711 INFO  365  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
-2020-04-13 15:28:04.712 INFO  366  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
-2020-04-13 15:28:04.713 INFO  367  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
-2020-04-13 15:28:04.713 INFO  367  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
-2020-04-13 15:28:04.713 INFO  367  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 15:28:04.713 INFO  367  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
-2020-04-13 15:54:22.420 INFO  351  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
-2020-04-13 15:54:22.423 INFO  354  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
-2020-04-13 15:54:22.423 INFO  354  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 15:54:22.423 INFO  354  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
-2020-04-13 15:54:22.423 INFO  354  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
-2020-04-13 15:54:22.425 INFO  356  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
-2020-04-13 15:54:22.425 INFO  356  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
-2020-04-13 15:54:22.425 INFO  356  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
-2020-04-13 15:54:22.425 INFO  356  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 15:54:22.425 INFO  356  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
-2020-04-13 15:54:40.132 INFO  18063 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 15:54:40.154 INFO  18085 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8002]
-2020-04-13 15:54:40.157 INFO  18088 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 15:54:40.158 INFO  18089 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8003]
-2020-04-13 15:54:40.162 INFO  18093 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 15:54:40.165 INFO  18096 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8004]
-2020-04-13 15:54:40.167 INFO  18098 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 15:54:40.168 INFO  18099 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8005]
-2020-04-13 15:54:40.187 INFO  18118 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 15:54:40.188 INFO  18119 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8002]
-2020-04-13 15:54:40.244 INFO  18175 --- [ Thread-1 ] org.horoyoii.connection.Connection - tid 17
-2020-04-13 15:54:40.243 INFO  18174 --- [ Thread-3 ] org.horoyoii.connection.Connection - tid 21
-2020-04-13 15:54:40.246 INFO  18177 --- [ Thread-4 ] org.horoyoii.connection.Connection - tid 23
-2020-04-13 15:54:40.250 INFO  18181 --- [ Thread-0 ] org.horoyoii.connection.Connection - tid 18
-2020-04-13 15:54:40.251 INFO  18182 --- [ Thread-2 ] org.horoyoii.connection.Connection - tid 22
-2020-04-13 15:54:40.252 INFO  18183 --- [ Thread-1 ] org.horoyoii.connection.Connection - tid 20
-2020-04-13 15:54:40.253 INFO  18184 --- [ Thread-3 ] org.horoyoii.connection.Connection - tid 25
-2020-04-13 15:54:40.253 INFO  18184 --- [ Thread-4 ] org.horoyoii.connection.Connection - tid 26
-2020-04-13 15:54:40.253 INFO  18184 --- [ Thread-0 ] org.horoyoii.connection.Connection - tid 19
-2020-04-13 15:54:40.253 INFO  18184 --- [ Thread-2 ] org.horoyoii.connection.Connection - tid 24
-2020-04-13 15:54:40.257 INFO  18188 --- [ Thread-3 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 15:54:40.261 INFO  18192 --- [ Thread-2 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 15:54:40.266 INFO  18197 --- [ Thread-0 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 15:54:40.267 INFO  18198 --- [ Thread-1 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 15:54:40.271 INFO  18202 --- [ Thread-4 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 15:54:40.295 INFO  18226 --- [ Thread-14 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 15:54:40.297 INFO  18228 --- [ Thread-7 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 15:54:40.297 ERROR 18228 --- [ Thread-10 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
-2020-04-13 15:54:40.307 INFO  18238 --- [ Thread-10 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 15:54:40.309 ERROR 18240 --- [ Thread-6 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
-2020-04-13 15:54:40.310 INFO  18241 --- [ Thread-13 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 15:54:40.313 INFO  18244 --- [ Thread-6 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 15:54:40.314 ERROR 18245 --- [ Thread-9 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
-2020-04-13 15:54:40.315 INFO  18246 --- [ Thread-9 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 15:54:40.321 INFO  18252 --- [ Thread-8 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 15:54:40.323 INFO  18254 --- [ Thread-12 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 15:54:40.330 ERROR 18261 --- [ Thread-5 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
-2020-04-13 15:54:40.337 ERROR 18268 --- [ Thread-11 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
-2020-04-13 15:54:40.337 INFO  18268 --- [ Thread-5 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 15:54:40.340 INFO  18271 --- [ Thread-11 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 16:00:24.375 INFO  294  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
-2020-04-13 16:00:24.378 INFO  297  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
-2020-04-13 16:00:24.378 INFO  297  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 16:00:24.378 INFO  297  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
-2020-04-13 16:00:24.378 INFO  297  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
-2020-04-13 16:00:24.380 INFO  299  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
-2020-04-13 16:00:24.380 INFO  299  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
-2020-04-13 16:00:24.380 INFO  299  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
-2020-04-13 16:00:24.380 INFO  299  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 16:00:24.380 INFO  299  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
-2020-04-13 16:00:41.241 INFO  17160 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 16:00:41.257 INFO  17176 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8002]
-2020-04-13 16:00:41.260 INFO  17179 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 16:00:41.260 INFO  17179 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8003]
-2020-04-13 16:00:41.263 INFO  17182 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 16:00:41.265 INFO  17184 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8004]
-2020-04-13 16:00:41.272 INFO  17191 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 16:00:41.273 INFO  17192 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8005]
-2020-04-13 16:00:41.316 INFO  17235 --- [ Thread-0 ] org.horoyoii.connection.Connection - tid 17
-2020-04-13 16:00:41.321 INFO  17240 --- [ Thread-7 ] org.horoyoii.connection.Connection - tid 22
-2020-04-13 16:00:41.323 INFO  17242 --- [ Thread-2 ] org.horoyoii.connection.Connection - tid 20
-2020-04-13 16:00:41.324 INFO  17243 --- [ Thread-0 ] org.horoyoii.connection.Connection - tid 18
-2020-04-13 16:00:41.324 INFO  17243 --- [ Thread-7 ] org.horoyoii.connection.Connection - tid 23
-2020-04-13 16:00:41.325 INFO  17244 --- [ Thread-2 ] org.horoyoii.connection.Connection - tid 21
-2020-04-13 16:00:41.331 INFO  17250 --- [ Thread-0 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 16:00:41.321 INFO  17240 --- [ Thread-1 ] org.horoyoii.connection.Connection - tid 15
-2020-04-13 16:00:41.340 INFO  17259 --- [ Thread-7 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 16:00:41.340 INFO  17259 --- [ Thread-1 ] org.horoyoii.connection.Connection - tid 16
-2020-04-13 16:00:41.342 INFO  17261 --- [ Thread-2 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 16:00:41.363 INFO  17282 --- [ Thread-11 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 16:00:41.374 INFO  17293 --- [ Thread-1 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 16:00:41.375 ERROR 17294 --- [ Thread-10 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
-2020-04-13 16:00:41.377 INFO  17296 --- [ Thread-10 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 16:00:41.385 INFO  17304 --- [ Thread-6 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 16:00:41.386 ERROR 17305 --- [ Thread-5 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
-2020-04-13 16:00:41.387 INFO  17306 --- [ Thread-5 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 16:00:41.389 INFO  17308 --- [ Thread-9 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 16:00:41.400 ERROR 17319 --- [ Thread-8 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
-2020-04-13 16:00:41.400 INFO  17319 --- [ Thread-8 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 16:00:41.424 INFO  17343 --- [ Thread-4 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 16:00:41.431 ERROR 17350 --- [ Thread-3 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
-2020-04-13 16:00:41.432 INFO  17351 --- [ Thread-3 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 16:06:27.433 INFO  332  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
-2020-04-13 16:06:27.436 INFO  335  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
-2020-04-13 16:06:27.436 INFO  335  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 16:06:27.436 INFO  335  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
-2020-04-13 16:06:27.436 INFO  335  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
-2020-04-13 16:06:27.437 INFO  336  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
-2020-04-13 16:06:27.437 INFO  336  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
-2020-04-13 16:06:27.437 INFO  336  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
-2020-04-13 16:06:27.438 INFO  337  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 16:06:27.438 INFO  337  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
-2020-04-13 16:13:15.570 INFO  418  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
-2020-04-13 16:13:15.572 INFO  420  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
-2020-04-13 16:13:15.573 INFO  421  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 16:13:15.573 INFO  421  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
-2020-04-13 16:13:15.573 INFO  421  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
-2020-04-13 16:13:15.574 INFO  422  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
-2020-04-13 16:13:15.574 INFO  422  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
-2020-04-13 16:13:15.574 INFO  422  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
-2020-04-13 16:13:15.574 INFO  422  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 16:13:15.574 INFO  422  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
-2020-04-13 16:27:23.758 INFO  335  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
-2020-04-13 16:27:23.762 INFO  339  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
-2020-04-13 16:27:23.762 INFO  339  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 16:27:23.762 INFO  339  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
-2020-04-13 16:27:23.762 INFO  339  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
-2020-04-13 16:27:23.764 INFO  341  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
-2020-04-13 16:27:23.764 INFO  341  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
-2020-04-13 16:27:23.764 INFO  341  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
-2020-04-13 16:27:23.764 INFO  341  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-13 16:27:23.764 INFO  341  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
-2020-04-13 16:27:39.034 INFO  15611 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 16:27:39.049 INFO  15626 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8002]
-2020-04-13 16:27:39.050 INFO  15627 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
-2020-04-13 16:27:39.051 INFO  15628 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8003]
-2020-04-13 16:27:39.078 INFO  15655 --- [ Thread-1 ] org.horoyoii.connection.Connection - tid 14
-2020-04-13 16:27:39.078 INFO  15655 --- [ Thread-0 ] org.horoyoii.connection.Connection - tid 15
-2020-04-13 16:27:39.082 INFO  15659 --- [ Thread-0 ] org.horoyoii.connection.Connection - tid 17
-2020-04-13 16:27:39.082 INFO  15659 --- [ Thread-1 ] org.horoyoii.connection.Connection - tid 16
-2020-04-13 16:27:39.084 INFO  15661 --- [ Thread-0 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 16:27:39.084 INFO  15661 --- [ Thread-1 ] org.horoyoii.connection.Connection - Forwading started
-2020-04-13 16:28:33.618 INFO  70195 --- [ Thread-5 ] org.horoyoii.connection.Connection - close connection
-2020-04-13 16:28:33.621 ERROR 70198 --- [ Thread-3 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
+2020-04-17 20:29:56.525 INFO  339  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 20:29:56.533 INFO  347  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 20:29:56.533 INFO  347  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 20:29:56.534 INFO  348  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
+2020-04-17 20:29:56.534 INFO  348  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
+2020-04-17 20:29:56.535 INFO  349  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
+2020-04-17 20:29:56.535 INFO  349  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
+2020-04-17 20:29:56.535 INFO  349  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
+2020-04-17 20:29:56.535 INFO  349  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 20:29:56.535 INFO  349  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-17 20:32:00.495 INFO  124309 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-17 20:32:00.602 INFO  124416 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8002]
+2020-04-17 20:32:00.614 INFO  124428 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-17 20:32:00.615 INFO  124429 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8003]
+2020-04-17 20:32:00.656 INFO  124470 --- [ Thread-1 ] org.horoyoii.connection.Connection - tid 14
+2020-04-17 20:32:00.657 INFO  124471 --- [ Thread-1 ] org.horoyoii.connection.Connection - tid 17
+2020-04-17 20:32:00.658 INFO  124472 --- [ Thread-0 ] org.horoyoii.connection.Connection - tid 15
+2020-04-17 20:32:00.659 INFO  124473 --- [ Thread-0 ] org.horoyoii.connection.Connection - tid 16
+2020-04-17 20:32:00.659 INFO  124473 --- [ Thread-0 ] org.horoyoii.connection.Connection - Forwading started
+2020-04-17 20:32:00.658 INFO  124472 --- [ Thread-1 ] org.horoyoii.connection.Connection - Forwading started
+2020-04-17 20:32:00.660 INFO  124474 --- [ Thread-3 ] org.horoyoii.connection.IoBridge - read 619 byte and waiting...
+2020-04-17 20:32:00.702 INFO  124516 --- [ Thread-5 ] org.horoyoii.connection.IoBridge - read 141 byte and waiting...
+2020-04-17 20:32:39.231 INFO  163045 --- [ Thread-2 ] org.horoyoii.connection.IoBridge - read -1 byte and waiting...
+2020-04-17 20:32:39.232 INFO  163046 --- [ Thread-2 ] org.horoyoii.connection.Connection - close connection
+2020-04-17 20:32:39.233 ERROR 163047 --- [ Thread-4 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
+2020-04-17 20:32:46.995 INFO  170809 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-17 20:32:46.995 INFO  170809 --- [ Thread-3 ] org.horoyoii.connection.IoBridge - read 645 byte and waiting...
+2020-04-17 20:32:46.996 INFO  170810 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8004]
+2020-04-17 20:32:46.997 INFO  170811 --- [ Thread-5 ] org.horoyoii.connection.IoBridge - read 141 byte and waiting...
+2020-04-17 20:32:46.999 INFO  170813 --- [ Thread-6 ] org.horoyoii.connection.Connection - tid 19
+2020-04-17 20:32:47.000 INFO  170814 --- [ Thread-6 ] org.horoyoii.connection.Connection - tid 20
+2020-04-17 20:32:47.008 INFO  170822 --- [ Thread-6 ] org.horoyoii.connection.Connection - Forwading started
+2020-04-17 20:32:50.836 INFO  174650 --- [ Thread-3 ] org.horoyoii.connection.IoBridge - read 645 byte and waiting...
+2020-04-17 20:32:50.837 INFO  174651 --- [ Thread-5 ] org.horoyoii.connection.IoBridge - read 141 byte and waiting...
+2020-04-17 20:32:53.942 INFO  177756 --- [ Thread-3 ] org.horoyoii.connection.IoBridge - read 645 byte and waiting...
+2020-04-17 20:32:53.943 INFO  177757 --- [ Thread-5 ] org.horoyoii.connection.IoBridge - read 141 byte and waiting...
+2020-04-17 20:32:58.634 INFO  182448 --- [ Thread-7 ] org.horoyoii.connection.IoBridge - read -1 byte and waiting...
+2020-04-17 20:32:58.634 INFO  182448 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-17 20:32:58.634 INFO  182448 --- [ Thread-7 ] org.horoyoii.connection.Connection - close connection
+2020-04-17 20:32:58.634 INFO  182448 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8005]
+2020-04-17 20:32:58.635 INFO  182449 --- [ Thread-3 ] org.horoyoii.connection.IoBridge - read 645 byte and waiting...
+2020-04-17 20:32:58.635 ERROR 182449 --- [ Thread-8 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
+2020-04-17 20:32:58.636 INFO  182450 --- [ Thread-5 ] org.horoyoii.connection.IoBridge - read 141 byte and waiting...
+2020-04-17 20:32:58.636 INFO  182450 --- [ Thread-9 ] org.horoyoii.connection.Connection - tid 22
+2020-04-17 20:32:58.636 INFO  182450 --- [ Thread-9 ] org.horoyoii.connection.Connection - tid 23
+2020-04-17 20:32:58.639 INFO  182453 --- [ Thread-9 ] org.horoyoii.connection.Connection - Forwading started
+2020-04-17 20:33:10.191 INFO  194005 --- [ Thread-10 ] org.horoyoii.connection.IoBridge - read -1 byte and waiting...
+2020-04-17 20:33:10.191 INFO  194005 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-17 20:33:10.191 INFO  194005 --- [ Thread-3 ] org.horoyoii.connection.IoBridge - read 645 byte and waiting...
+2020-04-17 20:33:10.192 INFO  194006 --- [ Thread-10 ] org.horoyoii.connection.Connection - close connection
+2020-04-17 20:33:10.192 INFO  194006 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Request from [/127.0.0.1] is FORWARDED to backend [127.0.0.1:8002]
+2020-04-17 20:33:10.192 INFO  194006 --- [ Thread-5 ] org.horoyoii.connection.IoBridge - read 141 byte and waiting...
+2020-04-17 20:33:10.199 ERROR 194013 --- [ Thread-11 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
+2020-04-17 20:33:10.201 INFO  194015 --- [ Thread-12 ] org.horoyoii.connection.Connection - tid 25
+2020-04-17 20:33:10.202 INFO  194016 --- [ Thread-12 ] org.horoyoii.connection.Connection - tid 26
+2020-04-17 20:33:10.206 INFO  194020 --- [ Thread-12 ] org.horoyoii.connection.Connection - Forwading started
+2020-04-17 20:33:49.396 INFO  233210 --- [ Thread-13 ] org.horoyoii.connection.IoBridge - read -1 byte and waiting...
+2020-04-17 20:33:49.396 INFO  233210 --- [ Thread-13 ] org.horoyoii.connection.Connection - close connection
+2020-04-17 20:33:49.399 ERROR 233213 --- [ Thread-14 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
+2020-04-17 20:50:26.948 INFO  1415 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 20:50:26.954 INFO  1421 --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 20:50:26.955 INFO  1422 --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 20:50:26.959 INFO  1426 --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
+2020-04-17 20:50:26.960 INFO  1427 --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
+2020-04-17 20:50:26.969 INFO  1436 --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
+2020-04-17 20:50:26.973 INFO  1440 --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
+2020-04-17 20:50:26.977 INFO  1444 --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
+2020-04-17 20:50:26.978 INFO  1445 --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 20:50:26.980 INFO  1447 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-17 20:50:52.621 INFO  27088 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /0:0:0:0:0:0:0:1
+2020-04-17 20:50:52.633 INFO  27100 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - [/0:0:0:0:0:0:0:1] ====> [127.0.0.1:8002]
+2020-04-17 20:50:52.645 INFO  27112 --- [ Thread-0 ] org.horoyoii.connection.Connection - I/O Bridge is starting
+2020-04-17 20:50:52.650 INFO  27117 --- [ Thread-1 ] org.horoyoii.connection.IoBridge - read 357 byte and waiting...
+2020-04-17 20:50:52.651 INFO  27118 --- [ Thread-2 ] org.horoyoii.connection.IoBridge - read 141 byte and waiting...
+2020-04-17 20:53:10.394 INFO  164861 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-17 20:53:10.408 INFO  164875 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - [/127.0.0.1] ====> [127.0.0.1:8003]
+2020-04-17 20:53:10.419 INFO  164886 --- [ Thread-3 ] org.horoyoii.connection.Connection - I/O Bridge is starting
+2020-04-17 20:53:10.420 INFO  164887 --- [ Thread-4 ] org.horoyoii.connection.IoBridge - read 230 byte and waiting...
+2020-04-17 20:53:10.424 INFO  164891 --- [ Thread-5 ] org.horoyoii.connection.IoBridge - read 15 byte and waiting...
+2020-04-17 20:53:10.424 INFO  164891 --- [ Thread-5 ] org.horoyoii.connection.IoBridge - read -1 byte and waiting...
+2020-04-17 20:53:10.424 INFO  164891 --- [ Thread-5 ] org.horoyoii.connection.Connection - close connection
+2020-04-17 20:53:10.442 ERROR 164909 --- [ Thread-4 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
+2020-04-17 20:53:51.361 INFO  205828 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-17 20:53:51.363 INFO  205830 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - [/127.0.0.1] ====> [127.0.0.1:8004]
+2020-04-17 20:53:51.364 INFO  205831 --- [ Thread-6 ] org.horoyoii.connection.Connection - I/O Bridge is starting
+2020-04-17 20:53:51.365 INFO  205832 --- [ Thread-7 ] org.horoyoii.connection.IoBridge - read 225 byte and waiting...
+2020-04-17 20:53:51.367 INFO  205834 --- [ Thread-8 ] org.horoyoii.connection.IoBridge - read 15 byte and waiting...
+2020-04-17 20:53:51.367 INFO  205834 --- [ Thread-8 ] org.horoyoii.connection.IoBridge - read -1 byte and waiting...
+2020-04-17 20:53:51.368 INFO  205835 --- [ Thread-8 ] org.horoyoii.connection.Connection - close connection
+2020-04-17 20:53:51.370 ERROR 205837 --- [ Thread-7 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
+2020-04-17 20:53:56.019 INFO  210486 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-17 20:53:56.021 INFO  210488 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - [/127.0.0.1] ====> [127.0.0.1:8005]
+2020-04-17 20:53:56.021 INFO  210488 --- [ Thread-9 ] org.horoyoii.connection.Connection - I/O Bridge is starting
+2020-04-17 20:53:56.026 INFO  210493 --- [ Thread-10 ] org.horoyoii.connection.IoBridge - read 225 byte and waiting...
+2020-04-17 20:53:56.027 INFO  210494 --- [ Thread-11 ] org.horoyoii.connection.IoBridge - read 15 byte and waiting...
+2020-04-17 20:53:56.027 INFO  210494 --- [ Thread-11 ] org.horoyoii.connection.IoBridge - read -1 byte and waiting...
+2020-04-17 20:53:56.027 INFO  210494 --- [ Thread-11 ] org.horoyoii.connection.Connection - close connection
+2020-04-17 20:53:56.027 INFO  210494 --- [ Thread-10 ] org.horoyoii.connection.IoBridge - read -1 byte and waiting...
+2020-04-17 20:54:23.073 INFO  237540 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-17 20:54:23.074 INFO  237541 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - [/127.0.0.1] ====> [127.0.0.1:8002]
+2020-04-17 20:54:23.075 INFO  237542 --- [ Thread-12 ] org.horoyoii.connection.Connection - I/O Bridge is starting
+2020-04-17 20:54:23.076 INFO  237543 --- [ Thread-13 ] org.horoyoii.connection.IoBridge - read 206 byte and waiting...
+2020-04-17 20:54:23.108 INFO  237575 --- [ Thread-14 ] org.horoyoii.connection.IoBridge - read 141 byte and waiting...
+2020-04-17 20:54:23.165 INFO  237632 --- [ Thread-13 ] org.horoyoii.connection.IoBridge - read -1 byte and waiting...
+2020-04-17 20:54:23.165 INFO  237632 --- [ Thread-13 ] org.horoyoii.connection.Connection - close connection
+2020-04-17 20:54:23.166 ERROR 237633 --- [ Thread-14 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
+2020-04-17 20:54:50.131 INFO  498  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 20:54:50.139 INFO  506  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 20:54:50.139 INFO  506  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 20:54:50.140 INFO  507  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
+2020-04-17 20:54:50.140 INFO  507  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
+2020-04-17 20:54:50.141 INFO  508  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
+2020-04-17 20:54:50.142 INFO  509  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
+2020-04-17 20:54:50.142 INFO  509  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
+2020-04-17 20:54:50.142 INFO  509  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 20:54:50.143 INFO  510  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-17 20:54:54.550 INFO  4917 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-04-17 20:54:54.570 INFO  4937 --- [ main ] o.horoyoii.loadbalance.LoadBalancer - [/127.0.0.1] ====> [127.0.0.1:8002]
+2020-04-17 20:54:54.584 INFO  4951 --- [ Thread-0 ] org.horoyoii.connection.Connection - I/O Bridge is starting
+2020-04-17 20:54:54.588 INFO  4955 --- [ Thread-1 ] org.horoyoii.connection.IoBridge - read 206 byte and waiting...
+2020-04-17 20:54:54.589 INFO  4956 --- [ Thread-2 ] org.horoyoii.connection.IoBridge - read 141 byte and waiting...
+2020-04-17 20:54:54.602 INFO  4969 --- [ Thread-1 ] org.horoyoii.connection.IoBridge - read -1 byte and waiting...
+2020-04-17 20:54:54.603 INFO  4970 --- [ Thread-1 ] org.horoyoii.connection.Connection - close connection
+2020-04-17 20:54:54.604 ERROR 4971 --- [ Thread-2 ] org.horoyoii.connection.IoBridge - java.net.SocketException: Socket closed
+2020-04-17 21:13:59.871 INFO  307  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:13:59.874 INFO  310  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:13:59.874 INFO  310  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:13:59.874 INFO  310  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
+2020-04-17 21:13:59.874 INFO  310  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
+2020-04-17 21:13:59.876 INFO  312  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
+2020-04-17 21:13:59.876 INFO  312  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
+2020-04-17 21:13:59.876 INFO  312  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
+2020-04-17 21:13:59.876 INFO  312  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:13:59.876 INFO  312  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-17 21:16:05.831 INFO  287  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:16:05.834 ERROR 290  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
+2020-04-17 21:16:05.834 INFO  290  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:16:05.834 INFO  290  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:16:05.834 INFO  290  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT
+2020-04-17 21:16:05.834 INFO  290  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:16:05.834 INFO  290  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-17 21:22:30.667 INFO  259  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:22:30.670 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:22:30.670 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:22:30.670 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT            WEIGHT
+2020-04-17 21:22:30.670 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002
+2020-04-17 21:22:30.671 INFO  263  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003
+2020-04-17 21:22:30.671 INFO  263  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004
+2020-04-17 21:22:30.671 INFO  263  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005
+2020-04-17 21:22:30.672 INFO  264  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:22:30.672 INFO  264  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-17 21:22:54.590 INFO  266  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:22:54.593 INFO  269  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:22:54.593 INFO  269  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:22:54.593 INFO  269  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT            WEIGHT
+2020-04-17 21:22:54.593 INFO  269  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002        1
+2020-04-17 21:22:54.594 INFO  270  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003        1
+2020-04-17 21:22:54.594 INFO  270  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004        1
+2020-04-17 21:22:54.594 INFO  270  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005        1
+2020-04-17 21:22:54.594 INFO  270  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:22:54.595 INFO  271  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-17 21:23:16.646 INFO  264  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:23:16.660 INFO  278  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:23:16.661 INFO  279  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:23:16.661 INFO  279  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT     WEIGHT
+2020-04-17 21:23:16.661 INFO  279  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002        1
+2020-04-17 21:23:16.662 INFO  280  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003        1
+2020-04-17 21:23:16.662 INFO  280  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004        1
+2020-04-17 21:23:16.662 INFO  280  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005        1
+2020-04-17 21:23:16.662 INFO  280  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:23:16.663 INFO  281  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-17 21:23:30.233 INFO  253  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:23:30.235 INFO  255  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:23:30.235 INFO  255  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:23:30.235 INFO  255  --- [ main ] o.h.distribution.ServerDistributor - name          IP            PORT       WEIGHT
+2020-04-17 21:23:30.235 INFO  255  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002        1
+2020-04-17 21:23:30.236 INFO  256  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003        1
+2020-04-17 21:23:30.237 INFO  257  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004        1
+2020-04-17 21:23:30.237 INFO  257  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005        1
+2020-04-17 21:23:30.237 INFO  257  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:23:30.237 INFO  257  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-17 21:23:44.122 INFO  258  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:23:44.125 INFO  261  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:23:44.125 INFO  261  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:23:44.125 INFO  261  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
+2020-04-17 21:23:44.125 INFO  261  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002        1
+2020-04-17 21:23:44.126 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003        1
+2020-04-17 21:23:44.126 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004        1
+2020-04-17 21:23:44.127 INFO  263  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005        1
+2020-04-17 21:23:44.127 INFO  263  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:23:44.127 INFO  263  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Start running on PORT [9901]
+2020-04-17 21:26:07.391 INFO  307  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:26:07.393 INFO  309  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - selected method   : ROUNDROBIN
+2020-04-17 21:26:07.394 INFO  310  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT [9901]
+2020-04-17 21:26:07.395 INFO  311  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:26:07.395 INFO  311  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:26:07.395 INFO  311  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
+2020-04-17 21:26:07.395 INFO  311  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002        1
+2020-04-17 21:26:07.395 INFO  311  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003        1
+2020-04-17 21:26:07.395 INFO  311  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004        1
+2020-04-17 21:26:07.395 INFO  311  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005        1
+2020-04-17 21:26:07.395 INFO  311  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:26:49.782 INFO  282  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:26:49.784 INFO  284  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Load Balancing Method   : ROUNDROBIN
+2020-04-17 21:26:49.785 INFO  285  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT   : [9901]
+2020-04-17 21:26:49.785 INFO  285  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:26:49.786 INFO  286  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:26:49.786 INFO  286  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
+2020-04-17 21:26:49.786 INFO  286  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002        1
+2020-04-17 21:26:49.786 INFO  286  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003        1
+2020-04-17 21:26:49.786 INFO  286  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004        1
+2020-04-17 21:26:49.786 INFO  286  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005        1
+2020-04-17 21:26:49.786 INFO  286  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:27:07.686 INFO  258  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:27:07.688 INFO  260  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Load Balancing Method   : ROUNDROBIN
+2020-04-17 21:27:07.690 INFO  262  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT         : [9901]
+2020-04-17 21:27:07.690 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:27:07.690 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:27:07.690 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
+2020-04-17 21:27:07.690 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002        1
+2020-04-17 21:27:07.690 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003        1
+2020-04-17 21:27:07.690 INFO  262  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004        1
+2020-04-17 21:27:07.691 INFO  263  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005        1
+2020-04-17 21:27:07.691 INFO  263  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:27:41.528 INFO  271  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:27:41.530 ERROR 273  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - java.lang.Exception: Not supported LB method
+2020-04-17 21:27:41.530 INFO  273  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Load Balancing Method   : ROUNDROBIN
+2020-04-17 21:27:41.531 INFO  274  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT         : [9901]
+2020-04-17 21:27:41.532 INFO  275  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:27:41.532 INFO  275  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:27:41.532 INFO  275  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
+2020-04-17 21:27:41.532 INFO  275  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:28:13.556 INFO  260  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-04-17 21:28:13.559 INFO  263  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - Load Balancing Method   : STATICRR
+2020-04-17 21:28:13.560 INFO  264  --- [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT         : [9901]
+2020-04-17 21:28:13.560 INFO  264  --- [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-04-17 21:28:13.561 INFO  265  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-04-17 21:28:13.561 INFO  265  --- [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
+2020-04-17 21:28:13.561 INFO  265  --- [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002        4
+2020-04-17 21:28:13.561 INFO  265  --- [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003        2
+2020-04-17 21:28:13.561 INFO  265  --- [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004        1
+2020-04-17 21:28:13.561 INFO  265  --- [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005        5
+2020-04-17 21:28:13.561 INFO  265  --- [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------

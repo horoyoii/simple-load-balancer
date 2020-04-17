@@ -64,9 +64,9 @@ public class ServerDistributor{
     public void showList(){
         log.info("backend server list : ");
         log.info("------------------------------------------------");
-        log.info("name          IP              PORT");
+        log.info("name          IP              PORT      WEIGHT");
         for(Info info : serverList){
-            log.info("{}          {}      {}",info.getName(), info.getIp(), info.getPort());
+            log.info("{}          {}      {}        {}",info.getName(), info.getIp(), info.getPort(), info.getWeight());
         }        
         log.info("------------------------------------------------");
     }

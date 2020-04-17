@@ -33,8 +33,9 @@ class IoBridge implements Runnable{
         
         try{
             while(true){
+
                 int byteRead = in.read(buffer);   
-                
+                log.info("read {} byte and waiting...", byteRead);
                 if(byteRead == -1){ // EOF which means close()
                     //TODO
                     break; 
