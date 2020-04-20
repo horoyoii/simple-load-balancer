@@ -2,6 +2,9 @@ package org.horoyoii.loadbalance;
 
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+
 
 import org.horoyoii.distribution.ServerDistributor;
 import org.horoyoii.serverSelect.*;
@@ -19,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 public class LoadBalancer{
 
     ServerDistributor   serverDistributor   = new ServerDistributor();
+    ExecutorService     executorService     = Executors.newFixedThreadPool(50);
+
     ServerSocket        listenSock;     
     int                 port                = 9901;
            
@@ -27,6 +32,8 @@ public class LoadBalancer{
     
     
 
+
+    
     /*
         Read the configuration file to set the load balancer setting.
 
@@ -155,20 +162,15 @@ public class LoadBalancer{
 
                 log.info("[{}] ====> [{}]", cliSock.getInetAddress().toString(), server.getIp()+":"+server.getPort());
                 
-                // Make a worker
-                Connection newCon = new Connection(cliSock, server);
+
+                // handle the request
+                executorService.execute(new Connection(executorService, cliSock, server));
                  
-                // Handle the request
-                Thread worker = new Thread(newCon);
-                worker.start();
-            
             }catch(IOException e){
                 System.out.println(e);
             }
         }
-
     }
-
 }
 
 enum Algorithm{

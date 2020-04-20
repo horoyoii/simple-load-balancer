@@ -2,6 +2,8 @@ package org.horoyoii.connection;
 
 import java.net.*;
 import java.io.*;
+import java.util.concurrent.ExecutorService;
+
 import org.horoyoii.model.Peer;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +27,13 @@ public class Connection implements Runnable {
     private Socket              servSock;
     
     private boolean             isActive    = true;
+
+    private ExecutorService     executorService;
        
-    public Connection(Socket cliSock, Peer info){
-        this.cliSock = cliSock;
-        this.serverPeer = info;   
+    public Connection(ExecutorService executorService, Socket cliSock, Peer info){
+        this.executorService    = executorService;
+        this.cliSock            = cliSock;
+        this.serverPeer         = info;   
     }
       
     @Override
@@ -57,13 +62,16 @@ public class Connection implements Runnable {
         
         // Forwading data from client to server and vice versa.
         
-        Thread clientToServer = new Thread(new IoBridge(this, clientIn, serverOut)); 
-        Thread serverToClient = new Thread(new IoBridge(this, serverIn, clientOut));
+        //Thread clientToServer = new Thread(new IoBridge(this, clientIn, serverOut)); 
+        //Thread serverToClient = new Thread(new IoBridge(this, serverIn, clientOut));
         
+        executorService.execute(new IoBridge(this, clientIn, serverOut));
+        executorService.execute(new IoBridge(this, serverIn, clientOut));
         
         log.info("I/O Bridge is starting");       
-        clientToServer.start();
-        serverToClient.start();
+        
+        //clientToServer.start();
+        //serverToClient.start();
     }
 
     
