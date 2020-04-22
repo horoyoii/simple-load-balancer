@@ -4,12 +4,14 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
+import java.util.HashMap;
 
 
 import org.horoyoii.distribution.ServerDistributor;
 import org.horoyoii.serverSelect.*;
 import org.horoyoii.connection.Connection;
 import org.horoyoii.model.Peer;
+import org.horoyoii.util.ClassNameMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,66 +30,39 @@ public class LoadBalancer{
     int                 port                = 9901;
            
     final String        DEFAULT_WEIGHT      = "1";
-    Algorithm           algorithm           = Algorithm.ROUNDROBIN;    
-    
-    
+    final String        CONF_PATH           = "/home/horoyoii/Desktop/simple-load-balancer/load.config";
+  
 
+    public ServerSelector getServerSelector(String classAlias) throws Exception {
+        return (ServerSelector)Class.forName(ClassNameMapper.getClassName(classAlias)).getDeclaredConstructor().newInstance();
+    }
 
     
     /*
         Read the configuration file to set the load balancer setting.
 
-         If there is no information about load balancing algorithm,
+        If there is no information about load balancing algorithm,
         then the default is RR.
         
-         If there is no directive for the weight,
+        If there is no directive for the weight,
         the the default is 1.
     */
+
     public void readConfig(){
         log.info("read configuration...");
-        String path = "/home/horoyoii/Desktop/simple-load-balancer/load.config";
+      
+        BufferedReader br = null;
         
-        File f              = null;
-        FileReader fr       = null;
-        BufferedReader br   = null;
-        
-        boolean isDefault = true;
-
         try{
-            fr = new FileReader(new File(path));
-            br = new BufferedReader(fr);
- 
+            br = new BufferedReader(new FileReader(new File(CONF_PATH)));
             String line = br.readLine();
-            while(line != null){
-                
+
+            while(line != null){    
                 if(line.length() != 0 && line.charAt(0) != '#'){ // ignore the comments(#)                     
                     String[] splits = line.split(" ");
-
                     if(splits[0].equals("balance")){
 
-                        isDefault = false;
-                        ServerSelector select = null;
-
-                        switch( splits[1] ){
-                            case "roundrobin" :
-                               algorithm   = Algorithm.ROUNDROBIN;
-                                select      = new RoundRobin();
-                                break;
-                            case "static-rr" :
-                                algorithm   = Algorithm.STATICRR;
-                                select      = new WeightedRoundRobin();
-                                break;
-                            case "iphash" :
-                                algorithm   = Algorithm.IPHASHING;
-                                select      = new IpHashing();
-                                break;
-                            case "leastconn" : 
-                                //algorithm   = Algorithm.LEASTCONN;
-                                //select      = new LeastConn();
-                            default:
-                                throw new Exception("Not supported LB method");
-                        }
-
+                        ServerSelector select = getServerSelector(splits[1]);                        
                         serverDistributor.setServerSelector(select);
               
                     }else if(splits[0].equals("server")){
@@ -108,20 +83,13 @@ public class LoadBalancer{
         }finally{
             
             try{   
-                fr.close();
                 br.close();
             }catch(Exception e){
                 System.err.println(e);
             }
-        }
-        
- 
-        // Set the roundrobin as default load balancing method.
-        if(isDefault)
-            serverDistributor.setServerSelector(new RoundRobin());
-    }
+        }         
+   }
     
-
 
 
     /**
@@ -131,18 +99,14 @@ public class LoadBalancer{
     * TODO: use a thread pool.
     */
     public void run(){
-
-        log.info("Load Balancing Method   : {}", this.algorithm);
         log.info("running on PORT         : [{}]", this.port);
         serverDistributor.showList();
                  
-
         try{
             listenSock = new ServerSocket(this.port);
         }catch(IOException e){
             log.error(e.toString());
         }
-
 
         while(true){
                 
@@ -150,19 +114,11 @@ public class LoadBalancer{
                 Socket cliSock = listenSock.accept();
                 log.info("Client connection arrive : {}", cliSock.getInetAddress().toString());        
                 
-                
                 // Select a backend server
-                Peer server = null;
-
-                if(algorithm == Algorithm.IPHASHING)
-                    server = serverDistributor.getSelectedServer(cliSock.getInetAddress());
-                else
-                    server = serverDistributor.getSelectedServer();
-
-
+                Peer server = serverDistributor.getSelectedServer(cliSock.getInetAddress());
+                
                 log.info("[{}] ====> [{}]", cliSock.getInetAddress().toString(), server.getIp()+":"+server.getPort());
                 
-
                 // handle the request
                 executorService.execute(new Connection(executorService, cliSock, server));
                  
@@ -173,18 +129,3 @@ public class LoadBalancer{
     }
 }
 
-enum Algorithm{
-    ROUNDROBIN("roundrobin"),
-    STATICRR("static-rr"),
-    IPHASHING("ip-hashing"),
-    LEASTCONN("leastconn");
-
-    private final String name;
-
-    Algorithm(String name){ this.name = name;}
-
-    public String getValue(){
-        return name;
-    }
-
-}

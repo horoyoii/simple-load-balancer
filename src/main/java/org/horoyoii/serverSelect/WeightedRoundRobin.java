@@ -1,6 +1,8 @@
 package org.horoyoii.serverSelect;
 
 import java.util.ArrayList;
+import java.net.InetAddress;
+
 import org.horoyoii.model.Peer;
 
 
@@ -15,7 +17,7 @@ public class WeightedRoundRobin implements ServerSelector{
     private int curCnt   = 0;
     
     @Override
-    public Peer getServer(ArrayList<Peer> serverList){ 
+    public Peer getServer(ArrayList<Peer> serverList, InetAddress clientIp){ 
 
         if( curCnt < serverList.get(curPosition).getWeight() ){
             curCnt++;

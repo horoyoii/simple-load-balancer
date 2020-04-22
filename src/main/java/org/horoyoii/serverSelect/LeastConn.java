@@ -1,6 +1,8 @@
 package org.horoyoii.serverSelect;
 
 import java.util.ArrayList;
+import java.net.InetAddress;
+
 import org.horoyoii.model.Peer;
 
 
@@ -12,7 +14,7 @@ import org.horoyoii.model.Peer;
 public class LeastConn implements ServerSelector{
   
     @Override
-    public Peer getServer(ArrayList<Peer> serverList){ 
+    public Peer getServer(ArrayList<Peer> serverList, InetAddress clientIp){ 
        
         return new Peer();
     }

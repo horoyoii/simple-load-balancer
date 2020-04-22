@@ -13,9 +13,9 @@ public class ServerDistributor{
     ArrayList<Peer> serverList = new ArrayList<Peer>();
     
     /**
-        Strategy Pattern...
+        default object is RR.
     */
-    ServerSelector serverSelector;  
+    ServerSelector serverSelector = new RoundRobin();  
   
         
     /**
@@ -39,23 +39,12 @@ public class ServerDistributor{
         this.serverSelector = serv;
     }
 
-     
 
     /**
         
     */
-    public Peer getSelectedServer(){
-        return serverSelector.getServer(serverList);
-    }
-
-
-    /**
-        For IP HASHING based selection.
-    */
     public Peer getSelectedServer(InetAddress clientIp){
-
-        ((IpHashing)serverSelector).setClientIp(clientIp);
-        return serverSelector.getServer(serverList);
+       return serverSelector.getServer(serverList, clientIp);
     }
 
 

@@ -60,19 +60,12 @@ public class Connection implements Runnable {
         }
         
         
-        // Forwading data from client to server and vice versa.
-        
-        //Thread clientToServer = new Thread(new IoBridge(this, clientIn, serverOut)); 
-        //Thread serverToClient = new Thread(new IoBridge(this, serverIn, clientOut));
-        
+        // Forwading data from client to server and vice versa. 
         executorService.execute(new IoBridge(this, clientIn, serverOut));
         executorService.execute(new IoBridge(this, serverIn, clientOut));
         
-        log.info("I/O Bridge is starting");       
-        
-        //clientToServer.start();
-        //serverToClient.start();
-    }
+        log.info("I/O Bridge is starting");     
+   }
 
     
     public synchronized void closeConnection(){
