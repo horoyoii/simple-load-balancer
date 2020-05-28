@@ -51,12 +51,10 @@ public class LoadBalancer{
     public void readConfig(){
         log.info("read configuration...");
       
-        BufferedReader br = null;
-        
-        try{
-            br = new BufferedReader(new FileReader(new File(CONF_PATH)));
+        try(
+            BufferedReader br = new BufferedReader(new FileReader(new File(CONF_PATH)));
+        ){
             String line = br.readLine();
-
             while(line != null){    
                 if(line.length() != 0 && line.charAt(0) != '#'){ // ignore the comments(#)                     
                     String[] splits = line.split(" ");
@@ -80,14 +78,7 @@ public class LoadBalancer{
             log.error(i.toString()); 
         }catch(Exception e){
             log.error(e.toString());
-        }finally{
-            
-            try{   
-                br.close();
-            }catch(Exception e){
-                System.err.println(e);
-            }
-        }         
+        }       
    }
     
 
