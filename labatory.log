@@ -1,24 +1,35 @@
-2020-04-22 18:03:55.793 INFO  352  [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
-2020-04-22 18:03:55.801 ERROR 360  [ main ] o.horoyoii.loadbalance.LoadBalancer - java.lang.ClassNotFoundException: RoundRobin
-2020-04-22 18:03:55.801 INFO  360  [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT         : [9901]
-2020-04-22 18:03:55.802 INFO  361  [ main ] o.h.distribution.ServerDistributor - backend server list : 
-2020-04-22 18:03:55.803 INFO  362  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-22 18:03:55.803 INFO  362  [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
-2020-04-22 18:03:55.803 INFO  362  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-22 18:05:49.498 INFO  266  [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
-2020-04-22 18:05:49.504 ERROR 272  [ main ] o.horoyoii.loadbalance.LoadBalancer - java.lang.ClassNotFoundException: org.horoyoii.serverSelec.RoundRobin
-2020-04-22 18:05:49.504 INFO  272  [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT         : [9901]
-2020-04-22 18:05:49.506 INFO  274  [ main ] o.h.distribution.ServerDistributor - backend server list : 
-2020-04-22 18:05:49.507 INFO  275  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-22 18:05:49.507 INFO  275  [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
-2020-04-22 18:05:49.507 INFO  275  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-22 18:06:11.738 INFO  266  [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
-2020-04-22 18:06:11.743 INFO  271  [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT         : [9901]
-2020-04-22 18:06:11.745 INFO  273  [ main ] o.h.distribution.ServerDistributor - backend server list : 
-2020-04-22 18:06:11.745 INFO  273  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
-2020-04-22 18:06:11.745 INFO  273  [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
-2020-04-22 18:06:11.745 INFO  273  [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002        1
-2020-04-22 18:06:11.746 INFO  274  [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003        1
-2020-04-22 18:06:11.746 INFO  274  [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004        1
-2020-04-22 18:06:11.746 INFO  274  [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005        1
-2020-04-22 18:06:11.746 INFO  274  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-05-29 14:50:32.536 INFO  371  [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-05-29 14:50:32.557 ERROR 392  [ main ] o.horoyoii.loadbalance.LoadBalancer - java.lang.ClassNotFoundException: org.horoyoii.serverSelect.null
+2020-05-29 14:50:32.557 INFO  392  [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT         : [9901]
+2020-05-29 14:50:32.559 INFO  394  [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-05-29 14:50:32.559 INFO  394  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-05-29 14:50:32.559 INFO  394  [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
+2020-05-29 14:50:32.559 INFO  394  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-05-29 14:52:08.527 INFO  96362 [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-05-29 14:53:48.709 INFO  318  [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-05-29 14:53:48.715 ERROR 324  [ main ] o.horoyoii.loadbalance.LoadBalancer - java.lang.ClassNotFoundException: org.horoyoii.serverSelect.null
+2020-05-29 14:53:48.715 INFO  324  [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT         : [9901]
+2020-05-29 14:53:48.716 INFO  325  [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-05-29 14:53:48.717 INFO  326  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-05-29 14:53:48.717 INFO  326  [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
+2020-05-29 14:53:48.717 INFO  326  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-05-29 14:55:35.779 INFO  295  [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-05-29 14:55:35.785 INFO  301  [ main ] o.horoyoii.loadbalance.LoadBalancer - running on PORT         : [9901]
+2020-05-29 14:55:35.786 INFO  302  [ main ] o.h.distribution.ServerDistributor - backend server list : 
+2020-05-29 14:55:35.786 INFO  302  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-05-29 14:55:35.786 INFO  302  [ main ] o.h.distribution.ServerDistributor - name          IP              PORT      WEIGHT
+2020-05-29 14:55:35.786 INFO  302  [ main ] o.h.distribution.ServerDistributor - web1          127.0.0.1      8002        1
+2020-05-29 14:55:35.786 INFO  302  [ main ] o.h.distribution.ServerDistributor - web2          127.0.0.1      8003        1
+2020-05-29 14:55:35.787 INFO  303  [ main ] o.h.distribution.ServerDistributor - web3          127.0.0.1      8004        1
+2020-05-29 14:55:35.787 INFO  303  [ main ] o.h.distribution.ServerDistributor - web4          127.0.0.1      8005        1
+2020-05-29 14:55:35.787 INFO  303  [ main ] o.h.distribution.ServerDistributor - ------------------------------------------------
+2020-05-29 14:55:43.955 INFO  8471 [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-05-29 14:55:43.963 INFO  8479 [ main ] o.horoyoii.loadbalance.LoadBalancer - [/127.0.0.1] ====> [127.0.0.1:8003]
+2020-05-29 14:55:54.138 INFO  18654 [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-05-29 14:55:54.138 INFO  18654 [ main ] o.horoyoii.loadbalance.LoadBalancer - [/127.0.0.1] ====> [127.0.0.1:8003]
+2020-05-29 14:55:56.715 INFO  21231 [ main ] o.horoyoii.loadbalance.LoadBalancer - Client connection arrive : /127.0.0.1
+2020-05-29 14:55:56.715 INFO  21231 [ main ] o.horoyoii.loadbalance.LoadBalancer - [/127.0.0.1] ====> [127.0.0.1:8003]
+2020-05-29 15:01:43.694 INFO  342  [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-05-29 15:07:13.338 INFO  292  [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-05-29 15:17:36.351 INFO  330  [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...
+2020-05-29 15:18:18.592 INFO  261  [ main ] o.horoyoii.loadbalance.LoadBalancer - read configuration...

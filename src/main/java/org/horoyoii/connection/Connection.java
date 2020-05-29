@@ -29,12 +29,16 @@ public class Connection implements Runnable {
     private boolean             isActive    = true;
 
     private ExecutorService     executorService;
+
+
        
     public Connection(ExecutorService executorService, Socket cliSock, Peer info){
         this.executorService    = executorService;
         this.cliSock            = cliSock;
         this.serverPeer         = info;   
     }
+
+
       
     @Override
     public void run(){

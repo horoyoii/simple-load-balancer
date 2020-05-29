@@ -12,8 +12,12 @@ import org.horoyoii.serverSelect.*;
 import org.horoyoii.connection.Connection;
 import org.horoyoii.model.Peer;
 import org.horoyoii.util.ClassNameMapper;
+import org.horoyoii.exception.AlgoNotValidException;
+
 
 import lombok.extern.slf4j.Slf4j;
+
+
 
 /**
 
@@ -32,12 +36,8 @@ public class LoadBalancer{
     final String        DEFAULT_WEIGHT      = "1";
     final String        CONF_PATH           = "/home/horoyoii/Desktop/simple-load-balancer/load.config";
   
+     
 
-    public ServerSelector getServerSelector(String classAlias) throws Exception {
-        return (ServerSelector)Class.forName(ClassNameMapper.getClassName(classAlias)).getDeclaredConstructor().newInstance();
-    }
-
-    
     /*
         Read the configuration file to set the load balancer setting.
 
@@ -47,7 +47,6 @@ public class LoadBalancer{
         If there is no directive for the weight,
         the the default is 1.
     */
-
     public void readConfig(){
         log.info("read configuration...");
       
@@ -55,14 +54,26 @@ public class LoadBalancer{
             BufferedReader br = new BufferedReader(new FileReader(new File(CONF_PATH)));
         ){
             String line = br.readLine();
-            while(line != null){    
+
+            while(line != null)
+            {    
                 if(line.length() != 0 && line.charAt(0) != '#'){ // ignore the comments(#)                     
                     String[] splits = line.split(" ");
-                    if(splits[0].equals("balance")){
+                    
+                    if(splits[0].equals("algo"))
+                    {           
+                        try{         
+                            serverDistributor.setServerSelector( getServerSelector(splits[1]) );
+                        }catch(AlgoNotValidException a){
+                            //TODO: use global exception handler?? 
+                            // setDefaultUncaughtExceptionHandler();
 
-                        ServerSelector select = getServerSelector(splits[1]);                        
-                        serverDistributor.setServerSelector(select);
-              
+                            a.printStackTrace();
+                            System.exit(0);     
+                        }catch(Exception e){
+                            System.exit(0);
+                        }
+
                     }else if(splits[0].equals("server")){
                         serverDistributor.add(splits[1], splits[2], splits[3], 
                                                     splits.length == 4 ? DEFAULT_WEIGHT : splits[4]);
@@ -80,7 +91,6 @@ public class LoadBalancer{
             log.error(e.toString());
         }       
    }
-    
 
 
     /**
@@ -118,5 +128,21 @@ public class LoadBalancer{
             }
         }
     }
+
+    
+    public ServerSelector getServerSelector(String classAlias) throws Exception{
+        ServerSelector ss = null;
+
+        try{
+            ss =(ServerSelector)Class.forName(ClassNameMapper.getClassName(classAlias))
+                                                    .getDeclaredConstructor().newInstance();
+        }catch(ClassNotFoundException e){
+            throw new AlgoNotValidException(classAlias+" is not valid algorithm name");
+        }
+
+        return ss;
+    }
+
+
 }
 
