@@ -8,7 +8,7 @@ import org.horoyoii.model.Peer;
 public class IpHashing implements ServerSelector{
 
     @Override
-    public Peer getServer(ArrayList<Peer> serverList, InetAddress clientIp){
+    public Peer getPeer(ArrayList<Peer> serverList, InetAddress clientIp){
         int hash = clientIp.hashCode() % serverList.size();
         System.out.println(clientIp);
         System.out.println(clientIp.hashCode());

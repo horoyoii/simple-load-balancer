@@ -10,24 +10,24 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ServerDistributor{
-    ArrayList<Peer> serverList = new ArrayList<Peer>();
+    ArrayList<Peer> peerList = new ArrayList<Peer>();
     
     /**
         default object is RR.
     */
-    ServerSelector serverSelector = new RoundRobin();  
+    ServerSelector peerSelector = new RoundRobin();  
   
         
     /**
         Add a new server metadata.
     */
     public void add(String name, String ip, String port){
-        serverList.add(new Peer(name, ip, Integer.parseInt(port)));
+        peerList.add(new Peer(name, ip, Integer.parseInt(port)));
     }
 
     
     public void add(String name, String ip, String port, String weight){
-        serverList.add(new Peer(name, ip, Integer.parseInt(port), Integer.parseInt(weight)));
+        peerList.add(new Peer(name, ip, Integer.parseInt(port), Integer.parseInt(weight)));
     }
     
 
@@ -36,15 +36,21 @@ public class ServerDistributor{
 
     */
     public void setServerSelector(ServerSelector serv){
-        this.serverSelector = serv;
+        
+        this.peerSelector = serv;
     }
 
 
     /**
+        Retreive the peer which is selected based on algo.    
         
+        + increase the number of connection of the peer by 1.
     */
-    public Peer getSelectedServer(InetAddress clientIp){
-       return serverSelector.getServer(serverList, clientIp);
+    public Peer getPeer(InetAddress clientIp){
+        Peer peer = peerSelector.getPeer(peerList, clientIp);
+        peer.increaseConnectionCount();
+         
+        return peer;
     }
 
 
@@ -52,7 +58,7 @@ public class ServerDistributor{
         log.info("backend server list : ");
         log.info("------------------------------------------------");
         log.info("name          IP              PORT      WEIGHT");
-        for(Peer info : serverList){
+        for(Peer info : peerList){
             log.info("{}          {}      {}        {}",info.getName(), info.getIp(), info.getPort(), info.getWeight());
         }        
         log.info("------------------------------------------------");

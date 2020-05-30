@@ -115,13 +115,17 @@ public class LoadBalancer{
                 Socket cliSock = listenSock.accept();
                 log.info("Client connection arrive : {}", cliSock.getInetAddress().toString());        
                 
-                // Select a backend server
-                Peer server = serverDistributor.getSelectedServer(cliSock.getInetAddress());
+
+                /** 
+                    Get a backend server to handle this connection
+                */
+                Peer peer = serverDistributor.getPeer(cliSock.getInetAddress());
                 
-                log.info("[{}] ====> [{}]", cliSock.getInetAddress().toString(), server.getIp()+":"+server.getPort());
+                log.info("[{}] ====> [{}]", cliSock.getInetAddress().toString(), 
+                                                    peer.getIp()+":"+peer.getPort());
                 
                 // handle the request
-                executorService.execute(new Connection(executorService, cliSock, server));
+                executorService.execute(new Connection(executorService, cliSock, peer));
                  
             }catch(IOException e){
                 System.out.println(e);

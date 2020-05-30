@@ -7,5 +7,5 @@ import java.net.InetAddress;
 public interface ServerSelector{
 
     
-    public Peer getServer(ArrayList<Peer> serverList, InetAddress clientIp);
+    public Peer getPeer(ArrayList<Peer> serverList, InetAddress clientIp);
 }

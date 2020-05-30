@@ -14,9 +14,17 @@ import org.horoyoii.model.Peer;
 public class LeastConn implements ServerSelector{
   
     @Override
-    public Peer getServer(ArrayList<Peer> serverList, InetAddress clientIp){ 
-       
-        return new Peer();
+    public Peer getPeer(ArrayList<Peer> peers, InetAddress clientIp){ 
+        Peer best = null;
+
+        for(Peer peer : peers){
+            
+            if(best == null || peer.getConns() < best.getConns()){
+                best = peer;
+            } 
+        }
+                
+        return best;
     }
 
 }

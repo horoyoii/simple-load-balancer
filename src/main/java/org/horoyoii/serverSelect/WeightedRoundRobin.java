@@ -17,7 +17,7 @@ public class WeightedRoundRobin implements ServerSelector{
     private int curCnt   = 0;
     
     @Override
-    public Peer getServer(ArrayList<Peer> serverList, InetAddress clientIp){ 
+    public Peer getPeer(ArrayList<Peer> serverList, InetAddress clientIp){ 
 
         if( curCnt < serverList.get(curPosition).getWeight() ){
             curCnt++;
