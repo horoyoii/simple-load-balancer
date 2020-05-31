@@ -20,7 +20,7 @@ class IoBridge implements Runnable{
     private InputStream     in;
     private OutputStream    out;
     private Connection      con;
-
+    
     IoBridge(Connection con, InputStream in, OutputStream out){
         this.in  = in;
         this.out = out;
@@ -51,7 +51,6 @@ class IoBridge implements Runnable{
         //TODO : connection is end.
         con.closeConnection();
     }
-
 }
 
 

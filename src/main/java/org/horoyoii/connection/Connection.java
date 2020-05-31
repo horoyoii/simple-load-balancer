@@ -4,6 +4,7 @@ import java.net.*;
 import java.io.*;
 import java.util.concurrent.ExecutorService;
 
+import org.horoyoii.manager.PeerManager;
 import org.horoyoii.model.Peer;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,21 +24,21 @@ public class Connection implements Runnable {
     
     private Socket              cliSock;
 
-    private Peer                serverPeer;
+    private Peer                peer;
     private Socket              servSock;
     
     private boolean             isActive    = true;
 
     private ExecutorService     executorService;
-
+    private PeerManager         peerManager;
 
        
-    public Connection(ExecutorService executorService, Socket cliSock, Peer info){
+    public Connection(ExecutorService executorService, PeerManager pm, Socket cliSock, Peer peer){
         this.executorService    = executorService;
+        this.peerManager        = pm;
         this.cliSock            = cliSock;
-        this.serverPeer         = info;   
+        this.peer               = peer;   
     }
-
 
       
     @Override
@@ -47,10 +48,9 @@ public class Connection implements Runnable {
         OutputStream    clientOut;
         InputStream     serverIn;
         OutputStream    serverOut;
-        
-                
+                 
         try{
-            servSock = new Socket(serverPeer.getIp(), serverPeer.getPort());
+            servSock = new Socket(peer.getIp(), peer.getPort());
 
             clientIn    = cliSock.getInputStream();
             clientOut   = cliSock.getOutputStream();
@@ -62,7 +62,7 @@ public class Connection implements Runnable {
             System.out.println(e);
             return;
         }
-        
+         
         
         // Forwading data from client to server and vice versa. 
         executorService.execute(new IoBridge(this, clientIn, serverOut));
@@ -70,15 +70,14 @@ public class Connection implements Runnable {
         
         log.info("I/O Bridge is starting");     
    }
-
     
     public synchronized void closeConnection(){
         
         if(isActive){
             isActive = false;
-            
+                
             log.info("close connection");
-    
+        
             try{
                 cliSock.close();
             }catch(IOException e){
@@ -89,7 +88,9 @@ public class Connection implements Runnable {
                 servSock.close();
             }catch(IOException e){
                 log.error(e.toString());
-            }                 
+            }
+            
+            peerManager.decreaseCount(peer);                 
         }
 
     }

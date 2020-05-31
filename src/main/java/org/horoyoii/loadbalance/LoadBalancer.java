@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.HashMap;
 
 
-import org.horoyoii.distribution.ServerDistributor;
+import org.horoyoii.manager.PeerManager;
 import org.horoyoii.serverSelect.*;
 import org.horoyoii.connection.Connection;
 import org.horoyoii.model.Peer;
@@ -27,14 +27,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LoadBalancer{
 
-    ServerDistributor   serverDistributor   = new ServerDistributor();
+    PeerManager   peerManager   = new PeerManager();
     ExecutorService     executorService     = Executors.newFixedThreadPool(50);
 
     ServerSocket        listenSock;     
     int                 port                = 9901;
            
     final String        DEFAULT_WEIGHT      = "1";
-    final String        CONF_PATH           = "/home/horoyoii/Desktop/simple-load-balancer/load.config";
+    final String        CONF_PATH           = "/home/horoyoii/Desktop/simple-load-balancer/load.conf";
   
      
 
@@ -63,7 +63,7 @@ public class LoadBalancer{
                     if(splits[0].equals("algo"))
                     {           
                         try{         
-                            serverDistributor.setServerSelector( getServerSelector(splits[1]) );
+                            peerManager.setServerSelector( getServerSelector(splits[1]) );
                         }catch(AlgoNotValidException a){
                             //TODO: use global exception handler?? 
                             // setDefaultUncaughtExceptionHandler();
@@ -75,7 +75,7 @@ public class LoadBalancer{
                         }
 
                     }else if(splits[0].equals("server")){
-                        serverDistributor.add(splits[1], splits[2], splits[3], 
+                        peerManager.add(splits[1], splits[2], splits[3], 
                                                     splits.length == 4 ? DEFAULT_WEIGHT : splits[4]);
                     }
                 }
@@ -101,7 +101,7 @@ public class LoadBalancer{
     */
     public void run(){
         log.info("running on PORT         : [{}]", this.port);
-        serverDistributor.showList();
+        peerManager.showList();
                  
         try{
             listenSock = new ServerSocket(this.port);
@@ -113,19 +113,18 @@ public class LoadBalancer{
                 
             try{
                 Socket cliSock = listenSock.accept();
-                log.info("Client connection arrive : {}", cliSock.getInetAddress().toString());        
-                
-
+                log.info("Client connection arrive : {}", cliSock.getInetAddress().toString());                             
                 /** 
                     Get a backend server to handle this connection
                 */
-                Peer peer = serverDistributor.getPeer(cliSock.getInetAddress());
+                Peer peer = peerManager.getPeer(cliSock.getInetAddress());
                 
                 log.info("[{}] ====> [{}]", cliSock.getInetAddress().toString(), 
                                                     peer.getIp()+":"+peer.getPort());
                 
                 // handle the request
-                executorService.execute(new Connection(executorService, cliSock, peer));
+                //TODO : Builder Pattern for Connection Class
+                executorService.execute(new Connection(executorService, peerManager, cliSock, peer));
                  
             }catch(IOException e){
                 System.out.println(e);
