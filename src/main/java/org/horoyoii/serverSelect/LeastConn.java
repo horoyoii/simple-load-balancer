@@ -7,9 +7,11 @@ import org.horoyoii.model.Peer;
 
 
 /**
+    Least Connected Algorithm considers not only the number of connection but also the weight of the server.
     Simple 'for loop' is used to find the lesat connected upstream server.
 
     In the NGINX source codes, it uses the linked list for least connection method.
+    
 */
 public class LeastConn implements ServerSelector{
   
@@ -19,7 +21,7 @@ public class LeastConn implements ServerSelector{
 
         for(Peer peer : peers){
             
-            if(best == null || peer.getConns() < best.getConns()){
+            if(best == null || peer.getConns() * best.getWeight() < best.getConns() * peer.getWeight()){
                 best = peer;
             } 
         }

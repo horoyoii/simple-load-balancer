@@ -27,10 +27,6 @@ public class Peer{
         this.weight = weight;
     }   
 
-    public int getConns(){
-        return conns;
-    }
-
     public void increaseConnectionCount(){
         conns += 1;   
     }
