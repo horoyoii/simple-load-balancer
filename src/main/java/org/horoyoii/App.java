@@ -15,8 +15,9 @@ public class App {
         System.out.println(new App().getGreeting());
                 
         LoadBalancer loadBalancer = new LoadBalancer();
+        loadBalancer.init();
 
-        loadBalancer.readConfig();
+        //loadBalancer.readConfig();
 
         loadBalancer.run();
 

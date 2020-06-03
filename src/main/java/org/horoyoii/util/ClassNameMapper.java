@@ -12,8 +12,8 @@ public class ClassNameMapper{
         
         info.put("roundrobin", "RoundRobin");
         info.put("static-rr", "WeightedRoundRobin");
-        info.put("ip-hashing", "IpHashing");
-        info.put("leastconn", "LeastConn");
+        info.put("ip_hash", "IpHashing");
+        info.put("least_conn", "LeastConn");
     }
 
 
