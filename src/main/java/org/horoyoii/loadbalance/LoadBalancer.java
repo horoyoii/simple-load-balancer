@@ -88,7 +88,10 @@ public class LoadBalancer{
         }
     }
 
-        
+    /**
+     *  Create a Peer Manager.
+     * 
+     */        
     private void initPeerManager(){
         log.info("read configuration file and init a peer manager");
         peerManager = new PeerManager();

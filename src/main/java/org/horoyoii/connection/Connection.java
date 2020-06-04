@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Connection implements Runnable {
     
-    private Socket              cliSock;
+    private Socket              clientSocket;
 
     private Peer                peer;
     private Socket              servSock;
@@ -33,10 +33,10 @@ public class Connection implements Runnable {
     private PeerManager         peerManager;
 
        
-    public Connection(ExecutorService executorService, PeerManager pm, Socket cliSock, Peer peer){
+    public Connection(ExecutorService executorService, PeerManager pm, Socket clientSocket, Peer peer){
         this.executorService    = executorService;
         this.peerManager        = pm;
-        this.cliSock            = cliSock;
+        this.clientSocket       = clientSocket;
         this.peer               = peer;   
     }
 
@@ -52,8 +52,8 @@ public class Connection implements Runnable {
         try{
             servSock = new Socket(peer.getIp(), peer.getPort());
 
-            clientIn    = cliSock.getInputStream();
-            clientOut   = cliSock.getOutputStream();
+            clientIn    = clientSocket.getInputStream();
+            clientOut   = clientSocket.getOutputStream();
             serverIn    = servSock.getInputStream();
             serverOut   = servSock.getOutputStream();    
              
@@ -79,7 +79,7 @@ public class Connection implements Runnable {
             log.info("close connection");
         
             try{
-                cliSock.close();
+                clientSocket.close();
             }catch(IOException e){
                 log.error(e.toString());
             }
