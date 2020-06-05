@@ -1,11 +1,15 @@
 package org.horoyoii.http;
 
+import java.util.Map;
 import org.horoyoii.http.startLine.StartLine;
 
-abstract class HttpMessage {
+public abstract class HttpMessage {
 
     private StartLine startLine;
     
+    private Map<String, String> headers;
 
+    private String body;
 
+    
 }
