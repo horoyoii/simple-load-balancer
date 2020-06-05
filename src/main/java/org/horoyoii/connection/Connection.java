@@ -48,7 +48,7 @@ public class Connection implements Runnable {
         OutputStream    clientOut;
         InputStream     serverIn;
         OutputStream    serverOut;
-                 
+        
         try{
             servSock = new Socket(peer.getIp(), peer.getPort());
 
@@ -62,6 +62,11 @@ public class Connection implements Runnable {
             System.out.println(e);
             return;
         }
+        
+        log.info("----------------------------------");
+        readRequest(clientIn);
+        log.info("----------------------------------");
+                 
          
         
         // Forwading data from client to server and vice versa. 
@@ -70,6 +75,32 @@ public class Connection implements Runnable {
         
         log.info("I/O Bridge is starting");     
    }
+
+    void readRequest(InputStream inputStream){
+		
+        StringBuffer line = new StringBuffer();
+		int byteOfData = -1;
+
+		try {
+			while ((byteOfData = inputStream.read()) != -1) {
+				char readChar = (char) byteOfData;
+				System.out.print(readChar);
+
+				if (readChar == '\n') {
+					break;
+				} else {
+					if (readChar == '\r') {
+						continue;
+					}
+					line.append(readChar);
+				}
+			}
+		} catch (SocketTimeoutException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+        }
+    }
     
     public synchronized void closeConnection(){
         

@@ -13,5 +13,5 @@ public class ResponseStatusLine extends StartLine {
     private int statusCode;         //TODO : enum
     private String statusText;      // 
     
-
+    
 }
