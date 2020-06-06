@@ -1,72 +1,57 @@
 package org.horoyoii.http;
 
-import java.util.Map;
-import java.io.InputStream;
-import java.io.IOException;
-
+import lombok.Getter;
+import org.horoyoii.http.startLine.Header;
 import org.horoyoii.http.startLine.StartLine;
+import org.horoyoii.utils.HttpParseHelper;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+
+@Getter
 public abstract class HttpMessage {
 
-    private final static char CR = '\r';    // 0x0D
-    private final static char LF = '\n';    // 0x0A
+  StartLine startLine;
 
-    StartLine startLine;
-    
-    Map<String, String> headers;
+  Header header;
 
-    String body;
+  StringBuilder body;
 
-    
-    public HttpMessage(InputStream ins){
-        startLine = buildStartLine(ins);
-        System.out.println(startLine);        
-        
-        buildHeader(ins);
-        buildBody(ins);
-    }
-    
-    abstract StartLine buildStartLine(InputStream ins);
+  public HttpMessage(InputStream ins) {
 
-   
-    /**
-     * 
+    /*
+      build a start line
      */
-    StringBuffer getStartLineBuffer(InputStream inputStream){
-        StringBuffer sb = new StringBuffer();
+    startLine = buildStartLine(ins);
 
-        int readByte = -1;
+    /*
+      build headers
+     */
+    buildHeader(ins);
 
-        try{
-            
-            while((readByte = inputStream.read()) != -1){
-                char readChar = (char)readByte;
-                
-                if(readChar == LF){
-                    break;
-                }else{
-                    if(readChar == CR){
-                        continue;
-                    }
-                    sb.append(readChar);
-                }                        
-            }   
-        }
-        catch(IOException e){
-            //TODO;
-        }
-        
-        return sb;
-    }
+    /*
+      build a body
+     */
+    buildBody(ins);
+  }
 
-   
-    void buildHeader(InputStream inputStream){
+  abstract StartLine buildStartLine(InputStream ins);
 
-    }
+  String getStartLineBuffer(InputStream inputStream) {
+    return HttpParseHelper.getOneLine(inputStream);
+  }
 
-    
-    void buildBody(InputStream inputStream){
 
-    }
+  void buildHeader(InputStream inputStream) {
+    header = new Header(inputStream);
+  }
+
+
+  void buildBody(InputStream inputStream) {
+    // hasBody() booelean
+    body = new StringBuilder(Integer.parseInt(header.getHeader("contents-length")));
+    HttpParseHelper.parseBody(inputStream, body);
+  }
 
 }

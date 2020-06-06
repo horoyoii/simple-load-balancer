@@ -66,6 +66,7 @@ public class Connection implements Runnable {
         
         log.info("----------------------------------");
         HttpMessage hm = new HttpRequestMessage(clientIn);
+        System.out.println(hm.getBody());
 
         //readRequest(clientIn);
         
@@ -80,30 +81,37 @@ public class Connection implements Runnable {
         log.info("I/O Bridge is starting");     
    }
 
+
+    @Deprecated
     void readRequest(InputStream inputStream){
 		
         StringBuffer line = new StringBuffer();
 		int byteOfData = -1;
 
 		try {
+
 			while ((byteOfData = inputStream.read()) != -1) {
-				char readChar = (char) byteOfData;
+			    char readChar = (char) byteOfData;
 				System.out.print(readChar);
 
-				if (readChar == '\n') {
-					break;
-				} else {
-					if (readChar == '\r') {
-						continue;
-					}
-					line.append(readChar);
-				}
+//				if (readChar == '\n') {
+//					break;
+//				} else {
+//					if (readChar == '\r') {
+//						continue;
+//					}
+//					line.append(readChar);
+//
+			//}
 			}
 		} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
         }
+		System.out.println("closed()");
+		System.out.println(byteOfData);
+
     }
     
     public synchronized void closeConnection(){

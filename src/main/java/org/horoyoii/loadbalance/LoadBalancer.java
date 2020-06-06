@@ -4,15 +4,12 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
-import java.util.HashMap;
 
 
 import org.horoyoii.manager.PeerManager;
-import org.horoyoii.serverSelect.*;
 import org.horoyoii.connection.Connection;
 import org.horoyoii.model.Peer;
-import org.horoyoii.util.Configuration;
-import org.horoyoii.exception.AlgoNotValidException;
+import org.horoyoii.utils.Configuration;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +26,7 @@ public class LoadBalancer{
     private ExecutorService     executorService     = Executors.newFixedThreadPool(50);
 
     private ServerSocket        listenSock;     
-    private int                 port                = 9901;
+    private int                 port                = 9902;
            
     private final String        CONF_PATH           = "/home/horoyoii/Desktop/simple-load-balancer/load.conf";
   

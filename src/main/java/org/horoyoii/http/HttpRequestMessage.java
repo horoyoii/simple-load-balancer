@@ -19,8 +19,8 @@ public class HttpRequestMessage extends HttpMessage {
     @Override
     StartLine buildStartLine(InputStream inputStream){
         
-        StringBuffer sb = this.getStartLineBuffer(inputStream);        
-        StringTokenizer st = new StringTokenizer(sb.toString(), " ");
+        String sb = this.getStartLineBuffer(inputStream);
+        StringTokenizer st = new StringTokenizer(sb, " ");
         
         //TODO : try-catch for parse error 
         String method   = st.nextToken();

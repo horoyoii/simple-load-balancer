@@ -1,4 +1,4 @@
-package org.horoyoii.util;
+package org.horoyoii.utils;
 
 import java.io.*;
 
