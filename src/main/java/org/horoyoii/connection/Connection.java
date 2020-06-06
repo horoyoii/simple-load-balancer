@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 
 import org.horoyoii.manager.PeerManager;
 import org.horoyoii.model.Peer;
+import org.horoyoii.http.*;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,7 +65,10 @@ public class Connection implements Runnable {
         }
         
         log.info("----------------------------------");
-        readRequest(clientIn);
+        HttpMessage hm = new HttpRequestMessage(clientIn);
+
+        //readRequest(clientIn);
+        
         log.info("----------------------------------");
                  
          

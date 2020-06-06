@@ -19,7 +19,7 @@ class HttpResponseMessage extends HttpMessage {
     StartLine buildStartLine(InputStream ins){
         //TODO
         
-        return new ResponseStatusLine();      
+        return new ResponseStatusLine("mock", "mock", "mock");      
     }
 
 

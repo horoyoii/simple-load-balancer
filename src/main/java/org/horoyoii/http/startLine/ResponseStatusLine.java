@@ -13,5 +13,7 @@ public class ResponseStatusLine extends StartLine {
     private int statusCode;         //TODO : enum
     private String statusText;      // 
     
-    
+    public ResponseStatusLine(String protocol, String statusCode, String statusText){
+        super(protocol);   
+    }
 }

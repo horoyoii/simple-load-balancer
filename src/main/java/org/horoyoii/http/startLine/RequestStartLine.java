@@ -11,5 +11,17 @@ public class RequestStartLine extends StartLine {
 
     private String method;
     private String url;
-    
+
+
+    public RequestStartLine(String method, String url, String protocol){
+        super(protocol);
+
+        this.method = method;
+        this.url    = url;    
+    }
+
+    @Override
+    public String toString(){
+        return method+" "+url+" "+protocol;
+    }
 }
