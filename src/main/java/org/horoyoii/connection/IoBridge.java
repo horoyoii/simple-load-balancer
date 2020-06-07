@@ -48,8 +48,7 @@ class IoBridge implements Runnable{
             log.error(e.toString());
         }
 
-        //TODO : connection is end.
-        con.closeConnection();
+
     }
 }
 

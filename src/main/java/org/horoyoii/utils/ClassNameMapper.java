@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ClassNameMapper{
     
-    final static String                 path    = "org.horoyoii.serverSelect.";
+    final static String                 path    = "org.horoyoii.algo.";
     static HashMap<String, String>      info;
 
     static{

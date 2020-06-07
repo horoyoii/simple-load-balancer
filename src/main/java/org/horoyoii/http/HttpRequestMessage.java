@@ -31,5 +31,7 @@ public class HttpRequestMessage extends HttpMessage {
         return new RequestStartLine(method, url, protocol);
     }
 
-
+    public String getURL(){
+        return ((RequestStartLine)startLine).getUrl();
+    }
 }

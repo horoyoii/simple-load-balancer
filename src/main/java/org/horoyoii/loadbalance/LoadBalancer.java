@@ -54,11 +54,13 @@ public class LoadBalancer{
             try{
                     Socket cliSock = listenSock.accept();
                     log.info("Client connection arrive : {}", cliSock.getInetAddress().toString());                             
+
                     Peer peer = peerManager.getPeer(cliSock.getInetAddress());
                 
                     log.info("[{}] ====> [{}]", cliSock.getInetAddress().toString(), 
                                                     peer.getIp()+":"+peer.getPort());               
-                    executorService.execute(new Connection(executorService, peerManager, cliSock, peer));
+
+                    executorService.execute(new Connection(peerManager, cliSock));
                  
             }catch(IOException e){
                 System.out.println(e);

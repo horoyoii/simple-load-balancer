@@ -6,7 +6,7 @@ import org.horoyoii.http.startLine.StartLine;
 import org.horoyoii.http.startLine.ResponseStatusLine;
 
 
-class HttpResponseMessage extends HttpMessage {
+public class HttpResponseMessage extends HttpMessage {
 
 
     public HttpResponseMessage(InputStream ins){

@@ -2,72 +2,138 @@ package org.horoyoii.connection;
 
 import java.net.*;
 import java.io.*;
-import java.util.concurrent.ExecutorService;
-
 import org.horoyoii.manager.PeerManager;
 import org.horoyoii.model.Peer;
 import org.horoyoii.http.*;
 
 import lombok.extern.slf4j.Slf4j;
+import org.horoyoii.service.DirectoryResponseService;
+import org.horoyoii.service.ResponseService;
+import org.horoyoii.service.UpstreamResponseService;
 
 
 /**
+    Connection
 
-    Connection makes two streams.
+    1) Generate a HTTP Request Object from client's input stream.
+    2) Determine from where a response should come.
+        2-1) from directory.
+        2-2) from upstream server.
+    3) Generate a corresponding service object.
+    4) Run it.
 
-    One is for upstream which is the direction from the client to the proxy to the server.
-    The other is for downstream which is the direction from the server to the porxy to the client.
-
-    These two streams are running on two threads.
 */
 @Slf4j
 public class Connection implements Runnable {
     
     private Socket              clientSocket;
 
-    private Peer                peer;
-    private Socket              servSock;
-    
-    private boolean             isActive    = true;
+    private InputStream         clientIn;
+    private OutputStream        clientOut;
 
-    private ExecutorService     executorService;
+    private ResponseService     responseService;
+
     private PeerManager         peerManager;
 
-       
-    public Connection(ExecutorService executorService, PeerManager pm, Socket clientSocket, Peer peer){
-        this.executorService    = executorService;
+
+    public Connection(PeerManager pm, Socket clientSocket){
         this.peerManager        = pm;
         this.clientSocket       = clientSocket;
-        this.peer               = peer;   
     }
 
-      
-    @Override
-    public void run(){
-        
-        InputStream     clientIn;
-        OutputStream    clientOut;
-        InputStream     serverIn;
-        OutputStream    serverOut;
-        
-        try{
-            servSock = new Socket(peer.getIp(), peer.getPort());
 
+    /**
+     * build a input & output stream from client socket.
+     */
+    private void buildClientStream(){
+        try{
             clientIn    = clientSocket.getInputStream();
             clientOut   = clientSocket.getOutputStream();
-            serverIn    = servSock.getInputStream();
-            serverOut   = servSock.getOutputStream();    
-             
-        }catch(Exception e){
-            //TODO : throw it to the main.    
-            System.out.println(e);
-            return;
+        }catch(IOException e){
+            //TODO:
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private HttpRequestMessage readHttpRequest(){
+        return new HttpRequestMessage(clientIn);
+    }
+
+
+    private void writeHttpResponse(HttpResponseMessage httpResponseMessage){
+        //TODO : write socket
+    }
+
+
+    @Override
+    public void run(){
+        buildClientStream();
+
+        /*
+         *  1) Generate a HTTP Request Object from client's input stream.
+         */
+
+        HttpRequestMessage httpRequestMessage = readHttpRequest();
+        System.out.println(httpRequestMessage);
+
+
+        /*
+         * 2) Determine
+         */
+
+        boolean isStaticContents = false;
+
+
+        /*
+         * 3) Generate a corresponding service object.
+         */
+
+        if(isStaticContents){
+            log.info("static caching");
+            responseService = new DirectoryResponseService();
+
+        }else{
+            log.info("goto upstream server");
+            Peer peer = peerManager.getPeer(clientSocket.getInetAddress());
+            responseService = new UpstreamResponseService(peer);
+
         }
 
+        /*
+         * 4) Run it.
+         */
+        responseService.run(httpRequestMessage);
+
+
+        /*
+         * 5) Write it for waiting client.
+         */
+        HttpResponseMessage httpResponseMessage = responseService.getHttpResponseMessage();
+        writeHttpResponse(httpResponseMessage);
+
+
+
+
+        // First Step
         // Client  -----------> Proxy
 
-        HttpMessage hm = new HttpRequestMessage(clientIn);
-        System.out.println(hm);
+
+        //((HttpRequestMessage)hm).getURL();
+
+        /* pseudo code
+
+            url = hm.getUrl()
+            if url is registered in static cache list
+            then
+                go to static caching module
+            else
+                go to upstream server
+
+            return response
+
+         */
 
         //                      Proxy ------------->  Upstream Server
 
@@ -80,8 +146,8 @@ public class Connection implements Runnable {
 
 
         // Forwading data from client to server and vice versa. 
-        executorService.execute(new IoBridge(this, clientIn, serverOut));
-        executorService.execute(new IoBridge(this, serverIn, clientOut));
+        //executorService.execute(new IoBridge(this, clientIn, serverOut));
+        //executorService.execute(new IoBridge(this, serverIn, clientOut));
         
         log.info("I/O Bridge is starting");     
    }
@@ -119,28 +185,27 @@ public class Connection implements Runnable {
 
     }
     
-    public synchronized void closeConnection(){
-        
-        if(isActive){
-            isActive = false;
-                
-            log.info("close connection");
-        
-            try{
-                clientSocket.close();
-            }catch(IOException e){
-                log.error(e.toString());
-            }
-    
-            try{
-                servSock.close();
-            }catch(IOException e){
-                log.error(e.toString());
-            }
-            
-            peerManager.decreaseCount(peer);                 
-        }
-
-    }
+//    public synchronized void closeConnection(){
+//
+//        if(isActive){
+//            isActive = false;
+//
+//            log.info("close connection");
+//
+//            try{
+//                clientSocket.close();
+//            }catch(IOException e){
+//                log.error(e.toString());
+//            }
+//
+//            try{
+//                servSock.close();
+//            }catch(IOException e){
+//                log.error(e.toString());
+//            }
+//
+//            peerManager.decreaseCount(peer);
+//        }
+//    }
 }
 

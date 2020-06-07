@@ -2,7 +2,7 @@ package org.horoyoii.manager;
 
 import java.util.ArrayList;
 import java.net.InetAddress;
-import org.horoyoii.serverSelect.*;
+import org.horoyoii.algo.*;
 import org.horoyoii.model.Peer;
 import org.horoyoii.utils.ClassNameMapper;
 import org.horoyoii.exception.*;

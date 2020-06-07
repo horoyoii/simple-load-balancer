@@ -1,4 +1,4 @@
-package org.horoyoii.serverSelect;
+package org.horoyoii.algo;
 
 import java.net.InetAddress;
 import java.util.ArrayList;

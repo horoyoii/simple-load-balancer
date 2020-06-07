@@ -1,4 +1,4 @@
-package org.horoyoii.serverSelect;
+package org.horoyoii.algo;
 
 import org.horoyoii.model.Peer;
 import java.util.ArrayList;
