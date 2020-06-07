@@ -63,17 +63,22 @@ public class Connection implements Runnable {
             System.out.println(e);
             return;
         }
-        
-        log.info("----------------------------------");
-        HttpMessage hm = new HttpRequestMessage(clientIn);
-        System.out.println(hm.getBody());
 
-        //readRequest(clientIn);
-        
-        log.info("----------------------------------");
-                 
-         
-        
+        // Client  -----------> Proxy
+
+        HttpMessage hm = new HttpRequestMessage(clientIn);
+        System.out.println(hm);
+
+        //                      Proxy ------------->  Upstream Server
+
+
+
+        //                      Proxy <------------- Upstream Server
+
+
+        // Client <------------ Proxy
+
+
         // Forwading data from client to server and vice versa. 
         executorService.execute(new IoBridge(this, clientIn, serverOut));
         executorService.execute(new IoBridge(this, serverIn, clientOut));

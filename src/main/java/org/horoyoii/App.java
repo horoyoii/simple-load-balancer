@@ -7,6 +7,7 @@ package org.horoyoii;
 import org.horoyoii.loadbalance.LoadBalancer;
 
 public class App {
+
     public String getGreeting() {
         return "Hello world.";
     }

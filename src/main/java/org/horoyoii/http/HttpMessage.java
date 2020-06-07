@@ -33,25 +33,72 @@ public abstract class HttpMessage {
     /*
       build a body
      */
-    buildBody(ins);
+    if(hasBody())
+      buildBody(ins);
   }
 
+
+  /**
+   * Build a start line.
+   *
+   * @return StartLine
+   */
   abstract StartLine buildStartLine(InputStream ins);
+
+
+  /**
+   * Build Headers
+   *
+   */
+  void buildHeader(InputStream inputStream) {
+    header = new Header(inputStream);
+  }
+
+
+
+  /**
+   * Build a body if it exists
+   *
+   */
+  void buildBody(InputStream inputStream) {
+    // hasBody() booel
+    body = new StringBuilder(Integer.parseInt(header.getHeader(Header.CONTENT_LENGTH)));
+    HttpParseHelper.parseBody(inputStream, body);
+  }
+
+
+  /**
+   * Check this http message has a body.
+   *
+   *  @return
+   */
+  boolean hasBody(){
+    return header.getHeader(Header.CONTENT_LENGTH) != null;
+  }
+
+
+  public void showAllHeaders(){
+    System.out.println(header);
+  }
+
 
   String getStartLineBuffer(InputStream inputStream) {
     return HttpParseHelper.getOneLine(inputStream);
   }
 
 
-  void buildHeader(InputStream inputStream) {
-    header = new Header(inputStream);
-  }
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
 
+    sb.append(startLine);
+    sb.append(HttpParseHelper.CRLF);
+    sb.append(header);
 
-  void buildBody(InputStream inputStream) {
-    // hasBody() booelean
-    body = new StringBuilder(Integer.parseInt(header.getHeader("contents-length")));
-    HttpParseHelper.parseBody(inputStream, body);
+    if(hasBody())
+      sb.append(body);
+
+    return sb.toString();
   }
 
 }
