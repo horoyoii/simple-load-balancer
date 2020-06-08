@@ -2,6 +2,7 @@ package org.horoyoii.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.http.HttpRequestMessage;
+import org.horoyoii.http.HttpResponseMessage;
 import org.horoyoii.model.Peer;
 
 import java.io.IOException;
@@ -44,6 +45,11 @@ public class UpstreamResponseService extends ResponseService {
      */
     @Override
     public void run(HttpRequestMessage httpRequestMessage) {
+
+        /*
+         *                 Proxy ----------------->  Server
+         */
+
         log.info("write to server.");
         try{
             //TODO : charset is what?
@@ -52,7 +58,12 @@ public class UpstreamResponseService extends ResponseService {
             e.printStackTrace();
         }
 
-    }
 
+        /*
+         *                  Proxy <----------------- Server
+         */
+        log.info("foo===============");
+        httpResponseMessage = new HttpResponseMessage(serverIn);
+    }
 
 }

@@ -26,7 +26,7 @@ public class LoadBalancer{
     private ExecutorService     executorService     = Executors.newFixedThreadPool(50);
 
     private ServerSocket        listenSock;     
-    private int                 port                = 9903;
+    private int                 port                = 9904;
            
     private final String        CONF_PATH           = "/home/horoyoii/Desktop/simple-load-balancer/load.conf";
   

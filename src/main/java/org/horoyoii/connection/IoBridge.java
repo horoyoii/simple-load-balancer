@@ -9,10 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 
 
 /**
-* Gets a Client input stream and forwards it to server's output stream and vice versa.
-* 
-* 
-*/
+ *  Not used
+ *
+ *
+ */
 @Slf4j
 class IoBridge implements Runnable{
     private static final int BUFFER_SIZE = 1024;

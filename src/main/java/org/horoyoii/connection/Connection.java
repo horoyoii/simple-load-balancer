@@ -62,8 +62,20 @@ public class Connection implements Runnable {
     }
 
 
+    /**
+     * Send the response to client.
+     *
+     * @param httpResponseMessage
+     */
     private void writeHttpResponse(HttpResponseMessage httpResponseMessage){
-        //TODO : write socket
+
+        try{
+            //TODO : charset is what?
+            clientOut.write(httpResponseMessage.toString().getBytes());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -96,9 +108,9 @@ public class Connection implements Runnable {
 
         }else{
             log.info("goto upstream server");
+
             Peer peer = peerManager.getPeer(clientSocket.getInetAddress());
             responseService = new UpstreamResponseService(peer);
-
         }
 
         /*
@@ -111,9 +123,9 @@ public class Connection implements Runnable {
          * 5) Write it for waiting client.
          */
         HttpResponseMessage httpResponseMessage = responseService.getHttpResponseMessage();
+        log.debug(httpResponseMessage.toString());
+
         writeHttpResponse(httpResponseMessage);
-
-
 
 
         // First Step
@@ -148,8 +160,6 @@ public class Connection implements Runnable {
         // Forwading data from client to server and vice versa. 
         //executorService.execute(new IoBridge(this, clientIn, serverOut));
         //executorService.execute(new IoBridge(this, serverIn, clientOut));
-        
-        log.info("I/O Bridge is starting");     
    }
 
 
