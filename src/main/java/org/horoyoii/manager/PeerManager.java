@@ -2,6 +2,8 @@ package org.horoyoii.manager;
 
 import java.util.ArrayList;
 import java.net.InetAddress;
+import java.util.List;
+
 import org.horoyoii.algo.*;
 import org.horoyoii.model.Peer;
 import org.horoyoii.utils.ClassNameMapper;
@@ -19,14 +21,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PeerManager{
 
-    public static final String        DEFAULT_WEIGHT  = "1";
-    private ArrayList<Peer>        peerList        = new ArrayList<Peer>();
+    public static final String      DEFAULT_WEIGHT  = "1";
+    private List<Peer>              peerList        = new ArrayList<Peer>();
     
 
     /**
-     *    default object is RR.
+     *    default algorithm is RR.
      */
-    ServerSelector peerSelector = new RoundRobin();  
+    Algo algo = new RoundRobin();
   
         
     /**
@@ -40,14 +42,13 @@ public class PeerManager{
     public void add(String name, String ip, String port, String weight){
         peerList.add(new Peer(name, ip, Integer.parseInt(port), Integer.parseInt(weight)));
     }
-    
+
 
     /**
-     *   Set a method to select servers.
+     *   Set a algorithm to select servers.
      */
-    public void setServerSelector(String alias) throws Exception{    
-        
-        this.peerSelector = getServerSelectorFromAlias(alias);
+    public void setServerSelector(String alias) throws Exception{
+        this.algo = getServerSelectorFromAlias(alias);
     }
 
 
@@ -56,27 +57,32 @@ public class PeerManager{
      *   
      *   + increase the number of connection of the peer by 1.
      */
-    public Peer getPeer(InetAddress clientIp){
-        Peer peer = peerSelector.getPeer(peerList, clientIp);
+    public synchronized Peer getPeer(InetAddress clientIp){
+        Peer peer = algo.getPeer(peerList, clientIp);
+
         peer.increaseConnectionCount();
          
         return peer;
     }
 
-    
+
+    public synchronized void releasePeer(Peer peer){
+        decreaseCount(peer);
+    }
+
+
     //TODO : RENAME
-    public void decreaseCount(Peer peer){
+    private void decreaseCount(Peer peer){
         peer.decreaseConnectionCount();
     }
 
 
 
-
-    public ServerSelector getServerSelectorFromAlias(String classAlias) throws Exception{
-        ServerSelector ss = null;
+    public Algo getServerSelectorFromAlias(String classAlias) throws Exception{
+        Algo ss = null;
 
         try{
-            ss =(ServerSelector)Class.forName(ClassNameMapper.getClassName(classAlias))
+            ss =(Algo)Class.forName(ClassNameMapper.getClassName(classAlias))
                                                     .getDeclaredConstructor().newInstance();
         }catch(ClassNotFoundException e){
             throw new AlgoNotValidException(classAlias+" is not valid algorithm name");

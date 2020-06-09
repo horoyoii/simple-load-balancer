@@ -1,4 +1,4 @@
-package org.horoyoii.http.startLine;
+package org.horoyoii.http.header;
 
 import org.horoyoii.utils.HttpParseHelper;
 
@@ -8,8 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * In HTTP, Header is optional.
+ *
+ *
  */
 public class Header {
 
@@ -43,6 +44,21 @@ public class Header {
         return headers.get(key.toLowerCase().trim());
     }
 
+
+
+    /**
+     * Add header.
+     *  If this already exists, then overwrites it.
+     *
+     * @param key
+     * @param value
+     */
+    public void setHeader(String key, String value){
+        headers.put(key.toLowerCase(), value.toLowerCase());
+    }
+
+
+
     @Override
     public String toString(){
         if(headers.isEmpty()) return null;
@@ -59,6 +75,5 @@ public class Header {
 
         return sb.toString();
     }
-
 
 }

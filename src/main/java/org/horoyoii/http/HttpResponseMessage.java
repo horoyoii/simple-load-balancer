@@ -3,6 +3,7 @@ package org.horoyoii.http;
 import java.io.InputStream;
 import java.util.StringTokenizer;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.http.HttpMessage;
 import org.horoyoii.http.startLine.RequestStartLine;
@@ -16,7 +17,10 @@ public class HttpResponseMessage extends HttpMessage {
 
     public HttpResponseMessage(InputStream ins){
         super(ins);
-         
+    }
+
+    public HttpResponseMessage() {
+
     }
 
 
@@ -34,7 +38,6 @@ public class HttpResponseMessage extends HttpMessage {
 
         return new ResponseStatusLine(protocol, statusCode, statusText);
     }
-
 
 }
 

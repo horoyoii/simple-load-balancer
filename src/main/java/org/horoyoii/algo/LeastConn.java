@@ -2,6 +2,7 @@ package org.horoyoii.algo;
 
 import java.util.ArrayList;
 import java.net.InetAddress;
+import java.util.List;
 
 import org.horoyoii.model.Peer;
 
@@ -13,10 +14,10 @@ import org.horoyoii.model.Peer;
     In the NGINX source codes, it uses the linked list for least connection method.
     
 */
-public class LeastConn implements ServerSelector{
+public class LeastConn implements Algo {
   
     @Override
-    public Peer getPeer(ArrayList<Peer> peers, InetAddress clientIp){ 
+    public Peer getPeer(List<Peer> peers, InetAddress clientIp){
         Peer best = null;
 
         for(Peer peer : peers){

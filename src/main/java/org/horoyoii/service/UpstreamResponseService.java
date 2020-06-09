@@ -3,6 +3,7 @@ package org.horoyoii.service;
 import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.http.HttpRequestMessage;
 import org.horoyoii.http.HttpResponseMessage;
+import org.horoyoii.manager.PeerManager;
 import org.horoyoii.model.Peer;
 
 import java.io.IOException;
@@ -16,18 +17,22 @@ import java.net.Socket;
  *  Create a Http response based on upstream server.
  */
 @Slf4j
-public class UpstreamResponseService extends ResponseService {
+public class UpstreamResponseService implements ResponseService {
 
     private Socket serverSock;
     private InputStream serverIn;
     private OutputStream serverOut;
 
-    public UpstreamResponseService(Peer peer) {
+    private PeerManager peerManager;
+    private Peer peer;
+
+    public UpstreamResponseService(PeerManager peerManager, Peer peer) {
+        this.peerManager = peerManager;
+        this.peer        = peer;
+
 
         try {
-
             serverSock = new Socket(peer.getIp(), peer.getPort());
-
             serverIn = serverSock.getInputStream();
             serverOut = serverSock.getOutputStream();
 
@@ -38,19 +43,18 @@ public class UpstreamResponseService extends ResponseService {
     }
 
 
+
     /**
      * Get a result from upstream server.
      *
       * @param httpRequestMessage
      */
     @Override
-    public void run(HttpRequestMessage httpRequestMessage) {
+    public HttpResponseMessage getHttpResponseMessage(HttpRequestMessage httpRequestMessage) {
 
         /*
          *                 Proxy ----------------->  Server
          */
-
-        log.info("write to server.");
         try{
             //TODO : charset is what?
             serverOut.write(httpRequestMessage.toString().getBytes());
@@ -59,11 +63,26 @@ public class UpstreamResponseService extends ResponseService {
         }
 
 
+
         /*
          *                  Proxy <----------------- Server
          */
-        log.info("foo===============");
-        httpResponseMessage = new HttpResponseMessage(serverIn);
+        return new HttpResponseMessage(serverIn);
+    }
+
+    @Override
+    public void close(){
+        try{
+            serverOut.close();
+            if(serverSock.isClosed()){
+                log.info("This socket is closed ");
+            }else
+                serverSock.close();
+        }catch (IOException e){
+            log.info(e.toString());
+        }finally{
+            peerManager.releasePeer(peer);
+        }
     }
 
 }

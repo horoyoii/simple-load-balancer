@@ -7,16 +7,9 @@ import org.horoyoii.http.HttpResponseMessage;
  * get a http response.
  *
  */
-public abstract class ResponseService {
+public interface ResponseService {
 
-    HttpResponseMessage httpResponseMessage;
+    HttpResponseMessage getHttpResponseMessage(HttpRequestMessage httpRequestMessage);
 
-    public abstract void run(HttpRequestMessage httpRequestMessage);
-
-    public HttpResponseMessage getHttpResponseMessage(){
-        return httpResponseMessage;
-    }
-
-
-
+    void close();
 }

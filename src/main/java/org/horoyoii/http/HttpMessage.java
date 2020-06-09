@@ -1,15 +1,15 @@
 package org.horoyoii.http;
 
 import lombok.Getter;
-import org.horoyoii.http.startLine.Header;
+import lombok.NoArgsConstructor;
+import org.horoyoii.http.header.Header;
 import org.horoyoii.http.startLine.StartLine;
 import org.horoyoii.utils.HttpParseHelper;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 
 @Getter
+@NoArgsConstructor
 public abstract class HttpMessage {
 
   StartLine startLine;
@@ -54,6 +54,9 @@ public abstract class HttpMessage {
     header = new Header(inputStream);
   }
 
+  public void addHeader(String key, String value){
+    header.setHeader(key, value);
+  }
 
 
   /**

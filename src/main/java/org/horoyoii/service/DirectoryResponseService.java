@@ -1,12 +1,17 @@
 package org.horoyoii.service;
 
 import org.horoyoii.http.HttpRequestMessage;
+import org.horoyoii.http.HttpResponseMessage;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.http.HttpResponse;
 
 /**
  * Create a HTTP response based on a file system.
  *
  */
-public class DirectoryResponseService extends ResponseService{
+public class DirectoryResponseService implements ResponseService{
 
     /**
      * Get a result from file system.
@@ -14,8 +19,23 @@ public class DirectoryResponseService extends ResponseService{
      * @param httpRequestMessage
      */
     @Override
-    public void run(HttpRequestMessage httpRequestMessage) {
+    public HttpResponseMessage getHttpResponseMessage(HttpRequestMessage httpRequestMessage) {
+
+        String Url = httpRequestMessage.getURL();
+
+        makeFilePath();
+
+
+        // httpRequestMessage = new HttpRequestMessage();
+        return new HttpResponseMessage();
+    }
+
+    @Override
+    public void close() {
 
     }
 
+    void makeFilePath(){
+
+    }
 }
