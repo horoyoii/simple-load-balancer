@@ -3,6 +3,7 @@ package org.horoyoii.http;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.horoyoii.http.header.Header;
+import org.horoyoii.http.header.HeaderDirective;
 import org.horoyoii.http.startLine.StartLine;
 import org.horoyoii.utils.HttpParseHelper;
 
@@ -54,7 +55,7 @@ public abstract class HttpMessage {
     header = new Header(inputStream);
   }
 
-  public void addHeader(String key, String value){
+  public void addHeader(HeaderDirective key, HeaderDirective value){
     header.setHeader(key, value);
   }
 

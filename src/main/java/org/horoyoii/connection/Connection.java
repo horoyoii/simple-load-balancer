@@ -2,6 +2,8 @@ package org.horoyoii.connection;
 
 import java.net.*;
 import java.io.*;
+
+import org.horoyoii.http.header.HeaderDirective;
 import org.horoyoii.manager.PeerManager;
 import org.horoyoii.model.Peer;
 import org.horoyoii.http.*;
@@ -78,7 +80,7 @@ public class Connection implements Runnable {
         /*
          * Client <------------------ Proxy
          */
-        httpRequestMessage.addHeader("connection", "close");
+        httpRequestMessage.addHeader(HeaderDirective.CONNECTION, HeaderDirective.CLOSE);
         HttpResponseMessage httpResponseMessage = responseService.getHttpResponseMessage(httpRequestMessage);
         writeHttpResponse(httpResponseMessage);
 

@@ -16,9 +16,7 @@ public class HttpParseHelper {
     public static final String CRLF = "\r\n";
 
     public static void parseBody(InputStream inputStream, StringBuilder sb){
-        log.debug("parseBody start=================");
         int contentsSize = sb.capacity();
-        log.debug("con size"+contentsSize);
 
         try {
             //TODO :

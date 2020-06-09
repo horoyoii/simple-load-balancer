@@ -53,8 +53,8 @@ public class Header {
      * @param key
      * @param value
      */
-    public void setHeader(String key, String value){
-        headers.put(key.toLowerCase(), value.toLowerCase());
+    public void setHeader(HeaderDirective key, HeaderDirective value){
+        headers.put(key.getDirective(), value.getDirective());
     }
 
 
