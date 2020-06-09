@@ -15,6 +15,9 @@ public class Peer{
     private int     conns  = 0;         // the number of current connection to this peer.    
 
 
+    private boolean down;
+
+
     public Peer(String name, String ip, int port){
         this.ip     = ip;
         this.port   = port;

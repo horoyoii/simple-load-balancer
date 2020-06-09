@@ -57,7 +57,7 @@ public class Connection implements Runnable {
          * 2) Client ----------------> Proxy
          */
         HttpRequestMessage httpRequestMessage = new HttpRequestMessage(clientIn);
-
+        log.debug(httpRequestMessage.getStartLine().toString());
 
         /*
          * 3) Determine
@@ -66,12 +66,9 @@ public class Connection implements Runnable {
         boolean isStaticContents = false;
 
         if(isStaticContents){
-            log.info("static caching");
             responseService = new DirectoryResponseService();
 
         }else{
-            log.info("goto upstream server");
-
             Peer peer = peerManager.getPeer(clientSocket.getInetAddress());
             responseService = new UpstreamResponseService(peerManager, peer);
         }
@@ -103,9 +100,6 @@ public class Connection implements Runnable {
 
     }
 
-//    private void oneWay(){
-//        HttpResponseMessage httpResponseMessage =
-//    }
 
     private HttpRequestMessage readHttpRequest(){
         return new HttpRequestMessage(clientIn);
@@ -118,8 +112,6 @@ public class Connection implements Runnable {
      * @param httpResponseMessage
      */
     private void writeHttpResponse(HttpResponseMessage httpResponseMessage){
-        log.info("write : client <---------- Proxy");
-
         try{
             //TODO : charset is what?
             clientOut.write(httpResponseMessage.toString().getBytes());
@@ -128,56 +120,6 @@ public class Connection implements Runnable {
         }
 
     }
-
-
-
-
-
-//    //@Override
-//    public void run0(){
-//
-//        /*
-//         *  1) Generate a HTTP Request Object from client's input stream.
-//         */
-//        HttpRequestMessage httpRequestMessage = readHttpRequest();
-//        log.debug(httpRequestMessage.toString());
-//
-//
-//        /*
-//         * 2) Determine
-//         */
-//        boolean isStaticContents = false;
-//
-//
-//        /*
-//         * 3) Generate a corresponding service object.
-//         */
-//        if(isStaticContents){
-//            log.info("static caching");
-//            responseService = new DirectoryResponseService();
-//
-//        }else{
-//            log.info("goto upstream server");
-//
-//            Peer peer = peerManager.getPeer(clientSocket.getInetAddress());
-//            responseService = new UpstreamResponseService(peer);
-//        }
-//
-//        /*
-//         * 4) Run it.
-//         */
-//        responseService.run(httpRequestMessage);
-//
-//
-//        /*
-//         * 5) Write it for waiting client.
-//         */
-//        HttpResponseMessage httpResponseMessage = responseService.getHttpResponseMessage();
-//        log.debug(httpResponseMessage.toString());
-//
-//        writeHttpResponse(httpResponseMessage);
-//   }
-
 
 
 //    public synchronized void closeConnection(){

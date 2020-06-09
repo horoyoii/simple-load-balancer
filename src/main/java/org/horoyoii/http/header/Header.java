@@ -14,8 +14,6 @@ import java.util.Map;
  */
 public class Header {
 
-    public final static String CONTENT_LENGTH = "content-length";
-
     private Map<String, String> headers = new HashMap<>();
 
     public Header(InputStream inputStream){

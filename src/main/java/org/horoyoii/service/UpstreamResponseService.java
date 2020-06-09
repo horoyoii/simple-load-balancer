@@ -57,11 +57,10 @@ public class UpstreamResponseService implements ResponseService {
          */
         try{
             //TODO : charset is what?
-            serverOut.write(httpRequestMessage.toString().getBytes());
+            serverOut.write(httpRequestMessage.toString().getBytes("EUC_KR"));
         }catch (IOException e){
             e.printStackTrace();
         }
-
 
 
         /*
@@ -74,9 +73,7 @@ public class UpstreamResponseService implements ResponseService {
     public void close(){
         try{
             serverOut.close();
-            if(serverSock.isClosed()){
-                log.info("This socket is closed ");
-            }else
+            if(!serverSock.isClosed())
                 serverSock.close();
         }catch (IOException e){
             log.info(e.toString());

@@ -66,7 +66,7 @@ public abstract class HttpMessage {
    */
   void buildBody(InputStream inputStream) {
     // hasBody() booel
-    body = new StringBuilder(Integer.parseInt(header.getHeader(Header.CONTENT_LENGTH)));
+    body = new StringBuilder(Integer.parseInt(header.getHeader(HeaderDirective.CONTENT_LENGTH.getDirective())));
     HttpParseHelper.parseBody(inputStream, body);
   }
 
@@ -77,7 +77,7 @@ public abstract class HttpMessage {
    *  @return
    */
   boolean hasBody(){
-    return header.getHeader(Header.CONTENT_LENGTH) != null;
+    return header.getHeader(HeaderDirective.CONTENT_LENGTH.getDirective()) != null;
   }
 
 

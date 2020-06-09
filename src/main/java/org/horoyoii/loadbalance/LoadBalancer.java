@@ -1,7 +1,9 @@
 package org.horoyoii.loadbalance;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.net.*;
+import java.nio.charset.Charset;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 
@@ -34,7 +36,6 @@ public class LoadBalancer{
  
 
     public void init(){
-        log.info("Initialization...");
         initPeerManager();
         initServerSocket();
     }
@@ -48,18 +49,12 @@ public class LoadBalancer{
     public void run(){
         log.info("running on PORT         : [{}]", this.port);
         peerManager.showList();
-                 
+
+
         while(true){
                 
             try{
                     Socket cliSock = listenSock.accept();
-                    log.info("Client connection arrive : {}", cliSock.getInetAddress().toString());                             
-
-                    Peer peer = peerManager.getPeer(cliSock.getInetAddress());
-                
-                    log.info("[{}] ====> [{}]", cliSock.getInetAddress().toString(), 
-                                                    peer.getIp()+":"+peer.getPort());               
-
                     executorService.execute(new Connection(peerManager, cliSock));
                  
             }catch(IOException e){

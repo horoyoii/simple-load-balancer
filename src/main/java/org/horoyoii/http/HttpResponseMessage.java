@@ -26,10 +26,8 @@ public class HttpResponseMessage extends HttpMessage {
 
     @Override
     StartLine buildStartLine(InputStream inputStream){
-        log.debug("buildStartLine in Response");
 
         String sb = this.getStartLineBuffer(inputStream);
-        log.debug(sb);
         StringTokenizer st = new StringTokenizer(sb, " ");
 
         String protocol     = st.nextToken();

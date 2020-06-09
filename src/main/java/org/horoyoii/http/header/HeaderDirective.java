@@ -2,6 +2,9 @@ package org.horoyoii.http.header;
 
 public enum HeaderDirective {
 
+    CONTENT_LENGTH("content-length"),
+
+
     CONNECTION("connection"),
 
     CLOSE("close"),

@@ -61,13 +61,14 @@ public class PeerManager{
         Peer peer = algo.getPeer(peerList, clientIp);
 
         peer.increaseConnectionCount();
-         
+        log.debug("opened : current connection cnt : "+peer.getConns());
         return peer;
     }
 
 
     public synchronized void releasePeer(Peer peer){
         decreaseCount(peer);
+        log.debug("closed : current connection cnt : "+peer.getConns());
     }
 
 
