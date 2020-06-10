@@ -121,28 +121,5 @@ public class Connection implements Runnable {
 
     }
 
-
-//    public synchronized void closeConnection(){
-//
-//        if(isActive){
-//            isActive = false;
-//
-//            log.info("close connection");
-//
-//            try{
-//                clientSocket.close();
-//            }catch(IOException e){
-//                log.error(e.toString());
-//            }
-//
-//            try{
-//                servSock.close();
-//            }catch(IOException e){
-//                log.error(e.toString());
-//            }
-//
-//            peerManager.decreaseCount(peer);
-//        }
-//    }
 }
 

@@ -16,7 +16,7 @@ public class Peer{
 
 
     private boolean down;
-
+    private long    tot = 0;
 
     public Peer(String name, String ip, int port){
         this.ip     = ip;
@@ -31,7 +31,8 @@ public class Peer{
     }   
 
     public void increaseConnectionCount(){
-        conns += 1;   
+        conns += 1;
+        tot++;
     }
 
     public void decreaseConnectionCount(){

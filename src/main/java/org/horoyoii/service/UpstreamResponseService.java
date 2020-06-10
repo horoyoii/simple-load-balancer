@@ -51,23 +51,39 @@ public class UpstreamResponseService implements ResponseService {
      */
     @Override
     public HttpResponseMessage getHttpResponseMessage(HttpRequestMessage httpRequestMessage) {
+        //log.debug(httpRequestMessage.toString());
 
         /*
          *                 Proxy ----------------->  Server
          */
-        try{
-            //TODO : charset is what?
-            serverOut.write(httpRequestMessage.toString().getBytes("EUC_KR"));
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        sendRequestToUpstream(httpRequestMessage);
 
 
         /*
          *                  Proxy <----------------- Server
          */
-        return new HttpResponseMessage(serverIn);
+        HttpResponseMessage httpResponseMessage = new HttpResponseMessage(serverIn);
+        //log.debug(httpResponseMessage.toString());
+
+
+        return httpResponseMessage;
     }
+
+
+    /**
+     * Send HttpRequestMessage to upstream peer with socket io.
+     *
+     * @param httpRequestMessage
+     */
+    private void sendRequestToUpstream(HttpRequestMessage httpRequestMessage){
+        try{
+            //TODO : charset is what?
+            serverOut.write(httpRequestMessage.toString().getBytes());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void close(){

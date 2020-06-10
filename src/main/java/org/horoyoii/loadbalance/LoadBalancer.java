@@ -54,8 +54,8 @@ public class LoadBalancer{
         while(true){
                 
             try{
-                    Socket cliSock = listenSock.accept();
-                    executorService.execute(new Connection(peerManager, cliSock));
+                Socket cliSock = listenSock.accept();
+                executorService.execute(new Connection(peerManager, cliSock));
                  
             }catch(IOException e){
                 System.out.println(e);
@@ -81,6 +81,8 @@ public class LoadBalancer{
             System.exit(0);
         }
     }
+
+
 
     /**
      *  Create a Peer Manager.

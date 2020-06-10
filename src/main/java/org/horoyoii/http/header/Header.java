@@ -65,7 +65,7 @@ public class Header {
 
         for(Map.Entry<String, String> entry : headers.entrySet()){
             sb.append(entry.getKey());
-            sb.append(":");
+            sb.append(": ");
             sb.append(entry.getValue());
             sb.append(HttpParseHelper.CRLF);
         }

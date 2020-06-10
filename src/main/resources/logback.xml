@@ -24,6 +24,5 @@
 
     <root level="debug">
         <appender-ref ref="CONSOLE"/> <!-- Console에 로그를 출력하고자 할 때 사용 -->
-        <appender-ref ref="FILE"/> <!-- File로 로그를 남기고자 할 때 사용 -->
     </root>
 </configuration>

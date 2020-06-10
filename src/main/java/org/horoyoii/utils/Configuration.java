@@ -31,12 +31,11 @@ public class Configuration {
                     if(splits[0].equals("algo"))
                     {           
                         try{         
-                            peerManager.setServerSelector(splits[1]);
+                            peerManager.setLoadBalancingAlgorithm(splits[1]);
                         }catch(AlgoNotValidException a){
-                            //TODO: use global exception handler?? 
-                            // setDefaultUncaughtExceptionHandler();
-                            
-                            a.printStackTrace();
+                            log.error(a.getMessage());
+                            a.soWhat();
+
                             System.exit(0);     
                         }catch(Exception e){
                             System.exit(0);
