@@ -29,8 +29,15 @@ public class PeerManager{
      *    default algorithm is RR.
      */
     Algo algo = new RoundRobin();
-  
-    
+
+    /**
+     *  Add a upstream server information to the List.
+     *
+     * @param name
+     * @param ip
+     * @param port
+     * @param weight
+     */
     public void add(String name, String ip, String port, String weight){
         peerList.add(new Peer(name, ip, Integer.parseInt(port), Integer.parseInt(weight)));
     }
@@ -45,7 +52,7 @@ public class PeerManager{
 
 
     /**
-     *   Retreive the peer which is selected based on algo.    
+     *   Retrieve the peer which is selected based on algo.
      *   
      *   + increase the number of connection of the peer by 1.
      */
@@ -59,7 +66,6 @@ public class PeerManager{
 
     public synchronized void releasePeer(Peer peer){
         decreaseCount(peer);
-        log.info(peer.getPort() +" - tot :"+peer.getTot());
     }
 
 
@@ -67,6 +73,7 @@ public class PeerManager{
     private void decreaseCount(Peer peer){
         peer.decreaseConnectionCount();
     }
+
 
 
 

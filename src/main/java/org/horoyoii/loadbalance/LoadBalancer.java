@@ -56,7 +56,7 @@ public class LoadBalancer{
             try{
                 Socket cliSock = listenSock.accept();
                 executorService.execute(new Connection(peerManager, cliSock));
-                 
+
             }catch(IOException e){
                 System.out.println(e);
             }
@@ -71,7 +71,6 @@ public class LoadBalancer{
      *   @throws IOException
      */
     private void initServerSocket(){
-        log.info("server socket creation...");
 
         try{
             listenSock = new ServerSocket(this.port);

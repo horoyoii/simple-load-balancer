@@ -36,7 +36,7 @@ public class Connection implements Runnable {
     private ResponseService     responseService;
     private PeerManager         peerManager;
 
-    private boolean             isKeepAlive;
+    private boolean             isKeepAlive = false;
 
 
     public Connection(PeerManager pm, Socket clientSocket){
@@ -57,7 +57,11 @@ public class Connection implements Runnable {
          * 2) Client ----------------> Proxy
          */
         HttpRequestMessage httpRequestMessage = new HttpRequestMessage(clientIn);
-        log.debug(httpRequestMessage.getStartLine().toString());
+        log.info(httpRequestMessage.getStartLine().toString());
+
+        if(!isKeepAlive)
+            httpRequestMessage.addHeader(HeaderDirective.CONNECTION, HeaderDirective.CLOSE);
+
 
         /*
          * 3) Determine
@@ -85,9 +89,14 @@ public class Connection implements Runnable {
         /*
          * Client <------------------ Proxy
          */
-        httpRequestMessage.addHeader(HeaderDirective.CONNECTION, HeaderDirective.CLOSE);
         HttpResponseMessage httpResponseMessage = responseService.getHttpResponseMessage(httpRequestMessage);
+
+
+        if(!isKeepAlive)
+            httpResponseMessage.addHeader(HeaderDirective.CONNECTION, HeaderDirective.CLOSE);
+
         writeHttpResponse(httpResponseMessage);
+
 
         responseService.close();
     }
@@ -123,6 +132,7 @@ public class Connection implements Runnable {
         try{
             //TODO : charset is what?
             clientOut.write(httpResponseMessage.toString().getBytes());
+            clientOut.write(httpResponseMessage.body.array());
         }catch (IOException e){
             e.printStackTrace();
         }

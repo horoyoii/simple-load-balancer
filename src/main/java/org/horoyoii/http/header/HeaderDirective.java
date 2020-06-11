@@ -4,6 +4,8 @@ public enum HeaderDirective {
 
     CONTENT_LENGTH("content-length"),
 
+    TRANSFER_ENCODING("transfer-encoding"),
+
 
     CONNECTION("connection"),
 

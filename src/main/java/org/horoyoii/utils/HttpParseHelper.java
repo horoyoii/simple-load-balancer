@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 @Slf4j
 public class HttpParseHelper {
@@ -15,20 +16,19 @@ public class HttpParseHelper {
 
     public static final String CRLF = "\r\n";
 
-    public static void parseBody(InputStream inputStream, StringBuilder sb){
+    public static void parseBody(InputStream inputStream, ByteBuffer sb){
         int contentsSize = sb.capacity();
 
         try {
             //TODO :
             for(int i=0; i < contentsSize; i++){
-                char readChar = (char)inputStream.read();
-                sb.append(readChar);
+                int readB = inputStream.read();
+                sb.put((byte)readB);
             }
 
         } catch (IOException e) {
             // TODO;
         }
-
     }
 
     /**
@@ -38,7 +38,6 @@ public class HttpParseHelper {
      * @return
      */
     public static String getOneLine(InputStream inputStream){
-
         StringBuffer sb = new StringBuffer();
 
         int readByte = -1;
@@ -47,7 +46,6 @@ public class HttpParseHelper {
 
             while ((readByte = inputStream.read()) != -1) {
                 char readChar = (char) readByte;
-
                 if (readChar == LF) {
                     break;
                 } else {
@@ -59,6 +57,7 @@ public class HttpParseHelper {
             }
         } catch (IOException e) {
             // TODO;
+            log.error(e.toString());
         }
 
         return sb.toString();

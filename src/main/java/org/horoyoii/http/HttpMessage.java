@@ -7,7 +7,10 @@ import org.horoyoii.http.header.HeaderDirective;
 import org.horoyoii.http.startLine.StartLine;
 import org.horoyoii.utils.HttpParseHelper;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 @Getter
 @NoArgsConstructor
@@ -17,7 +20,7 @@ public abstract class HttpMessage {
 
   Header header;
 
-  StringBuilder body;
+  public ByteBuffer body;
 
   public HttpMessage(InputStream ins) {
 
@@ -31,9 +34,11 @@ public abstract class HttpMessage {
      */
     buildHeader(ins);
 
+
     /*
       build a body
      */
+
     if(hasBody())
       buildBody(ins);
   }
@@ -65,14 +70,17 @@ public abstract class HttpMessage {
    *
    */
   void buildBody(InputStream inputStream) {
-    // hasBody() booel
-    body = new StringBuilder(Integer.parseInt(header.getHeader(HeaderDirective.CONTENT_LENGTH.getDirective())));
+
+    body = ByteBuffer.allocate(Integer.parseInt(header.getHeader(HeaderDirective.CONTENT_LENGTH.getDirective())));
     HttpParseHelper.parseBody(inputStream, body);
+
   }
+
 
 
   /**
    * Check this http message has a body.
+   *  If "content-length" or "transfer-encoding" field exists,
    *
    *  @return
    */
@@ -80,10 +88,6 @@ public abstract class HttpMessage {
     return header.getHeader(HeaderDirective.CONTENT_LENGTH.getDirective()) != null;
   }
 
-
-  public void showAllHeaders(){
-    System.out.println(header);
-  }
 
 
   String getStartLineBuffer(InputStream inputStream) {
@@ -93,14 +97,17 @@ public abstract class HttpMessage {
 
   @Override
   public String toString() {
+
     StringBuilder sb = new StringBuilder();
 
     sb.append(startLine);
     sb.append(HttpParseHelper.CRLF);
     sb.append(header);
 
-    if(hasBody())
-      sb.append(body);
+//    if (hasBody()) {
+//      System.out.println(new String(body.array()));
+//      sb.append(Arrays.toString(body.array()));
+//    }
 
     return sb.toString();
   }

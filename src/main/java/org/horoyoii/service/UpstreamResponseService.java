@@ -3,6 +3,7 @@ package org.horoyoii.service;
 import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.http.HttpRequestMessage;
 import org.horoyoii.http.HttpResponseMessage;
+import org.horoyoii.http.header.HeaderDirective;
 import org.horoyoii.manager.PeerManager;
 import org.horoyoii.model.Peer;
 
@@ -10,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-
+import java.net.http.HttpHeaders;
 
 
 /**
@@ -32,7 +33,9 @@ public class UpstreamResponseService implements ResponseService {
 
 
         try {
+            //TODO:
             serverSock = new Socket(peer.getIp(), peer.getPort());
+
             serverIn = serverSock.getInputStream();
             serverOut = serverSock.getOutputStream();
 
@@ -63,8 +66,6 @@ public class UpstreamResponseService implements ResponseService {
          *                  Proxy <----------------- Server
          */
         HttpResponseMessage httpResponseMessage = new HttpResponseMessage(serverIn);
-        //log.debug(httpResponseMessage.toString());
-
 
         return httpResponseMessage;
     }
