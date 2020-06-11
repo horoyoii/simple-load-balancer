@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PeerManager{
 
     public static final String      DEFAULT_WEIGHT  = "1";
+
     private List<Peer>              peerList        = new ArrayList<Peer>();
     
 

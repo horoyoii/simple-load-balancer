@@ -69,7 +69,15 @@ public class Connection implements Runnable {
             responseService = new DirectoryResponseService();
 
         }else{
+
+            /*
+             * If all of the upstream servers are down, then servers 502 bad gateway response
+             */
             Peer peer = peerManager.getPeer(clientSocket.getInetAddress());
+            if(peer == null){
+                //TODO : serve 502
+            }
+
             responseService = new UpstreamResponseService(peerManager, peer);
         }
 
