@@ -37,5 +37,6 @@ public class HttpResponseMessage extends HttpMessage {
         return new ResponseStatusLine(protocol, statusCode, statusText);
     }
 
+
 }
 

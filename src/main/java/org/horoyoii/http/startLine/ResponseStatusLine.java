@@ -1,6 +1,8 @@
 package org.horoyoii.http.startLine;
 
 
+import lombok.Builder;
+
 /**
  * 
  * Format : [Protocol Version] [Status Code] [Status Text]

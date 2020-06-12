@@ -77,13 +77,10 @@ public class Connection implements Runnable {
             /*
              * If all of the upstream servers are down, then servers 502 bad gateway response
              */
-            Peer peer = peerManager.getPeer(clientSocket.getInetAddress());
-            if(peer == null){
-                //TODO : serve 502
-            }
-
-            responseService = new UpstreamResponseService(peerManager, peer);
+            responseService = new UpstreamResponseService(peerManager, clientSocket);
         }
+
+
 
 
         /*
@@ -92,12 +89,14 @@ public class Connection implements Runnable {
         HttpResponseMessage httpResponseMessage = responseService.getHttpResponseMessage(httpRequestMessage);
 
 
+
         if(!isKeepAlive)
             httpResponseMessage.addHeader(HeaderDirective.CONNECTION, HeaderDirective.CLOSE);
 
         writeHttpResponse(httpResponseMessage);
 
 
+        //TODO : handle this when the response was not from upstream server.
         responseService.close();
     }
 

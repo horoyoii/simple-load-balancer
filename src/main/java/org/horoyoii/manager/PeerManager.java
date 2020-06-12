@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.horoyoii.algo.*;
 import org.horoyoii.exception.AlgoNotValidException;
+import org.horoyoii.exception.NoLiveUpstreamException;
 import org.horoyoii.model.Peer;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,13 +54,18 @@ public class PeerManager{
 
     /**
      *   Retrieve the peer which is selected based on algo.
-     *   
+     *
      *   + increase the number of connection of the peer by 1.
+     *   @Return
+     *
      */
-    public synchronized Peer getPeer(InetAddress clientIp){
-        Peer peer = algo.getPeer(peerList, clientIp);
-        peer.increaseConnectionCount();
+    public synchronized Peer getPeer(InetAddress clientIp) throws NoLiveUpstreamException {
+        Peer peer = null; //algo.getPeer(peerList, clientIp);
 
+        if(peer == null)
+            throw new NoLiveUpstreamException("no live upstreams while connecting to upstream");
+
+        peer.increaseConnectionCount();
         return peer;
     }
 

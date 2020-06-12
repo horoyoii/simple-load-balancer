@@ -1,11 +1,13 @@
 package org.horoyoii.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.horoyoii.exception.NoLiveUpstreamException;
 import org.horoyoii.http.HttpRequestMessage;
 import org.horoyoii.http.HttpResponseMessage;
 import org.horoyoii.http.header.HeaderDirective;
 import org.horoyoii.manager.PeerManager;
 import org.horoyoii.model.Peer;
+import org.horoyoii.utils.HttpErrorResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,21 +17,27 @@ import java.net.http.HttpHeaders;
 
 
 /**
- *  Create a Http response based on upstream server.
+ *  Create a Http response.
+ *
+ *
  */
 @Slf4j
 public class UpstreamResponseService implements ResponseService {
 
     private Socket serverSock;
+
     private InputStream serverIn;
     private OutputStream serverOut;
+    private Socket clientSocket;
+
 
     private PeerManager peerManager;
     private Peer peer;
 
-    public UpstreamResponseService(PeerManager peerManager, Peer peer) {
-        this.peerManager = peerManager;
-        this.peer        = peer;
+    public UpstreamResponseService(PeerManager peerManager, Socket clientSocket) {
+        this.peerManager    = peerManager;
+        this.peer           = peer;
+        this.clientSocket   = clientSocket;
 
 
         try {
@@ -54,7 +62,18 @@ public class UpstreamResponseService implements ResponseService {
      */
     @Override
     public HttpResponseMessage getHttpResponseMessage(HttpRequestMessage httpRequestMessage) {
-        //log.debug(httpRequestMessage.toString());
+
+        /*
+         *  Choose the upstream server to serve this request.
+         */
+        try{
+            Peer peer = peerManager.getPeer(clientSocket.getInetAddress());
+        }catch(NoLiveUpstreamException n){
+            //TODO : handle exception
+
+            return HttpErrorResponse.getErrorResponse(n.getHttpStatus());
+        }
+
 
         /*
          *                 Proxy ----------------->  Server

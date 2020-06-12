@@ -16,6 +16,8 @@ public class Header {
 
     private Map<String, String> headers = new HashMap<>();
 
+    public Header(){}
+
     public Header(InputStream inputStream){
         String kv;
 
@@ -54,6 +56,15 @@ public class Header {
     public void setHeader(HeaderDirective key, HeaderDirective value){
         headers.put(key.getDirective(), value.getDirective());
     }
+
+    public void setHeader(HeaderDirective key, int value){
+        setHeader(key, String.valueOf(value));
+    }
+
+    public void setHeader(HeaderDirective key, String value){
+        headers.put(key.getDirective(), value);
+    }
+
 
 
 

@@ -2,6 +2,7 @@ package org.horoyoii.http;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.horoyoii.http.header.Header;
 import org.horoyoii.http.header.HeaderDirective;
 import org.horoyoii.http.startLine.StartLine;
@@ -13,7 +14,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 @Getter
-@NoArgsConstructor
+@Setter
 public abstract class HttpMessage {
 
   StartLine startLine;
@@ -21,6 +22,10 @@ public abstract class HttpMessage {
   Header header;
 
   public ByteBuffer body;
+
+
+  public HttpMessage(){ }
+
 
   public HttpMessage(InputStream ins) {
 
