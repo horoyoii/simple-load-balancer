@@ -4,6 +4,11 @@ package org.horoyoii.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.algo.AlgoName;
 
+
+/**
+ * If the directive for algorithm in a configuration file is not valid,
+ *
+ */
 @Slf4j
 public class AlgoNotValidException extends Exception{
     

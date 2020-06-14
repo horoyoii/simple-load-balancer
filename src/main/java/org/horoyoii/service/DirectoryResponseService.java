@@ -30,10 +30,6 @@ public class DirectoryResponseService implements ResponseService{
         return new HttpResponseMessage();
     }
 
-    @Override
-    public void close() {
-
-    }
 
     void makeFilePath(){
 

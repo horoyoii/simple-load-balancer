@@ -95,9 +95,11 @@ public class Connection implements Runnable {
 
         writeHttpResponse(httpResponseMessage);
 
-
-        //TODO : handle this when the response was not from upstream server.
-        responseService.close();
+        try{
+            clientSocket.close();
+        }catch (IOException e){
+            log.error(e.toString());
+        }
     }
 
 

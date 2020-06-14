@@ -11,5 +11,5 @@ public interface ResponseService {
 
     HttpResponseMessage getHttpResponseMessage(HttpRequestMessage httpRequestMessage);
 
-    void close();
+    //void close();
 }

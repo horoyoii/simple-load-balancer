@@ -11,7 +11,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class HttpErrorResponse {
+public class HttpErrorRespHandler {
 
     public static HttpResponseMessage getErrorResponse(HttpStatus httpStatus){
         HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
@@ -19,6 +19,8 @@ public class HttpErrorResponse {
 
         Header header = new Header();
         header.setHeader(HeaderDirective.DATE, getCurrentTime());
+        header.setHeader(HeaderDirective.SERVER, getServerInfo());
+
 
         if(httpStatus.equals(HttpStatus.BAD_GATEWAY)){
 
@@ -33,16 +35,27 @@ public class HttpErrorResponse {
     }
 
 
+
     private static String getCurrentTime(){
         ZonedDateTime znt = ZonedDateTime.now(ZoneId.of("UTC"));
         return znt.format(DateTimeFormatter.RFC_1123_DATE_TIME);
     }
 
+
+
+    private static String getServerInfo(){
+        String n = "HginX/0.1";
+        String os = System.getProperty("os.name");
+        return n + " ("+os+")";
+    }
+
+
+
     final static String EM_502 = "<html>\n" +
             "<head><title>502 Bad Gateway</title></head>\n" +
             "<body bgcolor=\"white\">\n" +
             "<center><h1>502 Bad Gateway</h1></center>\n" +
-            "<hr><center>Horoyoii/1.14.0 (Ubuntu)</center>\n" +
+            "<hr><center>HginX/0.1 (?????)</center>\n" +
             "</body>\n" +
             "</html>";
 

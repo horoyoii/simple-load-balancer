@@ -4,16 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.exception.NoLiveUpstreamException;
 import org.horoyoii.http.HttpRequestMessage;
 import org.horoyoii.http.HttpResponseMessage;
-import org.horoyoii.http.header.HeaderDirective;
 import org.horoyoii.manager.PeerManager;
 import org.horoyoii.model.Peer;
-import org.horoyoii.utils.HttpErrorResponse;
+import org.horoyoii.utils.HttpErrorRespHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.net.http.HttpHeaders;
 
 
 /**
@@ -36,21 +34,7 @@ public class UpstreamResponseService implements ResponseService {
 
     public UpstreamResponseService(PeerManager peerManager, Socket clientSocket) {
         this.peerManager    = peerManager;
-        this.peer           = peer;
         this.clientSocket   = clientSocket;
-
-
-        try {
-            //TODO:
-            serverSock = new Socket(peer.getIp(), peer.getPort());
-
-            serverIn = serverSock.getInputStream();
-            serverOut = serverSock.getOutputStream();
-
-        } catch (Exception e) {
-          // TODO : throw it to the main.
-          System.out.println(e);
-        }
     }
 
 
@@ -67,11 +51,22 @@ public class UpstreamResponseService implements ResponseService {
          *  Choose the upstream server to serve this request.
          */
         try{
-            Peer peer = peerManager.getPeer(clientSocket.getInetAddress());
+            peer = peerManager.getPeer(clientSocket.getInetAddress());
         }catch(NoLiveUpstreamException n){
-            //TODO : handle exception
+            return HttpErrorRespHandler.getErrorResponse(n.getHttpStatus());
+        }
 
-            return HttpErrorResponse.getErrorResponse(n.getHttpStatus());
+
+        try {
+            log.debug("create server socket");
+            serverSock = new Socket(peer.getIp(), peer.getPort());
+
+            serverIn = serverSock.getInputStream();
+            serverOut = serverSock.getOutputStream();
+
+        } catch (Exception e) {
+            // TODO : throw it to the main.
+            log.error(e.toString());
         }
 
 
@@ -86,6 +81,7 @@ public class UpstreamResponseService implements ResponseService {
          */
         HttpResponseMessage httpResponseMessage = new HttpResponseMessage(serverIn);
 
+        this.close();
         return httpResponseMessage;
     }
 
@@ -105,8 +101,8 @@ public class UpstreamResponseService implements ResponseService {
     }
 
 
-    @Override
-    public void close(){
+    //@Override
+    private void close(){
         try{
             serverOut.close();
             if(!serverSock.isClosed())

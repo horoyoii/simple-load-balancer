@@ -5,6 +5,10 @@ import org.horoyoii.algo.AlgoName;
 import org.horoyoii.http.startLine.HttpStatus;
 
 
+/**
+ *  502 BAD_GATEWAY
+ *
+ */
 @Getter
 public class NoLiveUpstreamException extends Exception{
     private HttpStatus httpStatus;

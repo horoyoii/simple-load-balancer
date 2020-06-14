@@ -70,16 +70,17 @@ public class PeerManager{
     }
 
 
+
     public synchronized void releasePeer(Peer peer){
         decreaseCount(peer);
     }
+
 
 
     //TODO : RENAME
     private void decreaseCount(Peer peer){
         peer.decreaseConnectionCount();
     }
-
 
 
 

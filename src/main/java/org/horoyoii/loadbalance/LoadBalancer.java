@@ -1,17 +1,14 @@
 package org.horoyoii.loadbalance;
 
 import java.io.*;
-import java.lang.reflect.Field;
 import java.net.*;
-import java.nio.charset.Charset;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 
 
 import org.horoyoii.manager.PeerManager;
 import org.horoyoii.connection.Connection;
-import org.horoyoii.model.Peer;
-import org.horoyoii.utils.Configuration;
+import org.horoyoii.utils.ConfigurationReader;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -90,7 +87,7 @@ public class LoadBalancer{
     private void initPeerManager(){
         log.info("read configuration file and init a peer manager");
         peerManager = new PeerManager();
-        Configuration.read(CONF_PATH, peerManager);        
+        ConfigurationReader.read(CONF_PATH, peerManager);
     }
 
 }
