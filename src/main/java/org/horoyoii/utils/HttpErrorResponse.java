@@ -7,6 +7,9 @@ import org.horoyoii.http.startLine.HttpStatus;
 import org.horoyoii.http.startLine.ResponseStatusLine;
 
 import java.nio.ByteBuffer;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class HttpErrorResponse {
 
@@ -14,8 +17,10 @@ public class HttpErrorResponse {
         HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
         httpResponseMessage.setStartLine(new ResponseStatusLine("HTTP/1.1", String.valueOf(httpStatus.getStatusCode()), httpStatus.getStatusText()));
 
+        Header header = new Header();
+        header.setHeader(HeaderDirective.DATE, getCurrentTime());
+
         if(httpStatus.equals(HttpStatus.BAD_GATEWAY)){
-            Header header = new Header();
 
             header.setHeader(HeaderDirective.CONTENT_LENGTH, EM_502.length());
             header.setHeader(HeaderDirective.CONTENT_TYPE, "text/html");
@@ -28,6 +33,10 @@ public class HttpErrorResponse {
     }
 
 
+    private static String getCurrentTime(){
+        ZonedDateTime znt = ZonedDateTime.now(ZoneId.of("UTC"));
+        return znt.format(DateTimeFormatter.RFC_1123_DATE_TIME);
+    }
 
     final static String EM_502 = "<html>\n" +
             "<head><title>502 Bad Gateway</title></head>\n" +

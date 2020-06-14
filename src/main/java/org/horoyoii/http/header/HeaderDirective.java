@@ -13,8 +13,11 @@ public enum HeaderDirective {
 
     CLOSE("close"),
 
-    KEEPALIVE("keep-alive");
+    KEEPALIVE("keep-alive"),
 
+
+    // =========================================================
+    DATE("Date");
 
 
     // 캐시 컨트롤 =================================================
