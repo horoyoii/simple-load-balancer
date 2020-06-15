@@ -2,6 +2,7 @@ package org.horoyoii.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.exception.NoLiveUpstreamException;
+import org.horoyoii.exception.ReadTimeoutException;
 import org.horoyoii.http.HttpRequestMessage;
 import org.horoyoii.http.HttpResponseMessage;
 import org.horoyoii.manager.PeerManager;
@@ -32,6 +33,9 @@ public class UpstreamResponseService implements ResponseService {
     private PeerManager peerManager;
     private Peer peer;
 
+    private int ReadTimeout = 5000;
+
+
     public UpstreamResponseService(PeerManager peerManager, Socket clientSocket) {
         this.peerManager    = peerManager;
         this.clientSocket   = clientSocket;
@@ -61,6 +65,12 @@ public class UpstreamResponseService implements ResponseService {
             log.debug("create server socket");
             serverSock = new Socket(peer.getIp(), peer.getPort());
 
+            /*
+             * Set ReadTimeout.
+             */
+            serverSock.setSoTimeout(ReadTimeout);
+
+
             serverIn = serverSock.getInputStream();
             serverOut = serverSock.getOutputStream();
 
@@ -79,9 +89,16 @@ public class UpstreamResponseService implements ResponseService {
         /*
          *                  Proxy <----------------- Server
          */
-        HttpResponseMessage httpResponseMessage = new HttpResponseMessage(serverIn);
+        HttpResponseMessage httpResponseMessage;
 
-        this.close();
+        try{
+            httpResponseMessage = new HttpResponseMessage(serverIn);
+        }catch (ReadTimeoutException r){
+            return HttpErrorRespHandler.getErrorResponse(r.getHttpStatus());
+        }finally{
+            this.close();
+        }
+
         return httpResponseMessage;
     }
 

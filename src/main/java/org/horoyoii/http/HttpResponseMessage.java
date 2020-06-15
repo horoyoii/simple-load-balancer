@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.horoyoii.exception.ReadTimeoutException;
 import org.horoyoii.http.HttpMessage;
 import org.horoyoii.http.startLine.RequestStartLine;
 import org.horoyoii.http.startLine.StartLine;
@@ -15,7 +16,7 @@ import org.horoyoii.http.startLine.ResponseStatusLine;
 public class HttpResponseMessage extends HttpMessage {
 
 
-    public HttpResponseMessage(InputStream ins){
+    public HttpResponseMessage(InputStream ins) throws ReadTimeoutException{
         super(ins);
     }
 
@@ -25,7 +26,7 @@ public class HttpResponseMessage extends HttpMessage {
 
 
     @Override
-    StartLine buildStartLine(InputStream inputStream){
+    StartLine buildStartLine(InputStream inputStream) throws ReadTimeoutException {
 
         String sb = this.getStartLineBuffer(inputStream);
         StringTokenizer st = new StringTokenizer(sb, " ");

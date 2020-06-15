@@ -3,15 +3,16 @@ package org.horoyoii.connection;
 import java.net.*;
 import java.io.*;
 
-import org.horoyoii.http.header.HeaderDirective;
+import org.horoyoii.exception.ReadTimeoutException;
+import org.horoyoii.http.constants.HttpDirective;
 import org.horoyoii.manager.PeerManager;
-import org.horoyoii.model.Peer;
 import org.horoyoii.http.*;
 
 import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.service.DirectoryResponseService;
 import org.horoyoii.service.ResponseService;
 import org.horoyoii.service.UpstreamResponseService;
+import org.horoyoii.utils.HttpErrorRespHandler;
 
 
 /**
@@ -56,11 +57,18 @@ public class Connection implements Runnable {
         /*
          * 2) Client ----------------> Proxy
          */
-        HttpRequestMessage httpRequestMessage = new HttpRequestMessage(clientIn);
-        log.info(httpRequestMessage.getStartLine().toString());
+        HttpRequestMessage httpRequestMessage;
+        try{
+            httpRequestMessage = new HttpRequestMessage(clientIn);
+        }catch(ReadTimeoutException e){
+            log.error(e.toString());
+            //TODO : 408 Request Timeout exception.
+            return;
+        }
+
 
         if(!isKeepAlive)
-            httpRequestMessage.addHeader(HeaderDirective.CONNECTION, HeaderDirective.CLOSE);
+            httpRequestMessage.addHeader(HttpDirective.CONNECTION, HttpDirective.CLOSE);
 
 
         /*
@@ -91,7 +99,7 @@ public class Connection implements Runnable {
 
 
         if(!isKeepAlive)
-            httpResponseMessage.addHeader(HeaderDirective.CONNECTION, HeaderDirective.CLOSE);
+            httpResponseMessage.addHeader(HttpDirective.CONNECTION, HttpDirective.CLOSE);
 
         writeHttpResponse(httpResponseMessage);
 
@@ -119,7 +127,7 @@ public class Connection implements Runnable {
     }
 
 
-    private HttpRequestMessage readHttpRequest(){
+    private HttpRequestMessage readHttpRequest() throws ReadTimeoutException{
         return new HttpRequestMessage(clientIn);
     }
 

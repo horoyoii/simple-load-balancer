@@ -60,10 +60,10 @@ public class PeerManager{
      *
      */
     public synchronized Peer getPeer(InetAddress clientIp) throws NoLiveUpstreamException {
-        Peer peer = null; //algo.getPeer(peerList, clientIp);
+        Peer peer = algo.getPeer(peerList, clientIp);
 
-        if(peer == null)
-            throw new NoLiveUpstreamException("no live upstreams while connecting to upstream");
+//        if(peer == null)
+//            throw new NoLiveUpstreamException("no live upstreams while connecting to upstream");
 
         peer.increaseConnectionCount();
         return peer;

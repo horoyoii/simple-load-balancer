@@ -1,9 +1,12 @@
 package org.horoyoii.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.horoyoii.exception.ReadTimeoutException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 
 @Slf4j
@@ -16,7 +19,7 @@ public class HttpParseHelper {
 
     public static final String CRLF = "\r\n";
 
-    public static void parseBody(InputStream inputStream, ByteBuffer sb){
+    public static void parseBody(InputStream inputStream, ByteBuffer sb) throws ReadTimeoutException{
         int contentsSize = sb.capacity();
 
         try {
@@ -26,7 +29,10 @@ public class HttpParseHelper {
                 sb.put((byte)readB);
             }
 
-        } catch (IOException e) {
+        }catch (SocketTimeoutException e){
+            throw new ReadTimeoutException("h...");
+        }
+        catch (IOException e) {
             // TODO;
         }
     }
@@ -37,7 +43,7 @@ public class HttpParseHelper {
      * @param inputStream
      * @return
      */
-    public static String getOneLine(InputStream inputStream){
+    public static String getOneLine(InputStream inputStream) throws ReadTimeoutException {
         StringBuffer sb = new StringBuffer();
 
         int readByte = -1;
@@ -55,7 +61,10 @@ public class HttpParseHelper {
                     sb.append(readChar);
                 }
             }
-        } catch (IOException e) {
+        }catch(SocketTimeoutException s){
+            throw new ReadTimeoutException("h....");
+        }
+        catch (IOException e) {
             // TODO;
             log.error(e.toString());
         }

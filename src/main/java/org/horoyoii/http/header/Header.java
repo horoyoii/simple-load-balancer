@@ -1,8 +1,9 @@
 package org.horoyoii.http.header;
 
+import org.horoyoii.exception.ReadTimeoutException;
+import org.horoyoii.http.constants.HttpDirective;
 import org.horoyoii.utils.HttpParseHelper;
 
-import javax.swing.text.html.HTML;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class Header {
 
     public Header(){}
 
-    public Header(InputStream inputStream){
+    public Header(InputStream inputStream) throws ReadTimeoutException {
         String kv;
 
         while( !(kv = HttpParseHelper.getOneLine(inputStream)).equals(HttpParseHelper.END_OF_HEADER)) {
@@ -53,15 +54,15 @@ public class Header {
      * @param key
      * @param value
      */
-    public void setHeader(HeaderDirective key, HeaderDirective value){
+    public void setHeader(HttpDirective key, HttpDirective value){
         headers.put(key.getDirective(), value.getDirective());
     }
 
-    public void setHeader(HeaderDirective key, int value){
+    public void setHeader(HttpDirective key, int value){
         setHeader(key, String.valueOf(value));
     }
 
-    public void setHeader(HeaderDirective key, String value){
+    public void setHeader(HttpDirective key, String value){
         headers.put(key.getDirective(), value);
     }
 

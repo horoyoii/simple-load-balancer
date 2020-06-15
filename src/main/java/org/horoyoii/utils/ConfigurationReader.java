@@ -50,13 +50,9 @@ public class ConfigurationReader {
                 line = br.readLine();
             }
 
-        }catch(FileNotFoundException e){
+        } catch(Exception e){
             log.error(e.toString());
-        }catch(IOException i){
-            log.error(i.toString()); 
-        }catch(Exception e){
-            log.error(e.toString());
-        }       
-   }
+        }
+    }
 
 }

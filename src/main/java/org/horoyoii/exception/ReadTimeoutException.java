@@ -5,16 +5,15 @@ import org.horoyoii.http.constants.HttpStatus;
 
 
 /**
- *  502 BAD_GATEWAY
+ *  504 GATEWAY_TIMEOUT
  *
  */
 @Getter
-public class NoLiveUpstreamException extends Exception{
+public class ReadTimeoutException extends Exception{
     private HttpStatus httpStatus;
 
-    public NoLiveUpstreamException(String msg){
+    public ReadTimeoutException(String msg){
         super(msg);
-        this.httpStatus = HttpStatus.BAD_GATEWAY;
+        this.httpStatus = HttpStatus.GATEWAY_TIMEOUT;
     }
-
 }

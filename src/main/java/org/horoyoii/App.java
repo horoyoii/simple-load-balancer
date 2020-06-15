@@ -17,9 +17,6 @@ public class App {
                 
         LoadBalancer loadBalancer = new LoadBalancer();
         loadBalancer.init();
-
-        //loadBalancer.readConfig();
-
         loadBalancer.run();
 
     }

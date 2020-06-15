@@ -1,17 +1,15 @@
 package org.horoyoii.http;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.horoyoii.exception.ReadTimeoutException;
 import org.horoyoii.http.header.Header;
-import org.horoyoii.http.header.HeaderDirective;
+import org.horoyoii.http.constants.HttpDirective;
 import org.horoyoii.http.startLine.StartLine;
 import org.horoyoii.utils.HttpParseHelper;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 
 @Getter
 @Setter
@@ -27,7 +25,7 @@ public abstract class HttpMessage {
   public HttpMessage(){ }
 
 
-  public HttpMessage(InputStream ins) {
+  public HttpMessage(InputStream ins) throws ReadTimeoutException{
 
     /*
       build a start line
@@ -54,18 +52,18 @@ public abstract class HttpMessage {
    *
    * @return StartLine
    */
-  abstract StartLine buildStartLine(InputStream ins);
+  abstract StartLine buildStartLine(InputStream ins) throws ReadTimeoutException;
 
 
   /**
    * Build Headers
    *
    */
-  void buildHeader(InputStream inputStream) {
+  void buildHeader(InputStream inputStream) throws ReadTimeoutException {
     header = new Header(inputStream);
   }
 
-  public void addHeader(HeaderDirective key, HeaderDirective value){
+  public void addHeader(HttpDirective key, HttpDirective value){
     header.setHeader(key, value);
   }
 
@@ -74,9 +72,9 @@ public abstract class HttpMessage {
    * Build a body if it exists
    *
    */
-  void buildBody(InputStream inputStream) {
+  void buildBody(InputStream inputStream) throws ReadTimeoutException{
 
-    body = ByteBuffer.allocate(Integer.parseInt(header.getHeader(HeaderDirective.CONTENT_LENGTH.getDirective())));
+    body = ByteBuffer.allocate(Integer.parseInt(header.getHeader(HttpDirective.CONTENT_LENGTH.getDirective())));
     HttpParseHelper.parseBody(inputStream, body);
 
   }
@@ -90,12 +88,12 @@ public abstract class HttpMessage {
    *  @return
    */
   boolean hasBody(){
-    return header.getHeader(HeaderDirective.CONTENT_LENGTH.getDirective()) != null;
+    return header.getHeader(HttpDirective.CONTENT_LENGTH.getDirective()) != null;
   }
 
 
 
-  String getStartLineBuffer(InputStream inputStream) {
+  String getStartLineBuffer(InputStream inputStream) throws ReadTimeoutException{
     return HttpParseHelper.getOneLine(inputStream);
   }
 

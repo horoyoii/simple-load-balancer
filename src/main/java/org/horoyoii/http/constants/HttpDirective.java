@@ -1,6 +1,6 @@
-package org.horoyoii.http.header;
+package org.horoyoii.http.constants;
 
-public enum HeaderDirective {
+public enum HttpDirective {
 
     // 컨텐츠 협상 ================================================
     CONTENT_LENGTH("content-length"),
@@ -25,7 +25,7 @@ public enum HeaderDirective {
 
     String directive;
 
-    HeaderDirective(String directive){
+    HttpDirective(String directive){
         this.directive = directive;
     }
 
