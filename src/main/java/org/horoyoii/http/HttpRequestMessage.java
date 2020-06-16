@@ -1,7 +1,6 @@
 package org.horoyoii.http;
 
 import java.io.InputStream;
-import java.util.StringTokenizer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.exception.ReadTimeoutException;
@@ -22,15 +21,10 @@ public class HttpRequestMessage extends HttpMessage {
     StartLine buildStartLine(InputStream inputStream) throws ReadTimeoutException{
         
         String sb = this.getStartLineBuffer(inputStream);
-        StringTokenizer st = new StringTokenizer(sb, " ");
+        String[] tokens = sb.split(" ");
 
-        //TODO : try-catch for parse error 
-        String method   = st.nextToken();
-        String url      = st.nextToken();
-        String protocol = st.nextToken();
-       
-
-        return new RequestStartLine(method, url, protocol);
+        //TODO : try-catch for parse error
+        return new RequestStartLine(tokens);
     }
 
     public String getURL(){

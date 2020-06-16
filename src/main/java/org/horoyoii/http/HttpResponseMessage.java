@@ -29,13 +29,9 @@ public class HttpResponseMessage extends HttpMessage {
     StartLine buildStartLine(InputStream inputStream) throws ReadTimeoutException {
 
         String sb = this.getStartLineBuffer(inputStream);
-        StringTokenizer st = new StringTokenizer(sb, " ");
+        String[] tokens = sb.split(" ");
 
-        String protocol     = st.nextToken();
-        String statusCode   = st.nextToken();
-        String statusText   = st.nextToken();
-
-        return new ResponseStatusLine(protocol, statusCode, statusText);
+        return new ResponseStatusLine(tokens);
     }
 
 

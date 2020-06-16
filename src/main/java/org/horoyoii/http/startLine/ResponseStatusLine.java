@@ -21,6 +21,12 @@ public class ResponseStatusLine extends StartLine {
         this.statusText = statusText;
     }
 
+
+    public ResponseStatusLine(String[] tokens){
+        this(tokens[0], tokens[1], tokens[2]);
+    }
+
+
     @Override
     public String toString() {
         return protocol+" "+statusCode+" "+statusText;
