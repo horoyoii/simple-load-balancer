@@ -25,9 +25,11 @@ public enum HttpDirective {
 
     String directive;
 
+
     HttpDirective(String directive){
         this.directive = directive;
     }
+
 
     public String getDirective(){
         return directive;

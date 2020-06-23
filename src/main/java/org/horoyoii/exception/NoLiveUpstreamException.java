@@ -12,9 +12,11 @@ import org.horoyoii.http.constants.HttpStatus;
 public class NoLiveUpstreamException extends Exception{
     private HttpStatus httpStatus;
 
+
     public NoLiveUpstreamException(String msg){
         super(msg);
         this.httpStatus = HttpStatus.BAD_GATEWAY;
     }
+
 
 }

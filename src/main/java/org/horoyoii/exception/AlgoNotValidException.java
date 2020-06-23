@@ -11,10 +11,12 @@ import org.horoyoii.algo.AlgoName;
  */
 @Slf4j
 public class AlgoNotValidException extends Exception{
-    
+
+
     public AlgoNotValidException(String msg){
         super(msg); 
     }
+
 
     public void soWhat(){
         log.info("Valid names of algorithms are...");

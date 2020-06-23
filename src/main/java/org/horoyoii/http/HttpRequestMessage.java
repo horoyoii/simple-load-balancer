@@ -11,6 +11,7 @@ import org.horoyoii.http.startLine.RequestStartLine;
 @Slf4j
 public class HttpRequestMessage extends HttpMessage {
 
+
     public HttpRequestMessage(InputStream ins) throws ReadTimeoutException {
         super(ins);
 
@@ -27,7 +28,10 @@ public class HttpRequestMessage extends HttpMessage {
         return new RequestStartLine(tokens);
     }
 
+
     public String getURL(){
         return ((RequestStartLine)startLine).getUrl();
     }
+
+
 }

@@ -16,10 +16,8 @@ import java.nio.ByteBuffer;
 public abstract class HttpMessage {
 
   StartLine startLine;
-
   Header header;
-
-  public ByteBuffer body;
+  public ByteBuffer body; //TODO : why this is public?
 
 
   public HttpMessage(){ }
@@ -63,6 +61,7 @@ public abstract class HttpMessage {
     header = new Header(inputStream);
   }
 
+
   public void addHeader(HttpDirective key, HttpDirective value){
     header.setHeader(key, value);
   }
@@ -80,7 +79,6 @@ public abstract class HttpMessage {
   }
 
 
-
   /**
    * Check this http message has a body.
    *  If "content-length" or "transfer-encoding" field exists,
@@ -90,7 +88,6 @@ public abstract class HttpMessage {
   boolean hasBody(){
     return header.getHeader(HttpDirective.CONTENT_LENGTH.getDirective()) != null;
   }
-
 
 
   String getStartLineBuffer(InputStream inputStream) throws ReadTimeoutException{
@@ -114,5 +111,6 @@ public abstract class HttpMessage {
 
     return sb.toString();
   }
+
 
 }

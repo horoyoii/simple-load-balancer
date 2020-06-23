@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 public class Peer{
+
     private String  name;
     private String  ip;
     private int     port;
@@ -26,6 +27,7 @@ public class Peer{
 
     private long    tot = 0;
 
+
     public Peer(String name, String ip, int port){
         this.ip     = ip;
         this.port   = port;
@@ -38,10 +40,12 @@ public class Peer{
         this.weight = weight;
     }   
 
+
     public void increaseConnectionCount(){
         conns += 1;
         tot++;
     }
+
 
     public void decreaseConnectionCount(){
         conns -= 1;

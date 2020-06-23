@@ -61,7 +61,6 @@ public class LoadBalancer{
     }
 
 
-
     /**
      *   Create a server socket.
      *
@@ -79,7 +78,6 @@ public class LoadBalancer{
     }
 
 
-
     /**
      *  Create a Peer Manager.
      * 
@@ -89,6 +87,7 @@ public class LoadBalancer{
         peerManager = new PeerManager();
         ConfigurationReader.read(CONF_PATH, peerManager);
     }
+
 
 }
 

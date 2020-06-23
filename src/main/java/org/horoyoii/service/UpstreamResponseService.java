@@ -118,7 +118,6 @@ public class UpstreamResponseService implements ResponseService {
     }
 
 
-    //@Override
     private void close(){
         try{
             serverOut.close();
@@ -130,5 +129,6 @@ public class UpstreamResponseService implements ResponseService {
             peerManager.releasePeer(peer);
         }
     }
+
 
 }

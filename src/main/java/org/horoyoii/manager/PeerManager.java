@@ -31,6 +31,7 @@ public class PeerManager{
      */
     Algo algo = new RoundRobin();
 
+
     /**
      *  Add a upstream server information to the List.
      *
@@ -70,19 +71,14 @@ public class PeerManager{
     }
 
 
-
     public synchronized void releasePeer(Peer peer){
         decreaseCount(peer);
     }
-
-
 
     //TODO : RENAME
     private void decreaseCount(Peer peer){
         peer.decreaseConnectionCount();
     }
-
-
 
     public void showList(){
         log.info("backend server list : ");
@@ -93,5 +89,7 @@ public class PeerManager{
         }        
         log.info("------------------------------------------------");
     }
+
+
 }
 

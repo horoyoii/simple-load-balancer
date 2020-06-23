@@ -14,7 +14,8 @@ public class ResponseStatusLine extends StartLine {
 
     private String statusCode;         //TODO : enum
     private String statusText;      // 
-    
+
+
     public ResponseStatusLine(String protocol, String statusCode, String statusText){
         super(protocol);
         this.statusCode = statusCode;
@@ -31,4 +32,6 @@ public class ResponseStatusLine extends StartLine {
     public String toString() {
         return protocol+" "+statusCode+" "+statusText;
     }
+
+
 }

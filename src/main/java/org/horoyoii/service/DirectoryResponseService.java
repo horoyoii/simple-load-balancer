@@ -13,6 +13,7 @@ import java.net.http.HttpResponse;
  */
 public class DirectoryResponseService implements ResponseService{
 
+
     /**
      * Get a result from file system.
      *
@@ -34,4 +35,6 @@ public class DirectoryResponseService implements ResponseService{
     void makeFilePath(){
 
     }
+
+
 }

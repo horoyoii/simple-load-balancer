@@ -17,7 +17,9 @@ public class Header {
 
     private Map<String, String> headers = new HashMap<>();
 
+
     public Header(){}
+
 
     public Header(InputStream inputStream) throws ReadTimeoutException {
         String kv;
@@ -36,6 +38,7 @@ public class Header {
         }
     }
 
+
     /**
      * @param key
      * @return
@@ -44,7 +47,6 @@ public class Header {
     public String getHeader(String key){
         return headers.get(key.toLowerCase().trim());
     }
-
 
 
     /**
@@ -58,15 +60,15 @@ public class Header {
         headers.put(key.getDirective(), value.getDirective());
     }
 
+
     public void setHeader(HttpDirective key, int value){
         setHeader(key, String.valueOf(value));
     }
 
+
     public void setHeader(HttpDirective key, String value){
         headers.put(key.getDirective(), value);
     }
-
-
 
 
     @Override
@@ -85,5 +87,6 @@ public class Header {
 
         return sb.toString();
     }
+
 
 }

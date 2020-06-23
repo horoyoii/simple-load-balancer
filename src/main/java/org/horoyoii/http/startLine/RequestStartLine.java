@@ -22,12 +22,16 @@ public class RequestStartLine extends StartLine {
         this.url    = url;    
     }
 
+
     public RequestStartLine(String[] tokens){
         this(tokens[0], tokens[1], tokens[2]);
     }
+
 
     @Override
     public String toString(){
         return method+" "+url+" "+protocol;
     }
+
+
 }

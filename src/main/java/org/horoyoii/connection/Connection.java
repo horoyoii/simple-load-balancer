@@ -45,6 +45,7 @@ public class Connection implements Runnable {
         this.clientSocket       = clientSocket;
     }
 
+
     @Override
     public void run(){
 
@@ -89,14 +90,10 @@ public class Connection implements Runnable {
         }
 
 
-
-
         /*
          * Client <------------------ Proxy
          */
         HttpResponseMessage httpResponseMessage = responseService.getHttpResponseMessage(httpRequestMessage);
-
-
 
         if(!isKeepAlive)
             httpResponseMessage.addHeader(HttpDirective.CONNECTION, HttpDirective.CLOSE);
@@ -123,7 +120,6 @@ public class Connection implements Runnable {
             //TODO:
             e.printStackTrace();
         }
-
     }
 
 
@@ -145,8 +141,8 @@ public class Connection implements Runnable {
         }catch (IOException e){
             e.printStackTrace();
         }
-
     }
+
 
 }
 

@@ -12,8 +12,11 @@ import org.horoyoii.http.constants.HttpStatus;
 public class ReadTimeoutException extends Exception{
     private HttpStatus httpStatus;
 
+
     public ReadTimeoutException(String msg){
         super(msg);
         this.httpStatus = HttpStatus.GATEWAY_TIMEOUT;
     }
+
+
 }

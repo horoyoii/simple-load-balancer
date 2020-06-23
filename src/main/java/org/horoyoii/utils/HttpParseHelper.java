@@ -19,6 +19,7 @@ public class HttpParseHelper {
 
     public static final String CRLF = "\r\n";
 
+
     public static void parseBody(InputStream inputStream, ByteBuffer sb) throws ReadTimeoutException{
         int contentsSize = sb.capacity();
 
@@ -36,6 +37,7 @@ public class HttpParseHelper {
             // TODO;
         }
     }
+
 
     /**
      *
@@ -71,4 +73,6 @@ public class HttpParseHelper {
 
         return sb.toString();
     }
+
+
 }

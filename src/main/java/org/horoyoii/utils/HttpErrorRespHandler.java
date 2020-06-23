@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 public class HttpErrorRespHandler {
 
+
     public static HttpResponseMessage getErrorResponse(HttpStatus httpStatus){
         HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
         httpResponseMessage.setStartLine(new ResponseStatusLine("HTTP/1.1", String.valueOf(httpStatus.getStatusCode()), httpStatus.getStatusText()));
@@ -43,12 +44,10 @@ public class HttpErrorRespHandler {
     }
 
 
-
     private static String getCurrentTime(){
         ZonedDateTime znt = ZonedDateTime.now(ZoneId.of("UTC"));
         return znt.format(DateTimeFormatter.RFC_1123_DATE_TIME);
     }
-
 
 
     private static String getServerInfo(){
@@ -56,7 +55,6 @@ public class HttpErrorRespHandler {
         String os = System.getProperty("os.name");
         return n + " ("+os+")";
     }
-
 
 
     final static String EM_502 = "<html>\n" +
