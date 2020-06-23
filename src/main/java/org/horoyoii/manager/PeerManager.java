@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PeerManager{
 
     public static final String      DEFAULT_WEIGHT  = "1";
-
+    private String                  name;
     private List<Peer>              peerList        = new ArrayList<Peer>();
     
 
@@ -35,12 +35,12 @@ public class PeerManager{
     /**
      *  Add a upstream server information to the List.
      *
-     * @param name
-     * @param ip
-     * @param port
-     * @param weight
+     * @param name alias for the upstream server
+     * @param ip ip address
+     * @param port port num
+     * @param weight weight
      */
-    public void add(String name, String ip, String port, String weight){
+    public void addPeer(String name, String ip, String port, String weight){
         peerList.add(new Peer(name, ip, Integer.parseInt(port), Integer.parseInt(weight)));
     }
 
@@ -79,6 +79,12 @@ public class PeerManager{
     private void decreaseCount(Peer peer){
         peer.decreaseConnectionCount();
     }
+
+
+    public void setName(String name){
+        this.name = name;
+    }
+
 
     public void showList(){
         log.info("backend server list : ");
