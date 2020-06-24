@@ -17,6 +17,7 @@ import java.util.List;
  *  location ~ { }
  * 3. prefix match
  * location { }
+ *
  */
 @Slf4j
 public class Router {
@@ -33,14 +34,67 @@ public class Router {
 
 
     public void addLocation(Location location){
-        log.debug(location.toString());
-        //locationList.add(location);
+        if(location.getPatternType().equals(Location.EXACT)){
+            exactLocationList.add(location);
+        }else if(location.getPatternType().equals(Location.REGEX)){
+            regexLocationList.add(location);
+        }else if(location.getPatternType().equals(Location.PREFIX)){
+            prefixLocationList.add(location);
+        }else{
+            //TODO: error occurs
+        }
     }
 
 
-    public String determineWhereTo(String uri){
-        // iterate a location list
-        return "directory";
+    public Location determineWhereTo(String uri){
+        log.debug(uri);
+
+        for(Location location : exactLocationList){
+            String pattern = location.getPattern();
+            if (pattern.equals(uri)) {
+                return location;
+            }
+        }
+
+
+        for(Location location : regexLocationList){
+            String pattern = location.getPattern();
+            if(uri.matches(pattern)){
+                return location;
+            }
+        }
+
+
+        for(Location location : prefixLocationList){
+            String pattern = location.getPattern();
+            if(uri.startsWith(pattern)){
+                return location;
+            }
+        }
+
+
+        return null;
     }
 
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("exact location list\n");
+        for(Location location : exactLocationList){
+            sb.append(location);
+        }
+
+        sb.append("regex location list\n");
+        for(Location location : regexLocationList){
+            sb.append(location);
+        }
+
+        sb.append("prefix location list\n");
+        for(Location location : prefixLocationList){
+            sb.append(location);
+        }
+
+        return sb.toString();
+    }
 }

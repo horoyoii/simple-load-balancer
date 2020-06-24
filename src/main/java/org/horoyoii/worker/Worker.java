@@ -9,6 +9,7 @@ import org.horoyoii.manager.PeerManager;
 import org.horoyoii.http.*;
 
 import lombok.extern.slf4j.Slf4j;
+import org.horoyoii.model.Location;
 import org.horoyoii.router.Router;
 import org.horoyoii.service.DirectoryResponseService;
 import org.horoyoii.service.ResponseService;
@@ -77,16 +78,14 @@ public class Worker implements Runnable {
          * 3) Determine
          */
         String uri = httpRequestMessage.getURL();
-        boolean isStaticContents = this.determine(uri);
-        router.determineWhereTo(uri);
+        Location location = router.determineWhereTo(uri);
+        log.debug(location.toString());
 
 
-        log.debug(String.valueOf(isStaticContents));
-
-        if(isStaticContents){   //TODO : not to use 'new' keyword.
+        if(location.getPatternType().equals(Location.FROM_FS)){
             responseService = new DirectoryResponseService();
 
-        }else{
+        }else if(location.getPatternType().equals(Location.FROM_UPSTREAM)){
 
             /*
              * If all of the upstream servers are down, then servers 502 bad gateway response

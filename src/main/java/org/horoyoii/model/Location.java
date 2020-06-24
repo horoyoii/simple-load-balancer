@@ -1,12 +1,21 @@
 package org.horoyoii.model;
 
 
-import org.horoyoii.http.header.Header;
+import lombok.Getter;
 import org.horoyoii.utils.ConfigReader;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+@Getter
 public class Location {
-    private static final String FROM_FS = "fromFs";
-    private static final String FROM_UP = "fromUpstream";
+    public static final String FROM_FS = "fromFs";
+    public static final String FROM_UPSTREAM = "fromUpstream";
+
+    public static final String EXACT   = "exact";
+    public static final String REGEX   = "regex";
+    public static final String PREFIX  = "prefix";
 
     private final String from;
 
@@ -34,6 +43,8 @@ public class Location {
 
 
     public static class Builder {
+        private static final Pattern PATTERN = Pattern.compile("^(.+)://(.+)/$");
+
         private final String patternType;
         private final String pattern;
 
@@ -48,15 +59,19 @@ public class Location {
 
 
         public Builder proxy_pass(String address){
-            from = Location.FROM_UP;
-            //TODO : parse an alias.
+            from = Location.FROM_UPSTREAM;
+            Matcher m =  PATTERN.matcher(address);
+
+            if (m.find()) {
+                this.requestPath = m.group(2);
+            }
 
             return this;
         }
 
 
         public Builder requestPath(String path){
-
+            this.requestPath = path;
             return this;
         }
 
