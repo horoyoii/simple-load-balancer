@@ -25,6 +25,12 @@ public class Router {
     private List<Location> regexLocationList;
     private List<Location> prefixLocationList;
 
+//    //TODO : immutable
+//    private final static Location defaultLocation;
+//
+//    static {
+//        defaultLocation = new Location.Builder().
+//    }
 
     public Router(){
         exactLocationList = new ArrayList<>();
@@ -45,8 +51,13 @@ public class Router {
         }
     }
 
-
-    public Location determineWhereTo(String uri){
+    /**
+     *
+     *
+     * @param uri
+     * @return
+     */
+    public Location getLocation(String uri){
         log.debug(uri);
 
         for(Location location : exactLocationList){

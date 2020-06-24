@@ -39,6 +39,14 @@ public class HttpErrorRespHandler {
 
             httpResponseMessage.setBody(ByteBuffer.wrap(EM_504.getBytes()));
         }
+        else if(httpStatus.equals(HttpStatus.NOT_FOUND)){
+
+            header.setHeader(HttpDirective.CONTENT_LENGTH, EM_404.length());
+            header.setHeader(HttpDirective.CONTENT_TYPE, "text/html");
+            httpResponseMessage.setHeader(header);
+
+            httpResponseMessage.setBody(ByteBuffer.wrap(EM_404.getBytes()));
+        }
 
         return httpResponseMessage;
     }
@@ -73,5 +81,13 @@ public class HttpErrorRespHandler {
             "<hr><center>Hginx/0.1 (Ubuntu)</center>\n" +
             "</body>\n" +
             "</html>\n";
+
+    final static String EM_404 = "<html>\n" +
+            "<head><title>404 Not Found</title></head>\n" +
+            "<body bgcolor=\"white\">\n" +
+            "<center><h1>404 Not Found</h1></center>\n" +
+            "<hr><center>Hginx/0.1 (Ubuntu)</center>\n" +
+            "</body>\n" +
+            "</html>";
 
 }

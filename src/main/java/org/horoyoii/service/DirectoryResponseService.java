@@ -10,6 +10,7 @@ import org.horoyoii.http.constants.HttpStatus;
 import org.horoyoii.http.header.Header;
 import org.horoyoii.http.startLine.ResponseStatusLine;
 import org.horoyoii.model.Location;
+import org.horoyoii.utils.HttpErrorRespHandler;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,7 +45,7 @@ public class DirectoryResponseService implements ResponseService{
     public HttpResponseMessage getHttpResponseMessage() {
         File file = new File(rootDirectory+filePath);
         if(!file.exists()){
-
+            return HttpErrorRespHandler.getErrorResponse(HttpStatus.NOT_FOUND);
         }
 
         int fileLength = (int)file.length();

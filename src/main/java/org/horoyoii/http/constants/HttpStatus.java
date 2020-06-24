@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 public enum HttpStatus {
     OK(200, "OK"),
+    NOT_FOUND(404, "Not Found"),
     BAD_GATEWAY(502, "Bad Gateway"),
     GATEWAY_TIMEOUT(504, "Gateway Timeout");
 

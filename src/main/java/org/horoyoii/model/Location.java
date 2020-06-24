@@ -38,7 +38,6 @@ public class Location {
 
     //Header header;
 
-
     public Location(Builder builder){
         this.patternType = builder.patternType;
         this.pattern = builder.pattern;
