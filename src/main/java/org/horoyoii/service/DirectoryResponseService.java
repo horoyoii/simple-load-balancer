@@ -9,6 +9,7 @@ import org.horoyoii.http.constants.HttpDirective;
 import org.horoyoii.http.constants.HttpStatus;
 import org.horoyoii.http.header.Header;
 import org.horoyoii.http.startLine.ResponseStatusLine;
+import org.horoyoii.utils.ConfigReader;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,7 +26,12 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 public class DirectoryResponseService implements ResponseService{
 
-    private final String rootDirectory = "/sites/demo";
+    private final String rootDirectory;
+
+
+    public DirectoryResponseService(){
+        this.rootDirectory = ConfigReader.getRootDir();
+    }
 
 
     /**
@@ -110,11 +116,5 @@ public class DirectoryResponseService implements ResponseService{
         String os = System.getProperty("os.name");
         return n + " ("+os+")";
     }
-
-
-    void makeFilePath(){
-
-    }
-
 
 }

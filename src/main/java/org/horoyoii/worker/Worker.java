@@ -9,6 +9,7 @@ import org.horoyoii.manager.PeerManager;
 import org.horoyoii.http.*;
 
 import lombok.extern.slf4j.Slf4j;
+import org.horoyoii.router.Router;
 import org.horoyoii.service.DirectoryResponseService;
 import org.horoyoii.service.ResponseService;
 import org.horoyoii.service.UpstreamResponseService;
@@ -35,35 +36,35 @@ public class Worker implements Runnable {
 
     private ResponseService     responseService;
     private PeerManager         peerManager;
+    private Router              router;
 
     private boolean             isKeepAlive = false;
 
 
-    public Worker(PeerManager pm, Socket clientSocket){
+    public Worker(PeerManager pm, Router router, Socket clientSocket){
         this.peerManager        = pm;
         this.clientSocket       = clientSocket;
+        this.router             = router;
     }
 
 
     @Override
     public void run(){
+        HttpRequestMessage httpRequestMessage;
 
         /*
          * 1) Make a client socket input & output stream.
          */
-        makeClientStream();
+        buildClientStream();
 
 
         /*
          * 2) Client ----------------> Proxy
          */
-        HttpRequestMessage httpRequestMessage;
-
         try{
-            httpRequestMessage = new HttpRequestMessage(clientIn);
-        }catch(ReadTimeoutException e){
-            log.error(e.toString());
-            //TODO : 408 Request Timeout exception.
+            httpRequestMessage = buildRequestMessage();
+        }catch (ReadTimeoutException e){
+            //TODO;
             return;
         }
 
@@ -75,12 +76,14 @@ public class Worker implements Runnable {
         /*
          * 3) Determine
          */
-        // TOOD : Router.determine(httpRequestMessage);
-        String Url = httpRequestMessage.getURL();
-        boolean isStaticContents = this.determine(Url);
+        String uri = httpRequestMessage.getURL();
+        boolean isStaticContents = this.determine(uri);
+        router.determineWhereTo(uri);
+
+
         log.debug(String.valueOf(isStaticContents));
 
-        if(isStaticContents){
+        if(isStaticContents){   //TODO : not to use 'new' keyword.
             responseService = new DirectoryResponseService();
 
         }else{
@@ -97,8 +100,9 @@ public class Worker implements Runnable {
          */
         HttpResponseMessage httpResponseMessage = responseService.getHttpResponseMessage(httpRequestMessage);
 
-        if(!isKeepAlive)
+        if (!isKeepAlive) {
             httpResponseMessage.addHeader(HttpDirective.CONNECTION, HttpDirective.CLOSE);
+        }
 
         writeHttpResponse(httpResponseMessage);
 
@@ -113,7 +117,7 @@ public class Worker implements Runnable {
     /**
      * build a input & output stream from client socket.
      */
-    private void makeClientStream(){
+    private void buildClientStream(){
 
         try{
             clientIn    = clientSocket.getInputStream();
@@ -125,8 +129,15 @@ public class Worker implements Runnable {
     }
 
 
-    private HttpRequestMessage readHttpRequest() throws ReadTimeoutException{
-        return new HttpRequestMessage(clientIn);
+    private HttpRequestMessage buildRequestMessage() throws ReadTimeoutException{
+
+        try{
+            return new HttpRequestMessage(clientIn);
+        }catch(ReadTimeoutException e){
+            //TODO : 408 Request Timeout exception.
+            log.error(e.toString());
+            throw new ReadTimeoutException("todo");
+        }
     }
 
 
