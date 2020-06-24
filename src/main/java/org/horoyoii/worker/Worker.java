@@ -1,4 +1,4 @@
-package org.horoyoii.connection;
+package org.horoyoii.worker;
 
 import java.net.*;
 import java.io.*;
@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.service.DirectoryResponseService;
 import org.horoyoii.service.ResponseService;
 import org.horoyoii.service.UpstreamResponseService;
-import org.horoyoii.utils.HttpErrorRespHandler;
 
 
 /**
@@ -27,7 +26,7 @@ import org.horoyoii.utils.HttpErrorRespHandler;
 
 */
 @Slf4j
-public class Connection implements Runnable {
+public class Worker implements Runnable {
     
     private Socket              clientSocket;
 
@@ -40,7 +39,7 @@ public class Connection implements Runnable {
     private boolean             isKeepAlive = false;
 
 
-    public Connection(PeerManager pm, Socket clientSocket){
+    public Worker(PeerManager pm, Socket clientSocket){
         this.peerManager        = pm;
         this.clientSocket       = clientSocket;
     }
@@ -59,6 +58,7 @@ public class Connection implements Runnable {
          * 2) Client ----------------> Proxy
          */
         HttpRequestMessage httpRequestMessage;
+
         try{
             httpRequestMessage = new HttpRequestMessage(clientIn);
         }catch(ReadTimeoutException e){
@@ -75,8 +75,10 @@ public class Connection implements Runnable {
         /*
          * 3) Determine
          */
+        // TOOD : Router.determine(httpRequestMessage);
         String Url = httpRequestMessage.getURL();
-        boolean isStaticContents = false;
+        boolean isStaticContents = this.determine(Url);
+        log.debug(String.valueOf(isStaticContents));
 
         if(isStaticContents){
             responseService = new DirectoryResponseService();
@@ -143,6 +145,12 @@ public class Connection implements Runnable {
         }
     }
 
+
+    private boolean determine(String path){
+        log.debug(path);
+        String pattern = "^(.*/)*.+\\.(png|jpg)$";
+        return path.matches(pattern);
+    }
 
 }
 

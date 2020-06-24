@@ -1,4 +1,4 @@
-package org.horoyoii.loadbalance;
+package org.horoyoii.greeter;
 
 import java.io.*;
 import java.net.*;
@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 
 
 import org.horoyoii.manager.PeerManager;
-import org.horoyoii.connection.Connection;
+import org.horoyoii.worker.Worker;
 import org.horoyoii.utils.ConfigurationReader;
 
 
@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
     Default 'server weight' is 1.
 */
 @Slf4j
-public class LoadBalancer{
+public class Greeter {
 
     private ExecutorService     executorService     = Executors.newFixedThreadPool(50);
 
@@ -52,10 +52,10 @@ public class LoadBalancer{
                 
             try{
                 Socket cliSock = listenSock.accept();
-                executorService.execute(new Connection(peerManager, cliSock));
+                executorService.execute(new Worker(peerManager, cliSock));
 
             }catch(IOException e){
-                System.out.println(e);
+                log.error(e.toString());
             }
         }
     }

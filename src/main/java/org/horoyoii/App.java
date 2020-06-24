@@ -1,10 +1,6 @@
-/*
- * 
- */
-
 package org.horoyoii;
 
-import org.horoyoii.loadbalance.LoadBalancer;
+import org.horoyoii.greeter.Greeter;
 
 public class App {
 
@@ -15,9 +11,9 @@ public class App {
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
                 
-        LoadBalancer loadBalancer = new LoadBalancer();
-        loadBalancer.init();
-        loadBalancer.run();
+        Greeter greeter = new Greeter();
+        greeter.init();
+        greeter.run();
 
     }
 }
