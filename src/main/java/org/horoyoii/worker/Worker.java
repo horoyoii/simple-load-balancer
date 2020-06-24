@@ -35,7 +35,6 @@ public class Worker implements Runnable {
     private InputStream         clientIn;
     private OutputStream        clientOut;
 
-    private ResponseService     responseService;
     private PeerManager         peerManager;
     private Router              router;
 
@@ -53,15 +52,12 @@ public class Worker implements Runnable {
     public void run(){
         HttpRequestMessage httpRequestMessage;
 
-        /*
-         * 1) Make a client socket input & output stream.
-         */
+        // 1) Make a client socket input & output stream.
         buildClientStream();
 
 
-        /*
-         * 2) Client ----------------> Proxy
-         */
+
+        // 2) Client ----------------> Proxy
         try{
             httpRequestMessage = buildRequestMessage();
         }catch (ReadTimeoutException e){
@@ -69,35 +65,21 @@ public class Worker implements Runnable {
             return;
         }
 
-
         if(!isKeepAlive)
             httpRequestMessage.addHeader(HttpDirective.CONNECTION, HttpDirective.CLOSE);
 
 
-        /*
-         * 3) Determine
-         */
+
+        // 3) Determine
         String uri = httpRequestMessage.getURL();
         Location location = router.determineWhereTo(uri);
-        log.debug(location.toString());
+
+        ResponseService responseService = getResponseService(location, httpRequestMessage);
 
 
-        if(location.getPatternType().equals(Location.FROM_FS)){
-            responseService = new DirectoryResponseService();
 
-        }else if(location.getPatternType().equals(Location.FROM_UPSTREAM)){
-
-            /*
-             * If all of the upstream servers are down, then servers 502 bad gateway response
-             */
-            responseService = new UpstreamResponseService(peerManager, clientSocket);
-        }
-
-
-        /*
-         * Client <------------------ Proxy
-         */
-        HttpResponseMessage httpResponseMessage = responseService.getHttpResponseMessage(httpRequestMessage);
+        // 4) Client <------------------ Proxy
+        HttpResponseMessage httpResponseMessage = responseService.getHttpResponseMessage();
 
         if (!isKeepAlive) {
             httpResponseMessage.addHeader(HttpDirective.CONNECTION, HttpDirective.CLOSE);
@@ -110,6 +92,21 @@ public class Worker implements Runnable {
         }catch (IOException e){
             log.error(e.toString());
         }
+    }
+
+
+    private ResponseService getResponseService(Location location, HttpRequestMessage httpRequestMessage){
+        if(location.getFrom().equals(Location.FROM_FS)){
+            return new DirectoryResponseService(location, httpRequestMessage.getURL());
+
+        }else if(location.getFrom().equals(Location.FROM_UPSTREAM)){
+
+            //If all of the upstream servers are down, then servers 502 bad gateway response
+            return new UpstreamResponseService(location, peerManager, clientSocket, httpRequestMessage);
+        }
+
+        //TODO : Fix the condition where null will be returned.
+        return null;
     }
 
 
@@ -155,12 +152,6 @@ public class Worker implements Runnable {
         }
     }
 
-
-    private boolean determine(String path){
-        log.debug(path);
-        String pattern = "^(.*/)*.+\\.(png|jpg)$";
-        return path.matches(pattern);
-    }
 
 }
 

@@ -6,6 +6,7 @@ import org.horoyoii.exception.ReadTimeoutException;
 import org.horoyoii.http.HttpRequestMessage;
 import org.horoyoii.http.HttpResponseMessage;
 import org.horoyoii.manager.PeerManager;
+import org.horoyoii.model.Location;
 import org.horoyoii.model.Peer;
 import org.horoyoii.utils.HttpErrorRespHandler;
 
@@ -29,16 +30,17 @@ public class UpstreamResponseService implements ResponseService {
     private OutputStream serverOut;
     private Socket clientSocket;
 
-
+    private HttpRequestMessage httpRequestMessage;
     private PeerManager peerManager;
     private Peer peer;
 
-    private int ReadTimeout = 5000;
+    private static int ReadTimeout = 5000;
 
 
-    public UpstreamResponseService(PeerManager peerManager, Socket clientSocket) {
+    public UpstreamResponseService(Location location, PeerManager peerManager, Socket clientSocket, HttpRequestMessage httpRequestMessage) {
         this.peerManager    = peerManager;
         this.clientSocket   = clientSocket;
+        this.httpRequestMessage = httpRequestMessage;
     }
 
 
@@ -46,10 +48,9 @@ public class UpstreamResponseService implements ResponseService {
     /**
      * Get a result from upstream server.
      *
-      * @param httpRequestMessage
      */
     @Override
-    public HttpResponseMessage getHttpResponseMessage(HttpRequestMessage httpRequestMessage) {
+    public HttpResponseMessage getHttpResponseMessage() {
 
         /*
          *  Choose the upstream server to serve this request.

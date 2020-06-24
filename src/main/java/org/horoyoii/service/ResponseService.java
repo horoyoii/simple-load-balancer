@@ -9,7 +9,6 @@ import org.horoyoii.http.HttpResponseMessage;
  */
 public interface ResponseService {
 
-    HttpResponseMessage getHttpResponseMessage(HttpRequestMessage httpRequestMessage);
+    HttpResponseMessage getHttpResponseMessage();
 
-    //void close();
 }

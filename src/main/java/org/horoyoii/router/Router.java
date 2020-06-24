@@ -59,6 +59,7 @@ public class Router {
 
         for(Location location : regexLocationList){
             String pattern = location.getPattern();
+            log.debug(pattern);
             if(uri.matches(pattern)){
                 return location;
             }

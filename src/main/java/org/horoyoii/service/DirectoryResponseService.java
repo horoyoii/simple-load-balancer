@@ -9,7 +9,7 @@ import org.horoyoii.http.constants.HttpDirective;
 import org.horoyoii.http.constants.HttpStatus;
 import org.horoyoii.http.header.Header;
 import org.horoyoii.http.startLine.ResponseStatusLine;
-import org.horoyoii.utils.ConfigReader;
+import org.horoyoii.model.Location;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,26 +27,26 @@ import java.time.format.DateTimeFormatter;
 public class DirectoryResponseService implements ResponseService{
 
     private final String rootDirectory;
+    private final String filePath;
 
 
-    public DirectoryResponseService(){
-        this.rootDirectory = ConfigReader.getRootDir();
+    public DirectoryResponseService(Location location, String filePath){
+        this.rootDirectory = location.getRequestPath();
+        this.filePath = filePath;
     }
 
 
     /**
      * Get a result from file system.
      *
-     * @param httpRequestMessage
      */
     @Override
-    public HttpResponseMessage getHttpResponseMessage(HttpRequestMessage httpRequestMessage) {
-        String url = httpRequestMessage.getURL();
-        log.debug(url);
+    public HttpResponseMessage getHttpResponseMessage() {
+        File file = new File(rootDirectory+filePath);
+        if(!file.exists()){
 
+        }
 
-        String mockPath = rootDirectory+url;
-        File file = new File(mockPath);
         int fileLength = (int)file.length();
 
 
