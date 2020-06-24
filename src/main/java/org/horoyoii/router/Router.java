@@ -1,6 +1,7 @@
 package org.horoyoii.router;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.model.Location;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
  * 3. prefix match
  * location { }
  */
+@Slf4j
 public class Router {
     private List<Location> exactLocationList;
     private List<Location> regexLocationList;
@@ -31,6 +33,7 @@ public class Router {
 
 
     public void addLocation(Location location){
+        log.debug(location.toString());
         //locationList.add(location);
     }
 
@@ -39,6 +42,5 @@ public class Router {
         // iterate a location list
         return "directory";
     }
-
 
 }

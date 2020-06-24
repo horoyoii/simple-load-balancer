@@ -10,6 +10,7 @@ import org.horoyoii.exception.AlgoNotValidException;
 
 import lombok.extern.slf4j.Slf4j;
 import com.typesafe.config.*;
+import org.horoyoii.model.Location;
 import org.horoyoii.router.Router;
 
 
@@ -51,13 +52,30 @@ public class ConfigReader {
             rootDir = config.getString("root");
         }
 
+
         // iterate each location context and make a location instance.
         System.out.println(config.getConfigList("location"));
         List<Config> cons = (List<Config>) config.getConfigList("location");
 
+
         // add this location instance to router.
         for(Config con : cons){
-            log.info(con.getString("pattern"));
+            Location.Builder builder;
+
+            if(con.hasPath("type") && con.hasPath("pattern")){   //TODO : Replace string with constants or enums.
+                builder = new Location.Builder(con.getString("type"), con.getString("pattern"));
+            }else{
+                //TODO : configuration parse Error
+                return;
+            }
+
+            if(con.hasPath("proxy_pass")){
+                builder.proxy_pass(con.getString("proxy_pass"));
+            }else if(con.hasPath("root")){
+                builder.requestPath(con.getString("root"));
+            }
+
+            router.addLocation(builder.build());
         }
     }
 
@@ -75,7 +93,7 @@ public class ConfigReader {
         String upstreamName = config.getString(NAME);
         peerManager.setName(upstreamName);
 
-        if(config.hasPath("algo")){
+        if(config.hasPath(ALGO)){
             String algoName = config.getString(ALGO);
 
             try{

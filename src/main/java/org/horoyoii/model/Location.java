@@ -40,10 +40,12 @@ public class Location {
         private String from = Location.FROM_FS;
         private String requestPath = ConfigReader.getRootDir();
 
+
         public Builder(String patternType, String pattern){
             this.patternType = patternType;
             this.pattern = pattern;
         }
+
 
         public Builder proxy_pass(String address){
             from = Location.FROM_UP;
@@ -52,13 +54,27 @@ public class Location {
             return this;
         }
 
+
         public Builder requestPath(String path){
 
             return this;
         }
 
+
         public Location build(){
             return new Location(this);
         }
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("patternType : ").append(patternType).append("\n");
+        sb.append("uri pattern : ").append(pattern).append("\n");
+        sb.append("from : ").append(from).append("\n");
+        sb.append("request path : ").append(requestPath).append("\n");
+
+        return sb.toString();
     }
 }
