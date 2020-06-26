@@ -73,7 +73,7 @@ public class Worker implements Runnable {
         // 3) Determine
         String uri = httpRequestMessage.getURL();
         Location location = router.getLocation(uri);
-
+        log.debug(location.toString());
         ResponseService responseService = getResponseService(location, httpRequestMessage);
 
 

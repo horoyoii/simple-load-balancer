@@ -13,9 +13,12 @@ import com.typesafe.config.*;
 import org.horoyoii.model.Location;
 import org.horoyoii.router.Router;
 
-
+/**
+ * Manage configurations.
+ *
+ */
 @Slf4j
-public class ConfigReader {
+public class Config {
     private final static String SERVER = "server";
     private final static String UPSTREAM = "upstream";
 
@@ -31,7 +34,7 @@ public class ConfigReader {
             System.exit(0);
         }
 
-        Config rootConfig = ConfigFactory.parseFile(file);
+        com.typesafe.config.Config rootConfig = ConfigFactory.parseFile(file);
 
         readServerContext(rootConfig.getConfig(SERVER), router);
         readUpstreamContext(rootConfig.getConfig(UPSTREAM), peerManager);
@@ -43,23 +46,23 @@ public class ConfigReader {
      *
      * @param config
      */
-    private static void readServerContext(Config config, Router router){
+    private static void readServerContext(com.typesafe.config.Config config, Router router){
         if(config.hasPath("listen")){
             port = config.getInt("listen");
         }
 
         if(config.hasPath("root")){
             rootDir = config.getString("root");
+            router.createDefaultLocation(rootDir);
         }
 
 
         // iterate each location context and make a location instance.
-        System.out.println(config.getConfigList("location"));
-        List<Config> cons = (List<Config>) config.getConfigList("location");
+        List<com.typesafe.config.Config> cons = (List<com.typesafe.config.Config>) config.getConfigList("location");
 
 
         // add this location instance to router.
-        for(Config con : cons){
+        for(com.typesafe.config.Config con : cons){
             Location.Builder builder;
 
             if(con.hasPath("type") && con.hasPath("pattern")){   //TODO : Replace string with constants or enums.
@@ -85,7 +88,7 @@ public class ConfigReader {
      *
      * @param config
      */
-    private static void readUpstreamContext(Config config, PeerManager peerManager){
+    private static void readUpstreamContext(com.typesafe.config.Config config, PeerManager peerManager){
         final String NAME = "name";
         final String ALGO = "algo";
         final String SERVERS = "servers";

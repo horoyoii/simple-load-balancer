@@ -25,12 +25,8 @@ public class Router {
     private List<Location> regexLocationList;
     private List<Location> prefixLocationList;
 
-//    //TODO : immutable
-//    private final static Location defaultLocation;
-//
-//    static {
-//        defaultLocation = new Location.Builder().
-//    }
+    private Location defaultLocation;
+
 
     public Router(){
         exactLocationList = new ArrayList<>();
@@ -51,6 +47,7 @@ public class Router {
         }
     }
 
+
     /**
      *
      *
@@ -62,6 +59,7 @@ public class Router {
 
         for(Location location : exactLocationList){
             String pattern = location.getPattern();
+            log.debug(pattern);
             if (pattern.equals(uri)) {
                 return location;
             }
@@ -86,6 +84,11 @@ public class Router {
 
 
         return null;
+    }
+
+
+    public void createDefaultLocation(String uri){
+
     }
 
 

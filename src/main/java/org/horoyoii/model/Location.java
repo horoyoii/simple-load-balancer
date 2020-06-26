@@ -2,7 +2,7 @@ package org.horoyoii.model;
 
 
 import lombok.Getter;
-import org.horoyoii.utils.ConfigReader;
+import org.horoyoii.utils.Config;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,7 +53,7 @@ public class Location {
         private final String pattern;
 
         private String from = Location.FROM_FS;
-        private String requestPath = ConfigReader.getRootDir();
+        private String requestPath = Config.getRootDir();
 
 
         public Builder(String patternType, String pattern){

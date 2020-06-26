@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import org.horoyoii.manager.PeerManager;
 import org.horoyoii.router.Router;
 import org.horoyoii.worker.Worker;
-import org.horoyoii.utils.ConfigReader;
+import org.horoyoii.utils.Config;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -69,7 +69,7 @@ public class Greeter {
     private void initServerSocket(){
 
         try{
-            this.port = ConfigReader.getPort();
+            this.port = Config.getPort();
             listenSock = new ServerSocket(this.port);
 
         }catch(IOException e){
@@ -85,7 +85,8 @@ public class Greeter {
      */
     private void init0(){
         log.info("read configuration file and init a peer manager");
-        ConfigReader.read(CONF_PATH, peerManager, router);
+        Config.read(CONF_PATH, peerManager, router);
+        log.debug(router.toString());
     }
 
 
