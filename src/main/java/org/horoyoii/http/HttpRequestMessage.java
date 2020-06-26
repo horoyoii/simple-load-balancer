@@ -4,7 +4,6 @@ import java.io.InputStream;
 
 import lombok.extern.slf4j.Slf4j;
 import org.horoyoii.exception.ReadTimeoutException;
-import org.horoyoii.http.HttpMessage;
 import org.horoyoii.http.startLine.StartLine;
 import org.horoyoii.http.startLine.RequestStartLine;
 
@@ -14,7 +13,6 @@ public class HttpRequestMessage extends HttpMessage {
 
     public HttpRequestMessage(InputStream ins) throws ReadTimeoutException {
         super(ins);
-
     }
    
     
@@ -29,9 +27,12 @@ public class HttpRequestMessage extends HttpMessage {
     }
 
 
-    public String getURL(){
-        return ((RequestStartLine)startLine).getUrl();
+    public String getRequestTarget(){
+        return ((RequestStartLine)startLine).getRequestTarget();
     }
 
 
+    public void setRequestTarget(String requestTarget){
+        ((RequestStartLine)startLine).setRequestTarget(requestTarget);
+    }
 }

@@ -17,44 +17,46 @@ import java.net.Socket;
 
 
 /**
- *  Create a Http response.
+ *
  *
  *
  */
 @Slf4j
 public class UpstreamResponseService implements ResponseService {
 
-    private Socket serverSock;
+    private Socket upstreamSocket;
+    private InputStream upstreamIn;
+    private OutputStream upstreamOut;
 
-    private InputStream serverIn;
-    private OutputStream serverOut;
     private Socket clientSocket;
 
     private HttpRequestMessage httpRequestMessage;
     private PeerManager peerManager;
     private Peer peer;
+    private Location location;
 
     private static int ReadTimeout = 5000;
 
 
     public UpstreamResponseService(Location location, PeerManager peerManager, Socket clientSocket, HttpRequestMessage httpRequestMessage) {
-        this.peerManager    = peerManager;
-        this.clientSocket   = clientSocket;
+        this.location           = location;
+        this.peerManager        = peerManager;
+        this.clientSocket       = clientSocket;
         this.httpRequestMessage = httpRequestMessage;
     }
 
 
 
     /**
-     * Get a result from upstream server.
+     * Get a http response from selected upstream server.
      *
      */
     @Override
     public HttpResponseMessage getHttpResponseMessage() {
+        log.debug(location.toString());
 
-        /*
-         *  Choose the upstream server to serve this request.
-         */
+
+        // Choose the upstream server to serve this request.
         try{
             peer = peerManager.getPeer(clientSocket.getInetAddress());
         }catch(NoLiveUpstreamException n){
@@ -62,43 +64,26 @@ public class UpstreamResponseService implements ResponseService {
         }
 
 
-        try {
-            log.debug("create server socket");
-            serverSock = new Socket(peer.getIp(), peer.getPort());
-
-            /*
-             * Set ReadTimeout.
-             */
-            serverSock.setSoTimeout(ReadTimeout);
+        createUpstreamSocket();
 
 
-            serverIn = serverSock.getInputStream();
-            serverOut = serverSock.getOutputStream();
-
-        } catch (Exception e) {
-            // TODO : throw it to the main.
-            log.error(e.toString());
-        }
-
-
-        /*
-         *                 Proxy ----------------->  Server
-         */
+        // Proxy ----------------->  Server
+        replaceRequestTarget(location.getPattern(), httpRequestMessage);
         sendRequestToUpstream(httpRequestMessage);
 
 
-        /*
-         *                  Proxy <----------------- Server
-         */
+        // Proxy <----------------- Server
         HttpResponseMessage httpResponseMessage;
 
+
         try{
-            httpResponseMessage = new HttpResponseMessage(serverIn);
+            httpResponseMessage = new HttpResponseMessage(upstreamIn);
         }catch (ReadTimeoutException r){
-            return HttpErrorRespHandler.getErrorResponse(r.getHttpStatus());
+            return HttpErrorRespHandler.getErrorResponse(r.getHttpStatus());    // 504 Gateway Timeout
         }finally{
             this.close();
         }
+
 
         return httpResponseMessage;
     }
@@ -107,23 +92,46 @@ public class UpstreamResponseService implements ResponseService {
     /**
      * Send HttpRequestMessage to upstream peer with socket io.
      *
-     * @param httpRequestMessage
+     * @param httpRequestMessage The message from a client.
      */
     private void sendRequestToUpstream(HttpRequestMessage httpRequestMessage){
         try{
             //TODO : charset is what?
-            serverOut.write(httpRequestMessage.toString().getBytes());
+            upstreamOut.write(httpRequestMessage.toString().getBytes());
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
 
+    private void replaceRequestTarget(String pattern, HttpRequestMessage httpRequestMessage){
+        String oldTarget = httpRequestMessage.getRequestTarget();
+        String newTarget = oldTarget.substring(pattern.length()-1);
+        httpRequestMessage.setRequestTarget(newTarget);
+    }
+
+
+    private void createUpstreamSocket(){
+        log.debug("create a upstream socket");
+        try {
+            upstreamSocket = new Socket(peer.getIp(), peer.getPort());
+            upstreamSocket.setSoTimeout(ReadTimeout);
+
+            upstreamIn = upstreamSocket.getInputStream();
+            upstreamOut = upstreamSocket.getOutputStream();
+
+        } catch (Exception e) {
+            // TODO : throw it to the main.
+            log.error(e.toString());
+        }
+    }
+
+
     private void close(){
         try{
-            serverOut.close();
-            if(!serverSock.isClosed())
-                serverSock.close();
+            upstreamOut.close();
+            if(!upstreamSocket.isClosed())
+                upstreamSocket.close();
         }catch (IOException e){
             log.info(e.toString());
         }finally{

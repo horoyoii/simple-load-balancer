@@ -10,8 +10,6 @@ import java.util.regex.Pattern;
 
 /**
  *
- *
- *
  */
 @Getter
 public class Location {
@@ -34,14 +32,14 @@ public class Location {
     /*
      * this can be a directory path or upstream server address.
      */
-    private final String requestPath;
+    private final String path;
 
     //Header header;
 
     public Location(Builder builder){
         this.patternType = builder.patternType;
         this.pattern = builder.pattern;
-        this.requestPath = builder.requestPath;
+        this.path = builder.path;
         this.from = builder.from;
     }
 
@@ -53,7 +51,7 @@ public class Location {
         private final String pattern;
 
         private String from = Location.FROM_FS;
-        private String requestPath = Config.getRootDir();
+        private String path = Config.getRootDir();
 
 
         public Builder(String patternType, String pattern){
@@ -67,7 +65,7 @@ public class Location {
             Matcher m =  PATTERN.matcher(address);
 
             if (m.find()) {
-                this.requestPath = m.group(2);
+                this.path = m.group(2);
             }
 
             return this;
@@ -75,7 +73,7 @@ public class Location {
 
 
         public Builder requestPath(String path){
-            this.requestPath = path;
+            this.path = path;
             return this;
         }
 
@@ -92,7 +90,7 @@ public class Location {
         sb.append("patternType : ").append(patternType).append("\n");
         sb.append("uri pattern : ").append(pattern).append("\n");
         sb.append("from : ").append(from).append("\n");
-        sb.append("request path : ").append(requestPath).append("\n");
+        sb.append("path : ").append(path).append("\n");
 
         return sb.toString();
     }

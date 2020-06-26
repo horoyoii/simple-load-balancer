@@ -13,17 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 
 
 /**
-    Responsibility 
-    
-    - Manage peers
-    - Give a selected upstream server(peer) for LoadBalancer.
-*/
+ * Manage group of peers.
+ */
 @Slf4j
 public class PeerManager{
 
     public static final String      DEFAULT_WEIGHT  = "1";
     private String                  name;
-    private List<Peer>              peerList        = new ArrayList<Peer>();
+    private List<Peer>              peerList        = new ArrayList<>();
     
 
     /**
@@ -56,9 +53,7 @@ public class PeerManager{
     /**
      *   Retrieve the peer which is selected based on algo.
      *
-     *   + increase the number of connection of the peer by 1.
      *   @Return
-     *
      */
     public synchronized Peer getPeer(InetAddress clientIp) throws NoLiveUpstreamException {
         Peer peer = algo.getPeer(peerList, clientIp);
@@ -87,9 +82,9 @@ public class PeerManager{
 
 
     public void showList(){
-        log.info("backend server list : ");
+        log.info(String.format("upstream server[%s] list : ", name));
         log.info("------------------------------------------------");
-        log.info("name          IP              PORT      WEIGHT");
+        log.info("name             IP             PORT        WEIGHT");
         for(Peer info : peerList){
             log.info("{}          {}      {}        {}",info.getName(), info.getIp(), info.getPort(), info.getWeight());
         }        

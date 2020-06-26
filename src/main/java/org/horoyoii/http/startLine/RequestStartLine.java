@@ -1,25 +1,21 @@
 package org.horoyoii.http.startLine;
 
-
-import lombok.Getter;
-
 /**
  * [method] [url] [protocol/version]
  *
  * ex) POST /user/hello HTTP/1.0
  *
  */
-@Getter
 public class RequestStartLine extends StartLine {
 
     private String method;
-    private String url;
+    private String requestTarget;
 
 
-    public RequestStartLine(String method, String url, String protocol){
+    public RequestStartLine(String method, String requestTarget, String protocol){
         super(protocol);
         this.method = method;
-        this.url    = url;    
+        this.requestTarget = requestTarget;
     }
 
 
@@ -30,8 +26,16 @@ public class RequestStartLine extends StartLine {
 
     @Override
     public String toString(){
-        return method+" "+url+" "+protocol;
+        return method+" "+ requestTarget +" "+protocol;
     }
 
 
+    public String getRequestTarget() {
+        return requestTarget;
+    }
+
+
+    public void setRequestTarget(String requestTarget) {
+        this.requestTarget = requestTarget;
+    }
 }

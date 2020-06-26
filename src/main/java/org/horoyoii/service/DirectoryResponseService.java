@@ -3,7 +3,6 @@ package org.horoyoii.service;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.Tika;
 
-import org.horoyoii.http.HttpRequestMessage;
 import org.horoyoii.http.HttpResponseMessage;
 import org.horoyoii.http.constants.HttpDirective;
 import org.horoyoii.http.constants.HttpStatus;
@@ -25,14 +24,14 @@ import java.time.format.DateTimeFormatter;
  *
  */
 @Slf4j
-public class DirectoryResponseService implements ResponseService{
+public class DirectoryResponseService implements ResponseService {
 
     private final String rootDirectory;
     private final String filePath;
 
 
     public DirectoryResponseService(Location location, String filePath){
-        this.rootDirectory = location.getRequestPath();
+        this.rootDirectory = location.getPath();
         this.filePath = filePath;
     }
 
@@ -48,10 +47,9 @@ public class DirectoryResponseService implements ResponseService{
             return HttpErrorRespHandler.getErrorResponse(HttpStatus.NOT_FOUND);
         }
 
-        int fileLength = (int)file.length();
-
 
         // read a byte from file system
+        int fileLength = (int)file.length();
         byte[] data = readFileData(file, fileLength);
 
 

@@ -71,8 +71,8 @@ public class Worker implements Runnable {
 
 
         // 3) Determine
-        String uri = httpRequestMessage.getURL();
-        Location location = router.getLocation(uri);
+        String requestTarget = httpRequestMessage.getRequestTarget();
+        Location location = router.getLocation(requestTarget);
         log.debug(location.toString());
         ResponseService responseService = getResponseService(location, httpRequestMessage);
 
@@ -97,7 +97,7 @@ public class Worker implements Runnable {
 
     private ResponseService getResponseService(Location location, HttpRequestMessage httpRequestMessage){
         if(location.getFrom().equals(Location.FROM_FS)){
-            return new DirectoryResponseService(location, httpRequestMessage.getURL());
+            return new DirectoryResponseService(location, httpRequestMessage.getRequestTarget());
 
         }else if(location.getFrom().equals(Location.FROM_UPSTREAM)){
 
