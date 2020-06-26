@@ -38,6 +38,7 @@ public class Config {
 
         readServerContext(rootConfig.getConfig(SERVER), router);
         readUpstreamContext(rootConfig.getConfig(UPSTREAM), peerManager);
+        createDefaultLocation(router);
     }
 
 
@@ -53,7 +54,6 @@ public class Config {
 
         if(config.hasPath("root")){
             rootDir = config.getString("root");
-            router.createDefaultLocation(rootDir);
         }
 
 
@@ -117,6 +117,11 @@ public class Config {
                 peerManager.addPeer(entry.getKey(), (String)item.get(0), (String)item.get(1), (String)item.get(2));
             }
         }
+    }
+
+
+    private static void createDefaultLocation(Router router){
+        router.createDefaultLocation(rootDir);
     }
 
 

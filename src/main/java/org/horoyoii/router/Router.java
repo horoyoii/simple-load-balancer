@@ -59,7 +59,6 @@ public class Router {
 
         for(Location location : exactLocationList){
             String pattern = location.getPattern();
-            log.debug(pattern);
             if (pattern.equals(uri)) {
                 return location;
             }
@@ -68,7 +67,6 @@ public class Router {
 
         for(Location location : regexLocationList){
             String pattern = location.getPattern();
-            log.debug(pattern);
             if(uri.matches(pattern)){
                 return location;
             }
@@ -83,12 +81,12 @@ public class Router {
         }
 
 
-        return null;
+        return defaultLocation;
     }
 
 
-    public void createDefaultLocation(String uri){
-
+    public void createDefaultLocation(String rootPath){
+        defaultLocation = new Location.Builder(Location.FROM_FS, "/").requestPath(rootPath).build();
     }
 
 
